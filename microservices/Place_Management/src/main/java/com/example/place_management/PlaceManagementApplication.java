@@ -29,7 +29,6 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		SpringApplication.run(PlaceManagementApplication.class, args);
 	}
 
-
 	@Override
 	@Transactional
 	public void run(String... strings) throws Exception {
