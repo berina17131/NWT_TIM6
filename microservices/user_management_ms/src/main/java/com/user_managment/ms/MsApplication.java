@@ -1,37 +1,55 @@
 package com.user_managment.ms;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 
-@SpringBootApplication(scanBasePackages= "com")
-@ComponentScan({"com.user_managment.ms"})
-@EnableAutoConfiguration
-public class MsApplication {
+import javax.transaction.Transactional;
+import java.util.HashSet;
+import java.util.Set;
+
+@SpringBootApplication
+public class MsApplication implements CommandLineRunner {
+
+	private static final Logger log = LoggerFactory.getLogger(MsApplication.class);
+
+	@Autowired
+	private UserRoleRepository roleRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(MsApplication.class, args);
 	}
 
-	@Bean
-	public CommandLineRunner demo(UserRepository repository) {
-		return (args) -> {
-			repository.save(new User("Emir", "Baručija"));
-			repository.save(new User("Selmir", "Hasanović"));
-			repository.save(new User("Berina", "Muhović"));
-			repository.save(new User("Amra", "Mujčinović"));
-			repository.save(new User("Irfan", "Prazina"));
-			repository.save(new User("Neko1", "Prazina"));
-			repository.save(new User("Neko2", "Prazina"));
+	@Override
+	@Transactional
+	public void run(String... strings) throws Exception {
+		Role user = new Role("User");
+		Set ordinary_users = new HashSet<User>(){{
+			add(new User("username1", user));
+			add(new User("username2", user));
+			add(new User("username3", user));
+		}};
+		user.setUsers(ordinary_users);
 
-			System.out.println("User found with findByPrezime('Prazina'):");
-			System.out.println("--------------------------------------------");
-			repository.findByPrezime("Prazina").forEach(bauer -> {
-				System.out.println(bauer.toString());
-			});
-		};
+		Role admin = new Role("Admin");
+		Set admin_users = new HashSet<User>(){{
+			add(new User("username11", admin));
+			add(new User("username12", admin));
+			add(new User("username13", admin));
+		}};
+
+		admin.setUsers(admin_users);
+
+
+		roleRepository.deleteAll();
+		roleRepository.save(user);
+		roleRepository.save(admin);
+
+		for (Role role : roleRepository.findAll()) {
+			log.info(role.toString());
+		}
 	}
 }
