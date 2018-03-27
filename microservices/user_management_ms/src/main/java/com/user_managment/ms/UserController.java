@@ -44,4 +44,11 @@ public class UserController {
         String s = "User deleted";
         return s;
     }
+
+    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    public String deleteUser() {
+        userRepository.deleteAll();
+        String s = "Users deleted";
+        return s;
+    }
 }

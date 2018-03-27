@@ -44,6 +44,12 @@ public class User {
         this.user_role = user_role;
     }
 
+    public User(@NotNull @Size(min = 4, max = 10) String username, @NotNull @Size(min = 2, max = 10) String password, Role user_role) {
+        this.username = username;
+        this.password = password;
+        this.user_role = user_role;
+    }
+
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     public int getId() {
