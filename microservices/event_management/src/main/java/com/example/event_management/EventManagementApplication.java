@@ -4,6 +4,8 @@ import com.example.event_management.Models.Category;
 import com.example.event_management.Models.Event;
 import com.example.event_management.Models.Place;
 import com.example.event_management.Repository.CategoryRepository;
+import com.example.event_management.Repository.EventRepository;
+import com.example.event_management.Repository.PlaceRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +18,14 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-public class EventManagementApplication implements CommandLineRunner {
+public class EventManagementApplication  {
 
-	private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
+	//private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
 
 	@Autowired
 	private CategoryRepository categoryRepository;
+	private EventRepository eventRepository;
+	private PlaceRepository placeRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(EventManagementApplication.class, args);
@@ -63,6 +67,17 @@ public class EventManagementApplication implements CommandLineRunner {
 		}};
 
 		categoryA.setEvents(eventsCategory);
+
+		categoryRepository.save(categoryA);
+		placeRepository.save(placeA);
+		placeRepository.save(placeB);
+
+		/*placeA.setEvents(events);
+
+		cityRepository.deleteAll();
+		cityRepository.save(cityA);
+
+		//CategoryRepository.save(categoryA);
 
 		/*cityRepository.deleteAll();
 		cityRepository.save(cityA);

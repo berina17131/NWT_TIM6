@@ -26,12 +26,17 @@ public class PlaceManagementApplication implements CommandLineRunner {
 
 
 	public static void main(String[] args) {
+
+
+
 		SpringApplication.run(PlaceManagementApplication.class, args);
 	}
 
 	@Override
 	@Transactional
 	public void run(String... strings) throws Exception {
+
+
 		// save a couple of cities
 		City cityA = new City("City A");
 

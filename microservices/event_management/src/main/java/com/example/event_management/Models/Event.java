@@ -80,7 +80,7 @@ public class Event {
     @Override
     public String toString() {
         return String.format(
-                "Address[id=%d, title='%s']",
+                "Event[id=%d, title='%s']",
                 id, title);
     }
 
