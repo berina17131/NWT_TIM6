@@ -18,9 +18,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
-public class EventManagementApplication  {
+public class EventManagementApplication  implements CommandLineRunner {
 
-	//private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
+	private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
 
 	@Autowired
 	private CategoryRepository categoryRepository;
@@ -68,7 +68,7 @@ public class EventManagementApplication  {
 
 		categoryA.setEvents(eventsCategory);
 
-		categoryRepository.save(categoryA);
+		/*categoryRepository.save(categoryA);
 		placeRepository.save(placeA);
 		placeRepository.save(placeB);
 
