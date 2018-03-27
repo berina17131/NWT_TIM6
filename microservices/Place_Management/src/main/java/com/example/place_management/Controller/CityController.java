@@ -30,6 +30,7 @@ public class CityController {
 
         Optional citya = cityRepository.findById(Integer.parseInt(id));
         City city = (City) citya.get();
+        System.out.println(city);
         //city.add((City) citya.get());
 
         return city;

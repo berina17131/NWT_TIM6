@@ -1,13 +1,21 @@
 package com.user_managment.ms;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 public class Role {
 
     private int id;
+
+    @NotNull
+    @Size(min = 2, max = 10)
     private String role;
+
     private Set<User> users;
 
     protected Role() {}
@@ -34,7 +42,8 @@ public class Role {
         this.role = role;
     }
 
-    @OneToMany(mappedBy = "user_role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    @OneToMany(mappedBy = "user_role", cascade = CascadeType.ALL)
     public Set<User> getUsers() {
         return users;
     }
@@ -45,14 +54,14 @@ public class Role {
 
     @Override
     public String toString() {
-        String result = String.format("User role[id=%d, name='%s']%n", id, role);
-        if(users != null) {
+        String result = String.format("Role[id=%d, role='%s']%n", id, role);
+        /*if(users != null) {
             for(User user : users ) {
                 result += String.format(
                         "User[id=%d, username='%s']%n",
                         user.getId(), user.getUsername());
             }
-        }
+        }*/
         return result;
     }
 }

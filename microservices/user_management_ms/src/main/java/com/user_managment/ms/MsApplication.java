@@ -44,9 +44,9 @@ public class MsApplication implements CommandLineRunner {
 		admin.setUsers(admin_users);
 
 
-		roleRepository.deleteAll();
-		roleRepository.save(user);
-		roleRepository.save(admin);
+		//roleRepository.deleteAll();
+		//roleRepository.save(user);
+		//roleRepository.save(admin);
 
 		for (Role role : roleRepository.findAll()) {
 			log.info(role.toString());
