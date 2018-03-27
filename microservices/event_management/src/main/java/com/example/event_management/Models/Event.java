@@ -3,14 +3,21 @@ package com.example.event_management.Models;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 
 @Entity
 public class Event {
 
+    @NotNull
     private int id;
+
+    @NotNull
+    @Size(min=2, max=30)
     private String title;
+
     private String description;
     private Category category;
     private Place place;
