@@ -5,6 +5,7 @@ import com.example.place_management.Repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -16,6 +17,11 @@ public class CityController {
     @Autowired
     CityController(CityRepository cityRepository) {
         this.cityRepository = cityRepository;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<City> getAll() {
+        return cityRepository.findAll();
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
@@ -36,15 +42,49 @@ public class CityController {
         return null;
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable("id") String id) {
-        cityRepository.deleteById(Integer.parseInt(id));
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteAll() {
+        cityRepository.deleteAll();
+
+        return "All cities deleted";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String postById(City city) {
+    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
+    public String deleteById(@PathVariable("id") String id) {
+        cityRepository.deleteById(Integer.parseInt(id));
+
+        return "City with id=" + id + " deleted";
+    }
+
+    @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
+    public String postByName(@PathVariable("name") String name) {
+        City city = new City(name);
         cityRepository.save(city);
 
-        return "OK";
+        return "City with name " + name + " saved successfully";
+    }
+    
+    @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
+    public String putById(@PathVariable("id") String id, @PathVariable("newName") String newName) {
+        Optional cityHelp = cityRepository.findById(Integer.parseInt(id));
+        City city = (City) cityHelp.get();
+        String oldName = city.getName();
+        city.setName(newName);
+        cityRepository.save(city);
+
+        return "City with old name " + oldName  + " saved successfully as " + newName;
+    }
+
+    @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
+    public String putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) {
+        City city = null;
+        for (City cityHelp : cityRepository.findAll()) {
+            if(cityHelp.getName().equals(oldName))
+                city = cityHelp;
+        }
+        city.setName(newName);
+        cityRepository.save(city);
+
+        return "City with old name " + oldName  + " saved successfully as " + newName;
     }
 }

@@ -3,10 +3,14 @@ package com.example.place_management.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Event {
     private int id;
+    @NotNull
+    @Size(min=2, max=50)
     private String name;
     private Place place;
 

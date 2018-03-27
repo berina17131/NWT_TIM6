@@ -5,7 +5,10 @@ import com.example.place_management.Repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.websocket.server.PathParam;
+import java.util.List;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/address")
@@ -16,6 +19,11 @@ public class AddressController {
     @Autowired
     AddressController(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;
+    }
+
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Address> getAll() {
+        return addressRepository.findAll();
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
@@ -36,15 +44,49 @@ public class AddressController {
         return null;
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable("id") String id) {
-        addressRepository.deleteById(Integer.parseInt(id));
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteAll() {
+        addressRepository.deleteAll();
+
+        return "All addresses deleted";
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String postById(Address address) {
+    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
+    public String deleteById(@PathVariable("id") String id) {
+        addressRepository.deleteById(Integer.parseInt(id));
+
+        return "Address with id=" + id + " deleted";
+    }
+
+    @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
+    public String postByName(@PathVariable("name") String name) {
+        Address address = new Address(name);
         addressRepository.save(address);
 
-        return "OK";
+        return "Address with name " + name + " saved successfully";
+    }
+
+    @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
+    public String putById(@PathVariable("id") String id, @PathVariable("newName") String newName) {
+        Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
+        Address address = (Address) addressHelp.get();
+        String oldName = address.getName();
+        address.setName(newName);
+        addressRepository.save(address);
+
+        return "Address with old name " + oldName  + " saved successfully as " + newName;
+    }
+
+    @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
+    public String putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) {
+        Address address = null;
+        for (Address addressHelp : addressRepository.findAll()) {
+            if(addressHelp.getName().equals(oldName))
+                address = addressHelp;
+        }
+        address.setName(newName);
+        addressRepository.save(address);
+
+        return "Address with old name " + oldName  + " saved successfully as " + newName;
     }
 }

@@ -1,11 +1,15 @@
 package com.example.place_management.Model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 public class City {
     private int id;
+    @NotNull
+    @Size(min=2, max=20)
     private String name;
     private Set<Address> addresses;
 
