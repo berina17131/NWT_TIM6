@@ -3,7 +3,6 @@ package com.example.place_management.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 public class Event {
