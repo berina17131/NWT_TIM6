@@ -1,15 +1,35 @@
 package com.user_managment.ms;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 public class User {
+
     private int id;
+
+    @NotNull
+    @Size(min=4, max=10)
     private String username;
+
+    @NotNull
+    @Size(min = 2, max = 10)
     private String password;
+
+    @Email(message = "Email should be valid")
     private String email;
+
+    @Size(min=4, max=10)
+    @Pattern(regexp="/^A-Za-z]+$/")
     private String ime;
+
+    @Size(min=4, max=20)
+    @Pattern(regexp="/^[A-Za-z]+$/")
     private String prezime;
+
     private Role user_role;
 
     protected User() {}
@@ -21,6 +41,12 @@ public class User {
 
     public User(String username, Role user_role) {
         this.username = username;
+        this.user_role = user_role;
+    }
+
+    public User(@NotNull @Size(min = 4, max = 10) String username, @NotNull @Size(min = 2, max = 10) String password, Role user_role) {
+        this.username = username;
+        this.password = password;
         this.user_role = user_role;
     }
 
@@ -75,7 +101,7 @@ public class User {
     }
 
     @ManyToOne
-    @JoinColumn(name = "role_id", referencedColumnName="id", nullable=false)
+    @JoinColumn(name = "role_id")
     public Role getUser_role() {
         return user_role;
     }
@@ -86,9 +112,11 @@ public class User {
 
     @Override
     public String toString() {
-        return String.format(
-                "User[id=%d, Ime='%s', Prezime='%s', Username='%s']",
-                id, ime, prezime, username);
+        String result =  String.format(
+                "User[id=%d, username='%s', password='%s', email='%s', ime='%s', prezime='%s']%n",
+                id, username, password, email, ime, prezime);
+        result+=user_role.toString();
+        return result;
     }
 
 }

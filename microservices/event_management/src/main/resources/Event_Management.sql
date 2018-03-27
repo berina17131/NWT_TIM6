@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `Event_management`;
-USE `Event_management`;
+CREATE DATABASE  IF NOT EXISTS `event_management`;
+USE `event_management`;
 
 DROP TABLE IF EXISTS `category`;
 CREATE TABLE `category` (

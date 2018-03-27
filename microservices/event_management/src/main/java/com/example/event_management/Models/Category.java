@@ -1,11 +1,18 @@
 package com.example.event_management.Models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 public class Category {
+
+    @NotNull
     private int id;
+
+    @NotNull
+    @Size(min=3, max=50)
     private String name;
     private String description;
     private Set<Event> events;

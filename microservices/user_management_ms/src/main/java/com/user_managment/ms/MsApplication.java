@@ -28,23 +28,23 @@ public class MsApplication implements CommandLineRunner {
 	public void run(String... strings) throws Exception {
 		Role user = new Role("User");
 		Set ordinary_users = new HashSet<User>(){{
-			add(new User("username1", user));
-			add(new User("username2", user));
-			add(new User("username3", user));
+			add(new User("username1","123541", user));
+			add(new User("username2","123541", user));
+			add(new User("username3", "123541",user));
 		}};
 		user.setUsers(ordinary_users);
 
 		Role admin = new Role("Admin");
 		Set admin_users = new HashSet<User>(){{
-			add(new User("username11", admin));
-			add(new User("username12", admin));
-			add(new User("username13", admin));
+			add(new User("username11", "123", admin));
+			add(new User("username12","123", admin));
+			add(new User("username13", "123", admin));
 		}};
 
 		admin.setUsers(admin_users);
 
 
-		roleRepository.deleteAll();
+		//roleRepository.deleteAll();
 		roleRepository.save(user);
 		roleRepository.save(admin);
 
