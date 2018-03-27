@@ -1,11 +1,13 @@
 package com.example.event_management.Models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Entity
+@Entity(name = "place")
 public class Place {
 
     @NotNull
@@ -14,11 +16,12 @@ public class Place {
     @NotNull
     @Size(min=3, max=50)
     private String name;
-    private Set<Event> events;
+
+    private Event event;
 
     public Place() {}
 
-    public Place(String name) {this.name = name;}
+    public Place(String name, Event event) {this.name = name; this.event = event;}
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,13 +33,25 @@ public class Place {
         this.id = id;
     }
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
-    public Set<Event> getEvents() {
-        return events;
+   /* @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    public Event getEvent() {
+        return event;
     }
 
-    public void setEvents(Set<Event> events) {
-        this.events = events;
+    public void setEvent(Event event) {
+        this.event = event;
+    }
+*/
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "event_id")
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
     }
 
 

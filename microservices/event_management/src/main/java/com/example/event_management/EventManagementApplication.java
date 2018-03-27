@@ -37,40 +37,40 @@ public class EventManagementApplication  implements CommandLineRunner {
 		// save a couple of cities
 		Category categoryA = new Category("Category A");
 
-		Place placeA = new Place("Place A");
-		Place placeB = new Place("Place B");
 
 
-		Event eventA = new Event("EeventA","Aaaaaaa", categoryA, placeA);
-		Event eventB = new Event("EeventB","Bbbbbbb", categoryA, placeB);
-		Event eventC = new Event("EeventC","Ccccccc", categoryA, placeA);
-		Event eventD = new Event("EeventD","Ddddddd", categoryA, placeB);
+
+		Event eventA = new Event("EeventA","Aaaaaaa", categoryA);
+		Event eventB = new Event("EeventB","Bbbbbbb", categoryA);
+
+
+		Place placeA = new Place("Place A", eventA);
+		Place placeB = new Place("Place B", eventB);
 
 		Set events1 = new HashSet<Event>(){{
 			add(eventA);
-			add(eventC);
-		}};
-		placeA.setEvents(events1);
-
-		Set events2 = new HashSet<Event>(){{
 			add(eventB);
-			add(eventD);
+		}};
+		categoryA.setEvents(events1);
+
+
+		Set places1 = new HashSet<Place>(){{
+			add(placeA);
 		}};
 
-		placeB.setEvents(events2);
+		eventA.setPlaces(places1);
 
-		Set eventsCategory = new HashSet<Event>(){{
-			add(eventA);
-			add(eventC);
-			add(eventB);
-			add(eventD);
+		Set places2 = new HashSet<Place>(){{
+			add(placeB);
 		}};
 
-		categoryA.setEvents(eventsCategory);
+		eventB.setPlaces(places2);
 
-		/*categoryRepository.save(categoryA);
-		placeRepository.save(placeA);
-		placeRepository.save(placeB);
+
+		categoryRepository.save(categoryA);
+		//placeRepository.save(placeA);
+		//placeRepository.save(placeB);
+		//eventRepository.save(eventA);
 
 		/*placeA.setEvents(events);
 

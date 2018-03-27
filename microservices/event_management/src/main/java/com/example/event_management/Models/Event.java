@@ -6,9 +6,10 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Set;
 
 
-@Entity
+@Entity(name = "event")
 public class Event {
 
     @NotNull
@@ -20,16 +21,15 @@ public class Event {
 
     private String description;
     private Category category;
-    private Place place;
+    private Set<Place> places;
 
     public Event() {}
 
-    public Event(String title, String description, Category category, Place place)
+    public Event(String title, String description, Category category)
     {
         this.title = title;
         this.description = description;
         this.category = category;
-        this.place = place;
 
     }
 
@@ -59,7 +59,16 @@ public class Event {
         this.description = description;
     }
 
-    @ManyToOne
+    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    public Set<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(Set<Place> places) {
+        this.places = places;
+    }
+
+    /*@ManyToOne
     @JsonIgnore
     @JoinColumn(name = "place_id")
     public Place getPlace() {
@@ -68,7 +77,7 @@ public class Event {
 
     public void setPlace(Place place) {
         this.place = place;
-    }
+    }*/
 
     @ManyToOne
     @JsonIgnore
