@@ -17,13 +17,13 @@ public class Place {
     @Size(min=3, max=50)
     private String name;
 
-    private Event event;
+    private Set<Event> events;
 
     public Place() {}
 
-    public Place(String name, Event event) {this.name = name; this.event = event;}
+    public Place(String name) {this.name = name;}
 
-    @Id
+   /* @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -31,30 +31,16 @@ public class Place {
 
     public void setId(int id) {
         this.id = id;
+    }*/
+
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    public Set<Event> getEvents() {
+        return events;
     }
 
-   /* @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
-    public Event getEvent() {
-        return event;
+    public void setEvents(Set<Event> events) {
+        this.events = events;
     }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-*/
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "event_id")
-    public Event getEvent() {
-        return event;
-    }
-
-    public void setEvent(Event event) {
-        this.event = event;
-    }
-
-
 
     public String getName() {
         return name;

@@ -25,9 +25,8 @@ CREATE TABLE `event` (
   `category_id` int(10) unsigned DEFAULT NULL,
   `place_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_category_id_idx` (`category_id`),
-  CONSTRAINT `fk_category_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-    KEY `fk_place_id_idx` (`category_id`),
-  CONSTRAINT `fk_place_id` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  KEY `fk_category_id12_idx` (`category_id`),
+  CONSTRAINT `fk_category12_id` FOREIGN KEY (`category_id`) REFERENCES `category` (`id`),
+    KEY `fk_place_id11_idx` (`category_id`),
+  CONSTRAINT `fk_place11_id` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

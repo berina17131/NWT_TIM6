@@ -40,12 +40,12 @@ public class EventManagementApplication  implements CommandLineRunner {
 
 
 
-		Event eventA = new Event("EeventA","Aaaaaaa", categoryA);
+		/*Event eventA = new Event("EeventA","Aaaaaaa", categoryA);
 		Event eventB = new Event("EeventB","Bbbbbbb", categoryA);
 
 
-		Place placeA = new Place("Place A", eventA);
-		Place placeB = new Place("Place B", eventB);
+		Place placeA = new Place("Place A");
+		Place placeB = new Place("Place B");
 
 		Set events1 = new HashSet<Event>(){{
 			add(eventA);
@@ -64,10 +64,10 @@ public class EventManagementApplication  implements CommandLineRunner {
 			add(placeB);
 		}};
 
-		eventB.setPlaces(places2);
+		eventB.setPlaces(places2);*/
 
 
-		categoryRepository.save(categoryA);
+		//categoryRepository.save(categoryA);
 		//placeRepository.save(placeA);
 		//placeRepository.save(placeB);
 		//eventRepository.save(eventA);

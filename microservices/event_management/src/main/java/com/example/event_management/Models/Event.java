@@ -21,7 +21,7 @@ public class Event {
 
     private String description;
     private Category category;
-    private Set<Place> places;
+    private Place place;
 
     public Event() {}
 
@@ -59,16 +59,9 @@ public class Event {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    public Set<Place> getPlaces() {
-        return places;
-    }
 
-    public void setPlaces(Set<Place> places) {
-        this.places = places;
-    }
 
-    /*@ManyToOne
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "place_id")
     public Place getPlace() {
@@ -77,7 +70,7 @@ public class Event {
 
     public void setPlace(Place place) {
         this.place = place;
-    }*/
+    }
 
     @ManyToOne
     @JsonIgnore
