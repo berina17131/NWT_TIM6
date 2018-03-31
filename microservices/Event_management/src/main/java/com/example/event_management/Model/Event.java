@@ -1,18 +1,15 @@
-package com.example.event_management.Models;
+package com.example.event_management.Model;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
-import java.util.Set;
 
-
-@Entity(name = "event")
+@Entity
 public class Event {
 
-    @NotNull
     private int id;
 
     @NotNull
@@ -25,15 +22,17 @@ public class Event {
 
     public Event() {}
 
-    public Event(String title, String description, Category category)
+    public Event(String title, String description, Category category, Place place)
     {
         this.title = title;
         this.description = description;
         this.category = category;
+        this.place = place;
 
     }
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -60,7 +59,6 @@ public class Event {
     }
 
 
-
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "place_id")
@@ -82,8 +80,6 @@ public class Event {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 
 
     @Override

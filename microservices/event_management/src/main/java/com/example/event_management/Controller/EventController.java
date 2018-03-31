@@ -1,6 +1,6 @@
 package com.example.event_management.Controller;
 
-import com.example.event_management.Models.Event;
+import com.example.event_management.Model.Event;
 import com.example.event_management.Repository.EventRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +14,7 @@ import java.util.Optional;
 @RequestMapping("/event")
 public class EventController {
 
+    @Autowired
     private final EventRepository eventRepository;
 
     @Autowired
@@ -52,4 +53,3 @@ public class EventController {
     }
 
 }
-

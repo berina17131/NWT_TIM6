@@ -1,29 +1,33 @@
-package com.example.event_management.Models;
+package com.example.event_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.*;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
 
-@Entity(name = "place")
+@Entity
 public class Place {
 
-    @NotNull
     private int id;
 
     @NotNull
     @Size(min=3, max=50)
     private String name;
 
-    private Set<Event> events;
+  //  private Set<Event> events;
 
     public Place() {}
 
     public Place(String name) {this.name = name;}
 
-   /* @Id
+    @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -31,9 +35,10 @@ public class Place {
 
     public void setId(int id) {
         this.id = id;
-    }*/
+    }
 
-    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+   /*
+   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     public Set<Event> getEvents() {
         return events;
     }
@@ -41,6 +46,7 @@ public class Place {
     public void setEvents(Set<Event> events) {
         this.events = events;
     }
+    */
 
     public String getName() {
         return name;
