@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -22,6 +23,11 @@ public class EventController {
         this.eventRepository = eventRepository;
     }
 
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Event> getAll() {
+        return eventRepository.findAll();
+    }
+
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
     public Event getById(@PathVariable("id") String id) {
         Optional eventHelp = eventRepository.findById(Integer.parseInt(id));
@@ -31,18 +37,13 @@ public class EventController {
     }
 
     @RequestMapping(value="/title/{title}", method = RequestMethod.GET)
-    public Event getByName(@PathVariable("title") String name) {
+    public Event getByName(@PathVariable("title") String title) {
         for (Event event : eventRepository.findAll()) {
-            if(event.getTitle().equals(event))
+            if(event.getTitle().equals(title))
                 return event;
         }
 
         return null;
-    }
-
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public void deleteById(@PathVariable("id") String id) {
-        eventRepository.deleteById(Integer.parseInt(id));
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -50,6 +51,20 @@ public class EventController {
         eventRepository.save(address);
 
         return "OK";
+    }
+
+    @RequestMapping(method = RequestMethod.DELETE)
+    public String deleteAll() {
+        eventRepository.deleteAll();
+
+        return "All events deleted";
+    }
+
+    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
+    public String deleteById(@PathVariable("id") String id) {
+        eventRepository.deleteById(Integer.parseInt(id));
+
+        return "Event with id=" + id + " deleted";
     }
 
 }

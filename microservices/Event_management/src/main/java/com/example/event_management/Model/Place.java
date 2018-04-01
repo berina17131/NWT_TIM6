@@ -20,7 +20,7 @@ public class Place {
     @Size(min=3, max=50)
     private String name;
 
-  //  private Set<Event> events;
+    private Set<Event> events;
 
     public Place() {}
 
@@ -37,7 +37,7 @@ public class Place {
         this.id = id;
     }
 
-   /*
+
    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     public Set<Event> getEvents() {
         return events;
@@ -46,7 +46,7 @@ public class Place {
     public void setEvents(Set<Event> events) {
         this.events = events;
     }
-    */
+
 
     public String getName() {
         return name;
@@ -54,6 +54,20 @@ public class Place {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        String result = String.format(
+                "Place[id=%d, name='%s', description = '%s']%n",
+                id, name);
+        if (events != null) {
+            for(Event event : events) {
+                result += event.toString();
+            }
+        }
+
+        return result;
     }
 
 
