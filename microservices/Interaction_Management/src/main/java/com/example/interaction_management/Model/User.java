@@ -1,11 +1,16 @@
 package com.example.interaction_management.Model;
 
+import com.sun.istack.internal.NotNull;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
 public class User {
     private int id;
+    @NotNull
+    @Size(min = 3, max = 20)
     private String username;
     private Set<Grade> grades;
     private Set<Comment> comments;
@@ -23,7 +28,7 @@ public class User {
         return id;
     }
 
-    public void setUserIdId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
