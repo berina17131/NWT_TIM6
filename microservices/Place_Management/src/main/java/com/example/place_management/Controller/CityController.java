@@ -1,90 +1,61 @@
 package com.example.place_management.Controller;
 
-import com.example.place_management.Model.City;
-import com.example.place_management.Repository.CityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.place_management.Service.CityService;
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/city")
 public class CityController {
 
-    private final CityRepository cityRepository;
+    private CityService cityService;
 
-    @Autowired
-    CityController(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
+    public CityController(CityService cityService) {
+        this.cityService = cityService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<City> getAll() {
-        return cityRepository.findAll();
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(cityService.getAll());
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
-    public City getById(@PathVariable("id") String id) {
-        Optional cityHelp = cityRepository.findById(Integer.parseInt(id));
-        City city = (City) cityHelp.get();
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(cityService.getById(id));
 
-        return city;
     }
 
     @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
-    public City getByName(@PathVariable("name") String name) {
-        for (City city : cityRepository.findAll()) {
-            if(city.getName().equals(name))
-                return city;
-        }
+    public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(cityService.getByName(name));
 
-        return null;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public String deleteAll() {
-        cityRepository.deleteAll();
+    @RequestMapping(value="/all", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAll() throws ServiceException {
+        return ResponseEntity.ok(cityService.getAll());
 
-        return "All cities deleted";
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable("id") String id) {
-        cityRepository.deleteById(Integer.parseInt(id));
+    public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(cityService.deleteById(id));
 
-        return "City with id=" + id + " deleted";
     }
 
     @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
-    public String postByName(@PathVariable("name") String name) {
-        City city = new City(name);
-        cityRepository.save(city);
-
-        return "City with name " + name + " saved successfully";
+    public ResponseEntity postByName(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(cityService.postByName(name));
     }
     
     @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
-    public String putById(@PathVariable("id") String id, @PathVariable("newName") String newName) {
-        Optional cityHelp = cityRepository.findById(Integer.parseInt(id));
-        City city = (City) cityHelp.get();
-        String oldName = city.getName();
-        city.setName(newName);
-        cityRepository.save(city);
-
-        return "City with old name " + oldName  + " saved successfully as " + newName;
+    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName) throws ServiceException {
+        return ResponseEntity.ok(cityService.putById(id, newName));
     }
 
     @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
-    public String putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) {
-        City city = null;
-        for (City cityHelp : cityRepository.findAll()) {
-            if(cityHelp.getName().equals(oldName))
-                city = cityHelp;
-        }
-        city.setName(newName);
-        cityRepository.save(city);
-
-        return "City with old name " + oldName  + " saved successfully as " + newName;
+    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws ServiceException {
+        return ResponseEntity.ok(cityService.putByName(oldName, newName));
     }
 }

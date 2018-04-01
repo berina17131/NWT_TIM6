@@ -11,11 +11,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.ComponentScan;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
+@ComponentScan({"com.example.place_management.Service"})
 @SpringBootApplication
 public class PlaceManagementApplication implements CommandLineRunner {
 
@@ -24,19 +26,13 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	@Autowired
 	private CityRepository cityRepository;
 
-
 	public static void main(String[] args) {
-
-
-
 		SpringApplication.run(PlaceManagementApplication.class, args);
 	}
 
 	@Override
 	@Transactional
 	public void run(String... strings) throws Exception {
-
-
 		// save a couple of cities
 		City cityA = new City("Sarajevo");
 		City cityB = new City("Zenica");

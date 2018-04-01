@@ -1,92 +1,57 @@
 package com.example.place_management.Controller;
 
-import com.example.place_management.Model.Address;
-import com.example.place_management.Repository.AddressRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.example.place_management.Service.AddressService;
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import javax.websocket.server.PathParam;
-import java.util.List;
-import java.util.Optional;
-
 
 @RestController
 @RequestMapping("/address")
 public class AddressController {
 
-    private final AddressRepository addressRepository;
+    private AddressService addressService;
 
-    @Autowired
-    AddressController(AddressRepository addressRepository) {
-        this.addressRepository = addressRepository;
+    public AddressController(AddressService addressService) {
+        this.addressService = addressService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Address> getAll() {
-        return addressRepository.findAll();
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(addressService.getAll());
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
-    public Address getById(@PathVariable("id") String id) {
-        Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
-        Address address = (Address) addressHelp.get();
-
-        return address;
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(addressService.getById(id));
     }
 
     @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
-    public Address getByName(@PathVariable("name") String name) {
-        for (Address address : addressRepository.findAll()) {
-            if(address.getName().equals(name))
-                return address;
-        }
-
-        return null;
+    public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(addressService.getByName(name));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public String deleteAll() {
-        addressRepository.deleteAll();
-
-        return "All addresses deleted";
+    @RequestMapping(value="/all", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAll() throws ServiceException {
+        return ResponseEntity.ok(addressService.deleteAll());
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable("id") String id) {
-        addressRepository.deleteById(Integer.parseInt(id));
-
-        return "Address with id=" + id + " deleted";
+    public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(addressService.deleteById(id));
     }
 
     @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
-    public String postByName(@PathVariable("name") String name) {
-        Address address = new Address(name);
-        addressRepository.save(address);
-
-        return "Address with name " + name + " saved successfully";
+    public ResponseEntity postByName(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(addressService.postByName(name));
     }
 
     @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
-    public String putById(@PathVariable("id") String id, @PathVariable("newName") String newName) {
-        Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
-        Address address = (Address) addressHelp.get();
-        String oldName = address.getName();
-        address.setName(newName);
-        addressRepository.save(address);
-
-        return "Address with old name " + oldName  + " saved successfully as " + newName;
+    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName) throws ServiceException {
+        return ResponseEntity.ok(addressService.putById(id, newName));
     }
 
     @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
-    public String putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) {
-        Address address = null;
-        for (Address addressHelp : addressRepository.findAll()) {
-            if(addressHelp.getName().equals(oldName))
-                address = addressHelp;
-        }
-        address.setName(newName);
-        addressRepository.save(address);
-
-        return "Address with old name " + oldName  + " saved successfully as " + newName;
+    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws ServiceException {
+        return ResponseEntity.ok(addressService.putByName(oldName, newName));
     }
 }
