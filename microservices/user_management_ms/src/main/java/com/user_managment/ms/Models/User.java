@@ -1,4 +1,6 @@
-package com.user_managment.ms;
+package com.user_managment.ms.Models;
+
+import com.user_managment.ms.Models.Role;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;

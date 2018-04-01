@@ -1,4 +1,4 @@
-package com.user_managment.ms;
+package com.user_managment.ms.Models;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 

@@ -1,5 +1,8 @@
 package com.user_managment.ms;
 
+import com.user_managment.ms.Models.Role;
+import com.user_managment.ms.Models.User;
+import com.user_managment.ms.Repository.UserRoleRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +48,8 @@ public class MsApplication implements CommandLineRunner {
 
 
 		//roleRepository.deleteAll();
-		roleRepository.save(user);
-		roleRepository.save(admin);
+		//roleRepository.save(user);
+		//roleRepository.save(admin);
 
 		for (Role role : roleRepository.findAll()) {
 			log.info(role.toString());
