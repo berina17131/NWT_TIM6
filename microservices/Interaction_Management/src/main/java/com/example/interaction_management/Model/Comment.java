@@ -1,8 +1,7 @@
 package com.example.interaction_management.Model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -10,14 +9,14 @@ public class Comment {
     private int id;
     @NotNull
     @Size(min = 2, max = 255)
-    private String comment;
+    private String com;
     private User user;
     private Event event;
 
     protected Comment() {}
 
     public Comment(String co) {
-        this.comment = co;
+        this.com = co;
     }
 
     @Id
@@ -29,12 +28,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getComment() {
-        return this.comment;
+    public String getCom() {
+        return this.com;
     }
 
-    public void setGrade(String co) {
-        this.comment = co;
+    public void setCom(String co) {
+        this.com = co;
     }
 
     @ManyToOne
@@ -61,6 +60,6 @@ public class Comment {
     public String toString() {
         return String.format(
                 "Comment[id=%d, comment='%s']",
-                id, comment);
+                id, com);
     }
 }

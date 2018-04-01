@@ -1,10 +1,9 @@
 package com.example.interaction_management.Model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class Grade {
@@ -12,14 +11,14 @@ public class Grade {
     @NotNull
     @Min(1)
     @Max(5)
-    private int grade;
+    private int gr;
     private User user;
     private Event event;
 
     protected Grade() {}
 
     public Grade(int gr) {
-        this.grade = gr;
+        this.gr = gr;
     }
 
     @Id
@@ -51,18 +50,18 @@ public class Grade {
         this.event = event;
     }
 
-    public int getGrade() {
-        return this.grade;
+    public int setGr() {
+        return this.gr;
     }
 
-    public void setGrade(int gr) {
-        this.grade = gr;
+    public void setGr(int gr) {
+        this.gr = gr;
     }
 
     @Override
     public String toString() {
         return String.format(
                 "Grade[id=%d, grade='%d']",
-                id, grade);
+                id, gr);
     }
 }
