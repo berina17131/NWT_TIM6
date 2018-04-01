@@ -1,8 +1,7 @@
 package com.example.interaction_management.Model;
 
-import com.sun.istack.internal.NotNull;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
@@ -10,14 +9,14 @@ public class Status {
     private int id;
     @NotNull
     @Size(min=4, max = 10)
-    private String status;
+    private String st;
     private User user;
     private Event event;
 
     protected Status() {}
 
     public Status(String st) {
-        this.status = st;
+        this.st = st;
     }
 
     @Id
@@ -29,12 +28,12 @@ public class Status {
         this.id = id;
     }
 
-    public String getStatus() {
-        return this.status;
+    public String getSt() {
+        return this.st;
     }
 
-    public void setStatus(String st) {
-        this.status = st;
+    public void setSt(String st) {
+        this.st = st;
     }
 
     @ManyToOne
@@ -61,6 +60,6 @@ public class Status {
     public String toString() {
         return String.format(
                 "Status[id=%d, status='%s']",
-                id, status);
+                id, st);
     }
 }
