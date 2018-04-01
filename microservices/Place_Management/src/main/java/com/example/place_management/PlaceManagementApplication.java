@@ -17,7 +17,6 @@ import javax.transaction.Transactional;
 import java.util.HashSet;
 import java.util.Set;
 
-@ComponentScan({"com.example.place_management.Service"})
 @SpringBootApplication
 public class PlaceManagementApplication implements CommandLineRunner {
 

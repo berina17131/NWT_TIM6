@@ -3,10 +3,12 @@ package com.example.place_management.Service;
 import com.example.place_management.Model.Address;
 import com.example.place_management.Repository.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class AddressService {
 
     private final AddressRepository addressRepository;
