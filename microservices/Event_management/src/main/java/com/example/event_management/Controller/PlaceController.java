@@ -1,6 +1,6 @@
 package com.example.event_management.Controller;
 
-import com.example.event_management.Models.Place;
+import com.example.event_management.Model.Place;
 import com.example.event_management.Repository.PlaceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,6 +14,7 @@ import java.util.Optional;
 @RequestMapping("/place")
 public class PlaceController {
 
+    @Autowired
     private final PlaceRepository placeRepository;
 
     @Autowired

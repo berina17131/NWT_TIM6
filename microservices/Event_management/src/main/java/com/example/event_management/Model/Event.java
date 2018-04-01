@@ -1,18 +1,15 @@
-package com.example.event_management.Models;
+package com.example.event_management.Model;
+
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.sql.Timestamp;
-import java.util.Set;
 
-
-@Entity(name = "event")
+@Entity
 public class Event {
 
-    @NotNull
     private int id;
 
     @NotNull
@@ -21,19 +18,21 @@ public class Event {
 
     private String description;
     private Category category;
-    private Set<Place> places;
+    private Place place;
 
     public Event() {}
 
-    public Event(String title, String description, Category category)
+    public Event(String title, String description, Category category, Place place)
     {
         this.title = title;
         this.description = description;
         this.category = category;
+        this.place = place;
 
     }
 
     @Id
+    @NotNull
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
@@ -59,16 +58,8 @@ public class Event {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
-    public Set<Place> getPlaces() {
-        return places;
-    }
 
-    public void setPlaces(Set<Place> places) {
-        this.places = places;
-    }
-
-    /*@ManyToOne
+    @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "place_id")
     public Place getPlace() {
@@ -77,7 +68,7 @@ public class Event {
 
     public void setPlace(Place place) {
         this.place = place;
-    }*/
+    }
 
     @ManyToOne
     @JsonIgnore
@@ -89,8 +80,6 @@ public class Event {
     public void setCategory(Category category) {
         this.category = category;
     }
-
-
 
 
     @Override
