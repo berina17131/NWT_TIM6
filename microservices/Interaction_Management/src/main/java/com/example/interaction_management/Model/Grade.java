@@ -1,7 +1,6 @@
 package com.example.interaction_management.Model;
 
 import com.sun.istack.internal.NotNull;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Max;
@@ -10,13 +9,12 @@ import javax.validation.constraints.Min;
 @Entity
 public class Grade {
     private int id;
-    private User user;
-    private Event event;
-
     @NotNull
     @Min(1)
     @Max(5)
     private int grade;
+    private User user;
+    private Event event;
 
     protected Grade() {}
 
@@ -34,7 +32,6 @@ public class Grade {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -45,7 +42,6 @@ public class Grade {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "event_id")
     public Event getEvent() {
         return event;

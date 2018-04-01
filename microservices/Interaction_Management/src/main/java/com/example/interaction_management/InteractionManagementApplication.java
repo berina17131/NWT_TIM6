@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -33,17 +34,17 @@ public class InteractionManagementApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run (String... strings) throws  Exception {
-		User user1 = new User("Us");
-		Event event1 = new Event("Ev");
+		final User user1 = new User("Us");
+		final Event event1 = new Event("Ev");
 
-		Grade grade1 = new Grade(5);
-		Grade grade2 = new Grade(3);
+		final Grade grade1 = new Grade(5);
+		final Grade grade2 = new Grade(3);
 
-		Comment comment1 = new Comment("Co");
-		Comment comment2 = new Comment("Cmnt");
+		final Comment comment1 = new Comment("Co");
+		final Comment comment2 = new Comment("Cmnt");
 
-		Status status1 = new Status("Going");
-		Status status2 = new Status("Interested");
+		final Status status1 = new Status("Going");
+		final Status status2 = new Status("Interested");
 
 		Set grades = new HashSet<Grade>(){{
 		    add(grade1);
@@ -72,6 +73,9 @@ public class InteractionManagementApplication implements CommandLineRunner {
             log.info(event.toString());
         }
 
+		for (User user : userRepository.findAll()){
+			log.info(user.toString());
+		}
 	}
 
 }

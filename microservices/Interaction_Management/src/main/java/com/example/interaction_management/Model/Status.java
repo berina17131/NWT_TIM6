@@ -1,7 +1,6 @@
 package com.example.interaction_management.Model;
 
 import com.sun.istack.internal.NotNull;
-import net.minidev.json.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -9,12 +8,11 @@ import javax.validation.constraints.Size;
 @Entity
 public class Status {
     private int id;
-    private User user;
-    private Event event;
-
     @NotNull
     @Size(min=4, max = 10)
     private String status;
+    private User user;
+    private Event event;
 
     protected Status() {}
 
@@ -40,7 +38,6 @@ public class Status {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "user_id")
     public User getUser() {
         return user;
@@ -51,7 +48,6 @@ public class Status {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "event_id")
     public Event getEvent() {
         return event;
