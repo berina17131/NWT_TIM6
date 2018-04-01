@@ -2,10 +2,7 @@ package com.example.event_management.Model;
 
 
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
+import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
@@ -20,7 +17,8 @@ public class Category {
     private String name;
 
     private String description;
-    //private Set<Event> events;
+
+    private Set<Event> events;
 
 
     public Category() {}
@@ -57,14 +55,28 @@ public class Category {
     }
 
 
-    /*@OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
     public Set<Event> getEvents() {
         return events;
     }
 
     public void setEvents(Set<Event> events) {
         this.events = events;
-    }*/
+    }
+
+    @Override
+    public String toString() {
+        String result = String.format(
+                "Category[id=%d, name='%s', description = '%s']%n",
+                id, name, description);
+        if (events != null) {
+            for(Event event : events) {
+                result += event.toString();
+            }
+        }
+
+        return result;
+    }
 
 
 }
