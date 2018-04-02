@@ -1,8 +1,12 @@
 package com.example.event_management.Controller;
 
 import com.example.event_management.Model.Event;
+import com.example.event_management.Model.Place;
 import com.example.event_management.Repository.EventRepository;
+import com.example.event_management.Service.EventService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -15,56 +19,54 @@ import java.util.Optional;
 @RequestMapping("/event")
 public class EventController {
 
-    @Autowired
-    private final EventRepository eventRepository;
+    private EventService eventService;
 
-    @Autowired
-    EventController(EventRepository eventRepository) {
-        this.eventRepository = eventRepository;
+    public EventController(EventService eventService) {
+        this.eventService = eventService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Event> getAll() {
-        return eventRepository.findAll();
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(eventService.getAll());
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
-    public Event getById(@PathVariable("id") String id) {
-        Optional eventHelp = eventRepository.findById(Integer.parseInt(id));
-        Event event = (Event) eventHelp.get();
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(eventService.getById(id));
 
-        return event;
     }
 
     @RequestMapping(value="/title/{title}", method = RequestMethod.GET)
-    public Event getByName(@PathVariable("title") String title) {
-        for (Event event : eventRepository.findAll()) {
-            if(event.getTitle().equals(title))
-                return event;
-        }
+    public ResponseEntity getByTitle(@PathVariable("title") String title) throws ServiceException {
+        return ResponseEntity.ok(eventService.getByTitle(title));
 
-        return null;
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public String postById(Event address) {
-        eventRepository.save(address);
+    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAll() throws ServiceException {
+        return ResponseEntity.ok(eventService.deleteAll());
 
-        return "OK";
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public String deleteAll() {
-        eventRepository.deleteAll();
+    @RequestMapping(value="delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(eventService.deleteById(id));
 
-        return "All events deleted";
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable("id") String id) {
-        eventRepository.deleteById(Integer.parseInt(id));
+    @RequestMapping(value={"/create/{title}", "/create/{title}/{description}"}, method = RequestMethod.POST)
+    public ResponseEntity postByTitle(@PathVariable("title") String title, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(eventService.postByTitle(title, description));
+    }
 
-        return "Event with id=" + id + " deleted";
+    @RequestMapping(value={"/id/{id}/newTitle/{newTitle}", "/id/{id}/newTitle/{newTitle}/description/{description}"}, method = RequestMethod.PUT)
+    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newTitle") String newTitle, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(eventService.putById(id, newTitle, description));
+    }
+
+    @RequestMapping(value={"/oldTitle/{oldTitle}/newTitle/{newTitle}", "/oldTitle/{oldTitle}/newTitle/{newTitle}/description/{description}"}, method = RequestMethod.PUT)
+    public ResponseEntity putByTitle(@PathVariable("oldTitle") String oldTitle, @PathVariable("newTitle") String newTitle, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(eventService.putByTitle(oldTitle, newTitle, description));
     }
 
 }

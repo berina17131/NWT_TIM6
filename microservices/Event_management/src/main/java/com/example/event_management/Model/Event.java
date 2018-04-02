@@ -21,6 +21,12 @@ public class Event {
     private Place place;
 
     public Event() {}
+    public Event(String title, String description)
+    {
+        this.title = title;
+        this.description = description;
+
+    }
 
     public Event(String title, String description, Category category, Place place)
     {

@@ -3,7 +3,11 @@ package com.example.event_management.Controller;
 import com.example.event_management.Model.Category;
 import com.example.event_management.Model.Place;
 import com.example.event_management.Repository.CategoryRepository;
+import com.example.event_management.Service.CategoryService;
+import com.example.event_management.Service.EventService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,39 +20,53 @@ import java.util.Optional;
 @RequestMapping("/category")
 public class CategoryController {
 
-    @Autowired
-    private final CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
-    @Autowired
-    CategoryController(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
+    public CategoryController(CategoryService categoryService) {
+        this.categoryService = categoryService;
     }
 
-    @RequestMapping(method = RequestMethod.GET)
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(categoryService.getAll());
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
-    public Category getById(@PathVariable("id") String id) {
-        Optional categoryHelp = categoryRepository.findById(Integer.parseInt(id));
-        Category category = (Category) categoryHelp.get();
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(categoryService.getById(id));
 
-        return category;
     }
 
-    @RequestMapping(method = RequestMethod.DELETE)
-    public String deleteAll() {
-        categoryRepository.deleteAll();
+    @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(categoryService.getByName(name));
 
-        return "All categories deleted";
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public String deleteById(@PathVariable("id") String id) {
-        categoryRepository.deleteById(Integer.parseInt(id));
+    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAll() throws ServiceException {
+        return ResponseEntity.ok(categoryService.deleteAll());
 
-        return "Category with id=" + id + " deleted";
     }
 
+    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(categoryService.deleteById(id));
+
+    }
+
+    @RequestMapping(value={"/create/{title}", "/create/{title}/{description}"}, method = RequestMethod.POST)
+    public ResponseEntity postByName(@PathVariable("title") String title, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(categoryService.postByName(title, description));
+    }
+
+    @RequestMapping(value={"/id/{id}/newName/{newName}", "/id/{id}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
+    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(categoryService.putById(id, newName, description));
+    }
+
+    @RequestMapping(value={"/oldName/{oldName}/newName/{newName}", "/oldName/{oldName}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
+    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
+        return ResponseEntity.ok(categoryService.putByName(oldName, newName, description));
+    }
 }
