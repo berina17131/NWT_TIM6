@@ -2,6 +2,7 @@ package com.example.place_management.Service;
 
 import com.example.place_management.Model.Address;
 import com.example.place_management.Repository.AddressRepository;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,65 +19,97 @@ public class AddressService {
         this.addressRepository = addressRepository;
     }
 
-
-    public List<Address> getAll() {
-        return addressRepository.findAll();
-    }
-
-    public Address getById(String id) {
-        Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
-        Address address = (Address) addressHelp.get();
-
-        return address;
-    }
-
-    public Address getByName(String name) {
-        for (Address address : addressRepository.findAll()) {
-            if(address.getName().equals(name))
-                return address;
+    public List<Address> getAll() throws ServiceException {
+        try {
+            return addressRepository.findAll();
         }
-
-        return null;
-    }
-
-    public String deleteAll() {
-        addressRepository.deleteAll();
-
-        return "All addresses deleted";
-    }
-
-    public String deleteById(String id) {
-        addressRepository.deleteById(Integer.parseInt(id));
-
-        return "Address with id=" + id + " deleted";
-    }
-
-    public String postByName(String name) {
-        Address address = new Address(name);
-        addressRepository.save(address);
-
-        return "Address with name " + name + " saved successfully";
-    }
-
-    public String putById(String id, String newName) {
-        Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
-        Address address = (Address) addressHelp.get();
-        String oldName = address.getName();
-        address.setName(newName);
-        addressRepository.save(address);
-
-        return "Address with old name " + oldName  + " saved successfully as " + newName;
-    }
-
-    public String putByName(String oldName, String newName) {
-        Address address = null;
-        for (Address addressHelp : addressRepository.findAll()) {
-            if(addressHelp.getName().equals(oldName))
-                address = addressHelp;
+        catch (Exception e) {
+            throw new ServiceException("Cannot fetch all addresses.");
         }
-        address.setName(newName);
-        addressRepository.save(address);
+    }
 
-        return "Address with old name " + oldName  + " saved successfully as " + newName;
+    public Address getById(String id) throws ServiceException {
+        try {
+            Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
+            Address address = (Address) addressHelp.get();
+            return address;
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot find address with id = " + id + ".");
+        }
+    }
+
+    public Address getByName(String name) throws ServiceException {
+        try {
+            for (Address address : addressRepository.findAll()) {
+                if (address.getName().equals(name))
+                    return address;
+            }
+            // In case it did not find an address with given name
+            throw new Exception();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot find address with name = " + name + ".");
+        }
+    }
+
+    public String deleteAll() throws ServiceException {
+        try {
+            addressRepository.deleteAll();
+            return "All addresses deleted";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot delete all addresses");
+        }
+    }
+
+    public String deleteById(String id) throws ServiceException {
+        try {
+            addressRepository.deleteById(Integer.parseInt(id));
+            return "Address with id = " + id + " deleted";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot delete address with id = " + id + ".");
+        }
+    }
+
+    public String postByName(String name) throws ServiceException {
+        try {
+            Address address = new Address(name);
+            addressRepository.save(address);
+            return "Address with name = " + name + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create address with name = " + name + ".");
+        }
+    }
+
+    public String putById(String id, String newName) throws ServiceException {
+        try {
+            Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
+            Address address = (Address) addressHelp.get();
+            address.setName(newName);
+            addressRepository.save(address);
+            return "Address with id = " + id + " saved successfully as " + newName;
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update address with id = " + id + ".");
+        }
+    }
+
+    public String putByName(String oldName, String newName) throws ServiceException {
+        try {
+            Address address = null;
+            for (Address addressHelp : addressRepository.findAll()) {
+                if (addressHelp.getName().equals(oldName))
+                    address = addressHelp;
+            }
+            address.setName(newName);
+            addressRepository.save(address);
+            return "Address with old name = " + oldName + " saved successfully as " + newName;
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update address with name = " + oldName + ".");
+        }
     }
 }
