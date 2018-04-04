@@ -50,7 +50,7 @@ public class Grade {
         this.event = event;
     }
 
-    public int setGr() {
+    public int getGr() {
         return this.gr;
     }
 

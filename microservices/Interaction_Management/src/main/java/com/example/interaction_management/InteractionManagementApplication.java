@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.transaction.Transactional;
@@ -16,6 +18,9 @@ import java.util.HashSet;
 import java.util.Set;
 
 @SpringBootApplication
+@ComponentScan({"com.example.interaction_management"})
+@EntityScan("com.example.interaction_management.Model")
+@EnableJpaRepositories("com.example.interaction_management.Repository")
 public class InteractionManagementApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(InteractionManagementApplication.class);
@@ -34,14 +39,17 @@ public class InteractionManagementApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run (String... strings) throws  Exception {
-		final User user1 = new User("Us");
-		final Event event1 = new Event("Ev");
+		final User user1 = new User("Ussser");
+		userRepository.save(user1);
+		log.info(user1.toString());
+		/*
+		final Event event1 = new Event("Eveent");
 
 		final Grade grade1 = new Grade(5);
 		final Grade grade2 = new Grade(3);
 
-		final Comment comment1 = new Comment("Co");
-		final Comment comment2 = new Comment("Cmnt");
+		final Comment comment1 = new Comment("Commmment");
+		final Comment comment2 = new Comment("Cmnnft");
 
 		final Status status1 = new Status("Going");
 		final Status status2 = new Status("Interested");
@@ -76,6 +84,7 @@ public class InteractionManagementApplication implements CommandLineRunner {
 		for (User user : userRepository.findAll()){
 			log.info(user.toString());
 		}
+		*/
 	}
 
 }

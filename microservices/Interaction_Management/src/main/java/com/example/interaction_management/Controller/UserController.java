@@ -2,7 +2,11 @@ package com.example.interaction_management.Controller;
 
 import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Repository.UserRepository;
+import com.example.interaction_management.Service.EventService;
+import com.example.interaction_management.Service.UserService;
+import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -11,43 +15,49 @@ import java.util.Optional;
 @RequestMapping("/user")
 public class UserController {
 
-    private final UserRepository userRepository;
+    private UserService userService;
 
-    @Autowired
-    UserController(UserRepository userRepository){
-        this.userRepository = userRepository;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
+
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(userService.getAll());
     }
 
     @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
-    public User getById (@RequestParam(value = "id") String id)
-    {
-        Optional user1 = userRepository.findById(Integer.parseInt(id));
-        User user = (User) user1.get();
-
-        return user;
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(userService.getById(id));
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
-    public String deleteById (@RequestParam(value = "id") String id)
-    {
-        try{
-            userRepository.deleteById(Integer.parseInt(id));
-            return "User with id=" + id + " deleted.";
-        }
-        catch(Exception name) {
-            return "Couldn't find event with id=" + id + ".";
-        }
+    @RequestMapping(value="/username/{username}", method = RequestMethod.GET)
+    public ResponseEntity getByUsername(@PathVariable("username") String username) throws ServiceException {
+        return ResponseEntity.ok(userService.getByUsername(username));
     }
 
-    @RequestMapping(value="/username/{username}", method = RequestMethod.POST)
-    public String postByUsername (@PathVariable("username") String username) {
-        try {
-            User user = new User(username);
-            userRepository.save(user);
+    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    public ResponseEntity deleteAll() throws ServiceException {
+        return ResponseEntity.ok(userService.deleteAll());
+    }
 
-            return "User created successfully.";
-        } catch (Exception ex) {
-            return "Error, operation could not be completed.";
-        }
+    @RequestMapping(value="delete/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(userService.deleteById(id));
+    }
+
+    @RequestMapping(value={"/create/{username}"}, method = RequestMethod.POST)
+    public ResponseEntity postByUsenname(@PathVariable("username") String username) throws ServiceException {
+        return ResponseEntity.ok(userService.postByUsername(username));
+    }
+
+    @RequestMapping(value={"/id/{id}/newUsername/{newUsername}"}, method = RequestMethod.PUT)
+    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newUsername") String newUsername) throws ServiceException {
+        return ResponseEntity.ok(userService.putById(id, newUsername));
+    }
+
+    @RequestMapping(value={"/oldUsername/{oldUsername}/newUsername/{newUsername}"}, method = RequestMethod.PUT)
+    public ResponseEntity putByUsername(@PathVariable("oldUsername") String oldUsername, @PathVariable("newUsername") String newUsername) throws ServiceException {
+        return ResponseEntity.ok(userService.putByUsername(oldUsername, newUsername));
     }
 }
