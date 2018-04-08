@@ -43,7 +43,7 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
 			Event event = restTemplate.getForObject(
-					"http://localhost:8080/event/all", Event.class);
+					"http://localhost:8092/event/id/1", Event.class);
 			log.info(event.toString());
 		};
 	}

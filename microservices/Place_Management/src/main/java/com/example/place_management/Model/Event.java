@@ -11,17 +11,17 @@ public class Event {
     private int id;
     @NotNull
     @Size(min=2, max=50)
-    private String name;
+    private String title;
     private Place place;
 
     protected Event() {}
 
-    public Event(String name) {
-        this.name = name;
+    public Event(String title) {
+        this.title = title;
     }
 
-    public Event(String name, Place place) {
-        this.name = name;
+    public Event(String title, Place place) {
+        this.title = title;
         this.place = place;
     }
 
@@ -35,12 +35,12 @@ public class Event {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getTitle() {
+        return title;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     @ManyToOne
@@ -57,8 +57,8 @@ public class Event {
     @Override
     public String toString() {
         String result = String.format(
-                "Event[id=%d, name='%s']%n",
-                id, name);
+                "Event[id=%d, title='%s']%n",
+                id, title);
         return result;
     }
 }
