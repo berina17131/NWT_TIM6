@@ -18,8 +18,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.client.RestTemplate;
 
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -42,9 +41,12 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	@Bean
 	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
 		return args -> {
-			Event event = restTemplate.getForObject(
-					"http://localhost:8092/event/id/1", Event.class);
-			log.info(event.toString());
+			Event[] events = restTemplate.getForObject(
+					"http://localhost:8092/event/all", Event[].class);
+			List<Event> eventsList = Arrays.asList(events);
+			for (Event e : eventsList) {
+				log.info(e.toString());
+			}
 		};
 	}
 
