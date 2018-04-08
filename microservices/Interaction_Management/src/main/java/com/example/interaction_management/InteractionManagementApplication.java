@@ -10,8 +10,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+
 
 import javax.transaction.Transactional;
 import java.util.HashSet;
@@ -21,6 +23,7 @@ import java.util.Set;
 @ComponentScan({"com.example.interaction_management"})
 @EntityScan("com.example.interaction_management.Model")
 @EnableJpaRepositories("com.example.interaction_management.Repository")
+@EnableDiscoveryClient
 public class InteractionManagementApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(InteractionManagementApplication.class);
