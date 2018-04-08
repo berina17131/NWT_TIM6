@@ -58,7 +58,12 @@ public class EventManagementApplication implements CommandLineRunner {
 
     Event eventA = new Event("Zabava1","Najbolja1", categoryA, placeA);
     eventRepository.save(eventA);
-
+		Event eventB = new Event("Zabava22","Naj", categoryA, placeA);
+		eventRepository.save(eventA);
+		Event eventC = new Event("Zabava333","Na1", categoryA, placeA);
+		eventRepository.save(eventA);
+		Event eventD = new Event("Zabava444","NaAAAAAAAAAA1", categoryA, placeA);
+		eventRepository.save(eventA);
 	}
 
 }
