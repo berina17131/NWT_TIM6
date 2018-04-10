@@ -1,15 +1,22 @@
 package com.example.place_management.Service;
 
+import com.example.place_management.Model.Event;
 import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.PlaceRepository;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
+@EnableDiscoveryClient
 public class PlaceService {
 
     private final PlaceRepository placeRepository;
@@ -53,9 +60,21 @@ public class PlaceService {
         }
     }
 
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Autowired
+    private EurekaClient discoveryClient;
+
     public String deleteAll() throws ServiceException {
         try {
             placeRepository.deleteAll();
+            // Deleting all places in Event microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/place/all");
             return "All places deleted";
         }
         catch (Exception e) {
@@ -66,6 +85,10 @@ public class PlaceService {
     public String deleteById(String id) throws ServiceException {
         try {
             placeRepository.deleteById(Integer.parseInt(id));
+            // Deleting place with id = @id in Event microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/place/" + id);
             return "Place with id = " + id + " deleted";
         }
         catch (Exception e) {
@@ -76,6 +99,10 @@ public class PlaceService {
     public String postNewPlace(Place place) throws ServiceException {
         try {
             placeRepository.save(place);
+            // Creating a place in Event microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, Place.class);
             return "Place with name = " + place.getName() + " saved successfully";
         }
         catch (Exception e) {
@@ -90,6 +117,10 @@ public class PlaceService {
             place.setName(placeFromRequest.getName());
             place.setDescription(placeFromRequest.getDescription());
             placeRepository.save(place);
+            // Updating a place in Event microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, Place.class);
             return "Place with id = " + place.getId() + " saved successfully as " + place.getName();
         }
         catch (Exception e) {

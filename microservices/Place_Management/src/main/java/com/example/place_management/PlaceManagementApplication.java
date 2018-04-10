@@ -29,27 +29,10 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(PlaceManagementApplication.class);
 
 	@Autowired
-	private EurekaClient discoveryClient;
-
-	@Autowired
 	private CityRepository cityRepository;
 
 	public static void main(String[] args) {
 		SpringApplication.run(PlaceManagementApplication.class, args);
-	}
-
-	@Bean
-	public RestTemplate restTemplate(RestTemplateBuilder builder) {
-		return builder.build();
-	}
-
-	@Bean
-	public Set<Event> getEventsFromRestTemplate(RestTemplate restTemplate) throws Exception {
-		InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
-		Event[] events = restTemplate.getForObject(
-				"http://localhost:" + Integer.toString(instance.getPort()) + "/event/all", Event[].class);
-		Set<Event> eventsSet = new HashSet<Event>(Arrays.asList(events));
-		return eventsSet;
 	}
 
 	@Override
@@ -90,12 +73,6 @@ public class PlaceManagementApplication implements CommandLineRunner {
 			add(placeC);
 		}};
 		addressC.setPlaces(places);
-
-		RestTemplate restTemplate = new RestTemplate();
-
-		Set<Event> events = getEventsFromRestTemplate(restTemplate);
-
-		placeA.setEvents(events);
 
 		cityRepository.deleteAll();
 		cityRepository.save(cityA);
