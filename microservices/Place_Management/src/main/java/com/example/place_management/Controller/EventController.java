@@ -1,11 +1,10 @@
 package com.example.place_management.Controller;
 
+import com.example.place_management.Model.Event;
 import com.example.place_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.awt.*;
 
 @RestController
 @RequestMapping("/event")
