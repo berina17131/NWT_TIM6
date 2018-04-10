@@ -6,8 +6,6 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
-
 @RestController
 @RequestMapping("/place")
 public class PlaceController {
@@ -43,18 +41,13 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.deleteById(id));
     }
 
-    @RequestMapping(value={"/name/{name}", "/name/{name}/description/{description}"}, method = RequestMethod.POST)
-    public ResponseEntity postByName(@RequestBody Place place) throws ServiceException {
-        return ResponseEntity.ok(placeService.postByName(place));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postNewPlace(@RequestBody Place place) throws ServiceException {
+        return ResponseEntity.ok(placeService.postNewPlace(place));
     }
 
-    @RequestMapping(value={"/id/{id}/newName/{newName}", "/id/{id}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(placeService.putById(id, newName, description));
-    }
-
-    @RequestMapping(value={"/oldName/{oldName}/newName/{newName}", "/oldName/{oldName}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(placeService.putByName(oldName, newName, description));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangePlace(@RequestBody Place place) throws ServiceException {
+        return ResponseEntity.ok(placeService.putChangePlace(place));
     }
 }

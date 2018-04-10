@@ -41,18 +41,13 @@ public class CityController {
         return ResponseEntity.ok(cityService.deleteById(id));
     }
 
-    @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
-    public ResponseEntity postByName(@RequestBody City city) throws ServiceException {
-        return ResponseEntity.ok(cityService.postByName(city));
-    }
-    
-    @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(cityService.putById(id, newName));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postNewCity(@RequestBody City city) throws ServiceException {
+        return ResponseEntity.ok(cityService.postNewCity(city));
     }
 
-    @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
-    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(cityService.putByName(oldName, newName));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangeCity(@RequestBody City city) throws ServiceException {
+        return ResponseEntity.ok(cityService.putChangeCity(city));
     }
 }

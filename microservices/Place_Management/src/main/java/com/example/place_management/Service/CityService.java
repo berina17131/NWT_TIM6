@@ -73,7 +73,7 @@ public class CityService {
         }
     }
 
-    public String postByName(City city) throws ServiceException {
+    public String postNewCity(City city) throws ServiceException {
         try {
             cityRepository.save(city);
             return "City with name = " + city.getName() + " saved successfully";
@@ -83,32 +83,16 @@ public class CityService {
         }
     }
 
-    public String putById(String id, String newName) throws ServiceException {
+    public String putChangeCity(City cityFromRequest) throws ServiceException {
         try {
-            Optional cityHelp = cityRepository.findById(Integer.parseInt(id));
+            Optional cityHelp = cityRepository.findById(cityFromRequest.getId());
             City city = (City) cityHelp.get();
-            city.setName(newName);
+            city.setName(cityFromRequest.getName());
             cityRepository.save(city);
-            return "City with id = " + id + " saved successfully as " + newName;
+            return "City with id = " + city.getId() + " saved successfully as " + city.getName();
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot update city with id = " + id + ".");
-        }
-    }
-
-    public String putByName(String oldName, String newName) throws ServiceException {
-        try {
-            City city = null;
-            for (City cityHelp : cityRepository.findAll()) {
-                if (cityHelp.getName().equals(oldName))
-                    city = cityHelp;
-            }
-            city.setName(newName);
-            cityRepository.save(city);
-            return "City with old name = " + oldName + " saved successfully as " + newName;
-        }
-        catch (Exception e) {
-            throw new ServiceException("Cannot update city with name = " + oldName + ".");
+            throw new ServiceException("Cannot update city with id = " + cityFromRequest.getId() + ".");
         }
     }
 }

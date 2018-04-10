@@ -11,7 +11,7 @@ import java.util.Set;
 public class Place {
     private int id;
     @NotNull
-    @Size(min=2, max=30)
+    @Size(min=3, max=50)
     private String name;
     private String description;
     private Address address;

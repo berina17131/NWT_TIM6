@@ -41,18 +41,13 @@ public class AddressController {
         return ResponseEntity.ok(addressService.deleteById(id));
     }
 
-    @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
-    public ResponseEntity postByName(@RequestBody Address address) throws ServiceException {
-        return ResponseEntity.ok(addressService.postByName(address));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postNewAddress(@RequestBody Address address) throws ServiceException {
+        return ResponseEntity.ok(addressService.postNewAddress(address));
     }
 
-    @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(addressService.putById(id, newName));
-    }
-
-    @RequestMapping(value="/oldName/{oldName}/newName/{newName}", method = RequestMethod.PUT)
-    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(addressService.putByName(oldName, newName));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangeAddress(@RequestBody Address address) throws ServiceException {
+        return ResponseEntity.ok(addressService.putChangeAddress(address));
     }
 }

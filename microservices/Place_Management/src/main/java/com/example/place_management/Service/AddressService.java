@@ -73,7 +73,7 @@ public class AddressService {
         }
     }
 
-    public String postByName(Address address) throws ServiceException {
+    public String postNewAddress(Address address) throws ServiceException {
         try {
             addressRepository.save(address);
             return "Address with name = " + address.getName() + " saved successfully";
@@ -83,32 +83,16 @@ public class AddressService {
         }
     }
 
-    public String putById(String id, String newName) throws ServiceException {
+    public String putChangeAddress(Address addressFromRequest) throws ServiceException {
         try {
-            Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
+            Optional addressHelp = addressRepository.findById(addressFromRequest.getId());
             Address address = (Address) addressHelp.get();
-            address.setName(newName);
+            address.setName(addressFromRequest.getName());
             addressRepository.save(address);
-            return "Address with id = " + id + " saved successfully as " + newName;
+            return "Address with id = " + address.getId() + " saved successfully as " + address.getName();
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot update address with id = " + id + ".");
-        }
-    }
-
-    public String putByName(String oldName, String newName) throws ServiceException {
-        try {
-            Address address = null;
-            for (Address addressHelp : addressRepository.findAll()) {
-                if (addressHelp.getName().equals(oldName))
-                    address = addressHelp;
-            }
-            address.setName(newName);
-            addressRepository.save(address);
-            return "Address with old name = " + oldName + " saved successfully as " + newName;
-        }
-        catch (Exception e) {
-            throw new ServiceException("Cannot update address with name = " + oldName + ".");
+            throw new ServiceException("Cannot update address with id = " + addressFromRequest.getId() + ".");
         }
     }
 }

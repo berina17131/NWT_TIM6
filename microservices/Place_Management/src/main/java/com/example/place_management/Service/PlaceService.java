@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class    PlaceService {
+public class PlaceService {
 
     private final PlaceRepository placeRepository;
 
@@ -73,7 +73,7 @@ public class    PlaceService {
         }
     }
 
-    public String postByName(Place place) throws ServiceException {
+    public String postNewPlace(Place place) throws ServiceException {
         try {
             placeRepository.save(place);
             return "Place with name = " + place.getName() + " saved successfully";
@@ -83,34 +83,17 @@ public class    PlaceService {
         }
     }
 
-    public String putById(String id, String newName, Optional<String> description) throws ServiceException {
+    public String putChangePlace(Place placeFromRequest) throws ServiceException {
         try {
-            Optional placeHelp = placeRepository.findById(Integer.parseInt(id));
+            Optional placeHelp = placeRepository.findById(placeFromRequest.getId());
             Place place = (Place) placeHelp.get();
-            place.setName(newName);
-            if (description.isPresent()) place.setDescription(description.get());
+            place.setName(placeFromRequest.getName());
+            place.setDescription(placeFromRequest.getDescription());
             placeRepository.save(place);
-            return "Place with id = " + id + " saved successfully as " + newName;
+            return "Place with id = " + place.getId() + " saved successfully as " + place.getName();
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot update place with id = " + id + ".");
-        }
-    }
-
-    public String putByName(String oldName, String newName, Optional<String> description) throws ServiceException {
-        try {
-            Place place = null;
-            for (Place placeHelp : placeRepository.findAll()) {
-                if (placeHelp.getName().equals(oldName))
-                    place = placeHelp;
-            }
-            place.setName(newName);
-            if (description.isPresent()) place.setDescription(description.get());
-            placeRepository.save(place);
-            return "Place with old name = " + oldName + " saved successfully as " + newName;
-        }
-        catch (Exception e) {
-            throw new ServiceException("Cannot update place with name = " + oldName + ".");
+            throw new ServiceException("Cannot update place with id = " + placeFromRequest.getId() + ".");
         }
     }
 }
