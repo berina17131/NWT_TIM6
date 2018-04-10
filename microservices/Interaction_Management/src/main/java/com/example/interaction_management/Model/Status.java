@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 @Entity
 public class Status {
     private int id;
-    @NotNull
-    @Size(min=4, max = 10)
+    @NotNull(message = "Status cannont be null")
+    @Size(min=4, max = 10, message = "Status must be between 4 and 10 char")
     private String st;
     private User user;
     private Event event;

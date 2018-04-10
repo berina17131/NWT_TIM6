@@ -8,8 +8,8 @@ import java.util.Set;
 @Entity
 public class User {
     private int id;
-    @NotNull
-    @Size(min = 3, max = 20)
+    @NotNull(message = "Username cannont be null")
+    @Size(min = 4, max = 10, message = "Username must be between 4 and 10 char")
     private String username;
     private Set<Grade> grades;
     private Set<Comment> comments;

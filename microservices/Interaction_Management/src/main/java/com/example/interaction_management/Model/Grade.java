@@ -8,9 +8,9 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Grade {
     private int id;
-    @NotNull
-    @Min(1)
-    @Max(5)
+    @NotNull (message = "Grade cannont be null")
+    @Min(value = 1, message = "Grade cannont be lower than 1")
+    @Max(value = 5, message = "Grade cannont be higher than 5")
     private int gr;
     private User user;
     private Event event;
