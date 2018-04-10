@@ -75,49 +75,6 @@ public class PlaceService {
         }
     }
 
-    public String postByName(String name) throws ServiceException {
-        try {
-            Place place;
-            place = new Place(name);
-            placeRepository.save(place);
-
-            return "Place with name " + name + " saved successfully";
-        }catch (Exception e) {
-            throw new ServiceException("Cannot save place with name={" + name + "}");
-        }
-    }
-
-    public String putById(String id, String newName)  throws ServiceException {
-        try {
-            Optional placeHelp = placeRepository.findById(Integer.parseInt(id));
-            Place place = (Place) placeHelp.get();
-            String oldName = place.getName();
-            place.setName(newName);
-            placeRepository.save(place);
-
-            return "Place with old name " + oldName + " saved successfully as " + newName;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change place.");
-        }
-    }
-
-    public String putByName(String oldName, String newName) throws ServiceException {
-        try {
-            Place place = null;
-
-            for (Place placeHelp : placeRepository.findAll()) {
-                if (placeHelp.getName().equals(oldName))
-                    place = placeHelp;
-            }
-            place.setName(newName);
-
-            placeRepository.save(place);
-
-            return "Place with old name " + oldName + " saved successfully as " + newName;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change place.");
-        }
-    }
 
 
 

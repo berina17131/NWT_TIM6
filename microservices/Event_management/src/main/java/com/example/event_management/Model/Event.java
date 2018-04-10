@@ -12,25 +12,25 @@ public class Event {
 
     private int id;
 
-    @NotNull
-    @Size(min=2, max=30)
-    private String title;
+    @NotNull(message = "Name cannot be null")
+    @Size(min=3, max=50, message = "Name must be between 3 and 50 char")
+    private String name;
 
     private String description;
     private Category category;
     private Place place;
 
     public Event() {}
-    public Event(String title, String description)
+    public Event(String name, String description)
     {
-        this.title = title;
+        this.name = name;
         this.description = description;
 
     }
 
-    public Event(String title, String description, Category category, Place place)
+    public Event(String name, String description, Category category, Place place)
     {
-        this.title = title;
+        this.name = name;
         this.description = description;
         this.category = category;
         this.place = place;
@@ -48,12 +48,12 @@ public class Event {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -93,7 +93,7 @@ public class Event {
     public String toString() {
         String result = String.format(
                 "Event[id=%d, title='%s', description = '%s']%n",
-                id, title, description);
+                id, name, description);
 
 
         return result;

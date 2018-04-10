@@ -10,8 +10,9 @@ import java.util.Set;
 @Entity
 public class Address {
     private int id;
-    @NotNull
-    @Size(min=2, max=50)
+
+    @NotNull(message = "Name cannot be null")
+    @Size(min=2, max=50, message = "Name must be between 2 and 50 char")
     private String name;
     private City city;
     private Set<Place> places;

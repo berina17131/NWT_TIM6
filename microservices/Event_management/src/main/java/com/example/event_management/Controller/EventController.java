@@ -7,10 +7,7 @@ import com.example.event_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,9 +33,9 @@ public class EventController {
 
     }
 
-    @RequestMapping(value="/title/{title}", method = RequestMethod.GET)
-    public ResponseEntity getByTitle(@PathVariable("title") String title) throws ServiceException {
-        return ResponseEntity.ok(eventService.getByTitle(title));
+    @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
+    public ResponseEntity getByTitle(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(eventService.getByTitle(name));
 
     }
 
@@ -54,19 +51,14 @@ public class EventController {
 
     }
 
-    @RequestMapping(value={"/create/{title}", "/create/{title}/{description}"}, method = RequestMethod.POST)
-    public ResponseEntity postByTitle(@PathVariable("title") String title, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(eventService.postByTitle(title, description));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity createEvent(@RequestBody Event event) throws ServiceException {
+        return ResponseEntity.ok(eventService.createEvent(event));
     }
 
-    @RequestMapping(value={"/id/{id}/newTitle/{newTitle}", "/id/{id}/newTitle/{newTitle}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newTitle") String newTitle, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(eventService.putById(id, newTitle, description));
-    }
-
-    @RequestMapping(value={"/oldTitle/{oldTitle}/newTitle/{newTitle}", "/oldTitle/{oldTitle}/newTitle/{newTitle}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByTitle(@PathVariable("oldTitle") String oldTitle, @PathVariable("newTitle") String newTitle, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(eventService.putByTitle(oldTitle, newTitle, description));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putEvent(@RequestBody Event event) throws ServiceException {
+        return ResponseEntity.ok(eventService.putEvent(event));
     }
 
 }

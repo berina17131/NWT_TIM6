@@ -6,10 +6,7 @@ import com.example.event_management.Service.PlaceService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -52,19 +49,14 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.deleteById(id));
 
     }
-
-    @RequestMapping(value={"/name/{name}"}, method = RequestMethod.POST)
-    public ResponseEntity postByName(@PathVariable("name") String name) throws ServiceException {
-        return ResponseEntity.ok(placeService.postByName(name));
+/*
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postNewPlace(@RequestBody Place place) throws ServiceException {
+        return ResponseEntity.ok(placeService.createPlace(place));
     }
 
-    @RequestMapping(value={"/id/{id}/newName/{newName}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(placeService.putById(id, newName));
-    }
-
-    @RequestMapping(value={"/oldName/{oldName}/newName/{newName}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName) throws ServiceException {
-        return ResponseEntity.ok(placeService.putByName(oldName, newName));
-    }
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangePlace(@RequestBody Place place) throws ServiceException {
+        return ResponseEntity.ok(placeService.putPlace(place));
+    }*/
 }

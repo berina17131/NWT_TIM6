@@ -48,7 +48,7 @@ public class CategoryService {
             }
             return null;
         }catch (Exception e) {
-            throw new ServiceException("Cannot find place with title={" + title+ "}");
+            throw new ServiceException("Cannot find category with title={" + title+ "}");
         }
     }
 
@@ -69,53 +69,31 @@ public class CategoryService {
             return "category with id=" + id + " deleted";
 
         }catch(Exception e) {
-            throw new ServiceException("Cannot delete place with id={" + id + "}");
+            throw new ServiceException("Cannot delete category with id={" + id + "}");
         }
 
     }
 
-    public String postByName(String name, Optional<String> description) throws ServiceException {
+    public String createCategory(Category category) throws ServiceException {
         try {
-            Category category;
-            if (description.isPresent()) category = new Category(name, description.get());
-            else category = new Category(name, "");
             categoryRepository.save(category);
-
-            return "Category with title " + name + " saved successfully";
-        }catch (Exception e) {
-            throw new ServiceException("Cannot save place with title={" + name + "}");
+            return "Category with name = " + category.getName() + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create category with name = " + category.getName() + ".");
         }
     }
 
-    public String putById(String id, String newName, Optional<String> description) throws ServiceException {
+    public String putCategory(Category categoryFromRequest) throws ServiceException {
         try {
-            Optional categoryHelp = categoryRepository.findById(Integer.parseInt(id));
+            Optional categoryHelp = categoryRepository.findById(categoryFromRequest.getId());
             Category category = (Category) categoryHelp.get();
-            String oldName = category.getName();
-            category.setName(newName);
-            if (description.isPresent()) category.setDescription(description.get());
+            category.setName(categoryFromRequest.getName());
             categoryRepository.save(category);
-
-            return "Category with old name " + oldName + " saved successfully as " + newName;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change category.");
+            return "Category with id = " + category.getId() + " saved successfully as " + category.getName();
         }
-    }
-
-    public String putByName(String oldName, String newName, Optional<String> description) throws ServiceException {
-        try {
-            Category category = null;
-            for (Category categoryHelp : categoryRepository.findAll()) {
-                if (categoryHelp.getName().equals(oldName))
-                    category = categoryHelp;
-            }
-            category.setName(newName);
-            if (description.isPresent()) category.setDescription(description.get());
-            categoryRepository.save(category);
-
-            return "category with old name " + oldName + " saved successfully as " + newName;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change category.");
+        catch (Exception e) {
+            throw new ServiceException("Cannot update category with id = " + categoryFromRequest.getId() + ".");
         }
     }
 

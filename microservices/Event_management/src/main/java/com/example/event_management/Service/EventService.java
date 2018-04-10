@@ -2,14 +2,21 @@ package com.example.event_management.Service;
 
 import com.example.event_management.Model.Event;
 import com.example.event_management.Repository.EventRepository;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@EnableDiscoveryClient
 public class EventService {
 
     private final EventRepository eventRepository;
@@ -41,7 +48,7 @@ public class EventService {
     public Event getByTitle(String title) throws ServiceException {
         try {
             for (Event event : eventRepository.findAll()) {
-                if (event.getTitle().equals(title))
+                if (event.getName().equals(title))
                     return event;
             }
             return null;
@@ -50,9 +57,22 @@ public class EventService {
         }
     }
 
+    @Bean
+    public RestTemplate restTemplate(RestTemplateBuilder builder) {
+        return builder.build();
+    }
+
+    @Autowired
+    private EurekaClient discoveryClient;
+
     public String deleteAll() throws ServiceException {
         try {
             eventRepository.deleteAll();
+            // Deleting all events in Place microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/event/all");
+
             return "All events deleted";
 
         }catch(Exception e) {
@@ -64,7 +84,11 @@ public class EventService {
     public String deleteById(String id) throws ServiceException {
         try {
             eventRepository.deleteById(Integer.parseInt(id));
-            return "event with id=" + id + " deleted";
+            // Deleting Event with id = @id in Place microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/event/" + id);
+            return "Event with id=" + id + " deleted";
 
         }catch(Exception e) {
             throw new ServiceException("Cannot delete place with id={" + id + "}");
@@ -72,51 +96,37 @@ public class EventService {
 
     }
 
-    public String postByTitle(String title, Optional<String> description) throws ServiceException {
-        try {
-            Event event;
-            if (description.isPresent()) event = new Event(title, description.get());
-            else event = new Event(title, "");
-            eventRepository.save(event);
+ public String createEvent(Event event) throws ServiceException {
+     try {
+         eventRepository.save(event);
+         // Creating a event in Place microservice
+         InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
+         RestTemplate restTemplate = new RestTemplate();
+         restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
+         return "Event with name = " + event.getName() + " saved successfully";
+     }
+     catch (Exception e) {
+         throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
+     }
+ }
 
-            return "event with title " + title + " saved successfully";
-        }catch (Exception e) {
-            throw new ServiceException("Cannot save place with title={" + title + "}");
-        }
-    }
-
-    public String putById(String id, String newTitle, Optional<String> description) throws ServiceException {
+    public String putEvent(Event eventFromRequest) throws ServiceException {
         try {
-            Optional eventHelp = eventRepository.findById(Integer.parseInt(id));
+            Optional eventHelp = eventRepository.findById(eventFromRequest.getId());
             Event event = (Event) eventHelp.get();
-            String oldTitle = event.getTitle();
-            event.setTitle(newTitle);
-            if (description.isPresent()) event.setDescription(description.get());
+            event.setName(eventFromRequest.getName());
+            event.setDescription(eventFromRequest.getDescription());
             eventRepository.save(event);
-
-            return "Event with old title " + oldTitle + " saved successfully as " + newTitle;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change event.");
+            // Updating a event in Place microservice
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
+            RestTemplate restTemplate = new RestTemplate();
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
+            return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");
         }
     }
-
-    public String putByTitle(String oldTitle, String newTitle, Optional<String> description) throws ServiceException {
-        try {
-            Event event = null;
-            for (Event eventHelp : eventRepository.findAll()) {
-                if (eventHelp.getTitle().equals(oldTitle))
-                    event = eventHelp;
-            }
-            event.setTitle(newTitle);
-            if (description.isPresent()) event.setDescription(description.get());
-            eventRepository.save(event);
-
-            return "event with old title " + oldTitle + " saved successfully as " + newTitle;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change event.");
-        }
-    }
-
 
 
 

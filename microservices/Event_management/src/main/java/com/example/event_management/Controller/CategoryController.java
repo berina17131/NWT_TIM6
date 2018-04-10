@@ -8,10 +8,7 @@ import com.example.event_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -55,18 +52,14 @@ public class CategoryController {
 
     }
 
-    @RequestMapping(value={"/create/{title}", "/create/{title}/{description}"}, method = RequestMethod.POST)
-    public ResponseEntity postByName(@PathVariable("title") String title, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(categoryService.postByName(title, description));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity postNewCity(@RequestBody Category category) throws ServiceException {
+        return ResponseEntity.ok(categoryService.createCategory(category));
     }
 
-    @RequestMapping(value={"/id/{id}/newName/{newName}", "/id/{id}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(categoryService.putById(id, newName, description));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangeCity(@RequestBody Category category) throws ServiceException {
+        return ResponseEntity.ok(categoryService.putCategory(category));
     }
 
-    @RequestMapping(value={"/oldName/{oldName}/newName/{newName}", "/oldName/{oldName}/newName/{newName}/description/{description}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByName(@PathVariable("oldName") String oldName, @PathVariable("newName") String newName, @PathVariable("description") Optional<String> description) throws ServiceException {
-        return ResponseEntity.ok(categoryService.putByName(oldName, newName, description));
-    }
 }

@@ -7,9 +7,10 @@ import java.util.Set;
 
 @Entity
 public class City {
+
     private int id;
-    @NotNull
-    @Size(min=2, max=20)
+    @NotNull(message = "Name cannot be null")
+    @Size(min=2, max=20, message = "Name must be between 3 and 20 char")
     private String name;
     private Set<Address> addresses;
 
