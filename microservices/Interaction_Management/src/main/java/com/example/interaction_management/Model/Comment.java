@@ -7,8 +7,8 @@ import javax.validation.constraints.Size;
 @Entity
 public class Comment {
     private int id;
-    @NotNull
-    @Size(min = 2, max = 255)
+    @NotNull (message = "Comment cannont be null")
+    @Size(min = 2, max = 255, message = "Comment must be between 2 and 255 char")
     private String com;
     private User user;
     private Event event;

@@ -8,8 +8,7 @@ import java.util.Set;
 @Entity
 public class Event {
     private int id;
-
-    @NotNull
+    @NotNull (message = "Grade cannont be null")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char")
     private String name;
 
