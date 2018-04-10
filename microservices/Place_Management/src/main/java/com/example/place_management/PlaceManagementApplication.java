@@ -39,7 +39,7 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception {
 		// save a couple of cities
-		City cityA = new City("Sarajevo");
+		/*City cityA = new City("Sarajevo");
 		City cityB = new City("Zenica");
 		City cityC = new City("Tuzla");
 
@@ -82,6 +82,6 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		// fetch all cities
 		for (City city : cityRepository.findAll()) {
 			log.info(city.toString());
-		}
+		}*/
 	}
 }

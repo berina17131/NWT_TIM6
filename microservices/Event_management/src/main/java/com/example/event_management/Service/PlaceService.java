@@ -60,7 +60,7 @@ public class PlaceService {
 
             return "All places deleted";
         }catch(Exception e) {
-            throw new ServiceException("Cannon delete all users");
+            throw new ServiceException("Cannon delete all places");
         }
 
     }

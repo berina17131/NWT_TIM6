@@ -48,7 +48,7 @@ public class EventManagementApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception {
 
-		Category categoryB = new Category("Category123","aaaaa");
+		/*Category categoryB = new Category("Category123","aaaaa");
     Category categoryA = new Category("CategoryAA","");
     categoryRepository.save(categoryA);
 
@@ -63,7 +63,7 @@ public class EventManagementApplication implements CommandLineRunner {
 		Event eventC = new Event("Zabava333","Na1", categoryA, placeA);
 		eventRepository.save(eventC);
 		Event eventD = new Event("Zabava444","NaAAAAAAAAAA1", categoryA, placeA);
-		eventRepository.save(eventD);
+		eventRepository.save(eventD);*/
 	}
 
 }
