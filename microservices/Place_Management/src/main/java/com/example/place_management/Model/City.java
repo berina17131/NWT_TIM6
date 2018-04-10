@@ -9,8 +9,8 @@ import java.util.Set;
 public class City {
 
     private int id;
-    @NotNull(message = "Name cannot be null")
-    @Size(min=2, max=20, message = "Name must be between 3 and 20 char")
+    @NotNull(message = "Name can not be null")
+    @Size(min = 3, max = 30, message = "Name must be between 2 and 30 characters")
     private String name;
     private Set<Address> addresses;
 

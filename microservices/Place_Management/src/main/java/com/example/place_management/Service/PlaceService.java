@@ -1,6 +1,5 @@
 package com.example.place_management.Service;
 
-import com.example.place_management.Model.Event;
 import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.PlaceRepository;
 import com.netflix.appinfo.InstanceInfo;
@@ -13,7 +12,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @EnableDiscoveryClient

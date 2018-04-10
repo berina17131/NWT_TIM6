@@ -9,10 +9,12 @@ import java.util.Set;
 
 @Entity
 public class Place {
+
     private int id;
-    @NotNull(message = "Name cannot be null")
-    @Size(min=3, max=50, message = "Name must be between 3 and 50 char")
+    @NotNull(message = "Name can not be null")
+    @Size(min = 3, max = 50, message = "Name must be between 2 and 50 characters")
     private String name;
+    @Size(max = 255, message = "Description can not be longer than 255 characters")
     private String description;
     private Address address;
     private Set<Event> events;
