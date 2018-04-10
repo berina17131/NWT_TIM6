@@ -1,17 +1,10 @@
 package com.example.event_management.Controller;
 
 import com.example.event_management.Model.Category;
-import com.example.event_management.Model.Place;
-import com.example.event_management.Repository.CategoryRepository;
 import com.example.event_management.Service.CategoryService;
-import com.example.event_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/category")
