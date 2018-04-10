@@ -2,9 +2,11 @@ package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Event;
 import com.example.interaction_management.Repository.EventRepository;
+import com.netflix.appinfo.InstanceInfo;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Optional;
@@ -40,7 +42,7 @@ public class EventService {
     public Event getByTitle(String title) throws ServiceException {
         try {
             for (Event event : eventRepository.findAll()) {
-                if (event.getTitle().equals(title))
+                if (event.getName().equals(title))
                     return event;
             }
             throw new ServiceException("Cannot find place with title={" + title+ "}");
@@ -69,45 +71,29 @@ public class EventService {
         }
     }
 
-    public String postByTitle(String title) throws ServiceException {
+
+    public String createEvent(Event event) throws ServiceException {
         try {
-            Event event;
-            event = new Event(title);
             eventRepository.save(event);
 
-            return "event with title " + title + " saved successfully";
-        }catch (Exception e) {
-            throw new ServiceException("Cannot save place with title={" + title + "}");
+            return "Event with name = " + event.getName() + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
         }
     }
 
-    public String putById(String id, String newTitle) throws ServiceException {
+    public String putEvent(Event eventFromRequest) throws ServiceException {
         try {
-            Optional eventHelp = eventRepository.findById(Integer.parseInt(id));
+            Optional eventHelp = eventRepository.findById(eventFromRequest.getId());
             Event event = (Event) eventHelp.get();
-            String oldTitle = event.getTitle();
-            event.setTitle(newTitle);
+            event.setName(eventFromRequest.getName());
             eventRepository.save(event);
 
-            return "Event with old title " + oldTitle + " saved successfully as " + newTitle;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change event.");
+            return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
         }
-    }
-
-    public String putByTitle(String oldTitle, String newTitle) throws ServiceException {
-        try {
-            Event event = null;
-            for (Event eventHelp : eventRepository.findAll()) {
-                if (eventHelp.getTitle().equals(oldTitle))
-                    event = eventHelp;
-            }
-            event.setTitle(newTitle);
-            eventRepository.save(event);
-
-            return "event with old title " + oldTitle + " saved successfully as " + newTitle;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change event.");
+        catch (Exception e) {
+            throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");
         }
     }
 }

@@ -73,6 +73,11 @@ public class EventService {
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/event/all");
 
+            // Deleting all events in Interaction microservice
+            InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            RestTemplate restTemplate1 = new RestTemplate();
+            restTemplate1.delete("http://localhost:" + Integer.toString(instance1.getPort()) + "/event/all");
+
             return "All events deleted";
 
         }catch(Exception e) {
@@ -88,10 +93,17 @@ public class EventService {
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/event/" + id);
+
+            // Deleting Event with id = @id in Interaction microservice
+            InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            RestTemplate restTemplate1 = new RestTemplate();
+            restTemplate1.delete("http://localhost:" + Integer.toString(instance1.getPort()) + "/event/" + id);
+
+
             return "Event with id=" + id + " deleted";
 
         }catch(Exception e) {
-            throw new ServiceException("Cannot delete place with id={" + id + "}");
+            throw new ServiceException("Cannot delete event with id={" + id + "}");
         }
 
     }
@@ -103,6 +115,13 @@ public class EventService {
          InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
          RestTemplate restTemplate = new RestTemplate();
          restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
+
+         // Creating a event in Interaction microservice
+         InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+         RestTemplate restTemplate1 = new RestTemplate();
+         restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, Event.class);
+
+
          return "Event with name = " + event.getName() + " saved successfully";
      }
      catch (Exception e) {
@@ -121,6 +140,13 @@ public class EventService {
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
+
+            // Updating a event in Interaction microservice
+            InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            RestTemplate restTemplate1 = new RestTemplate();
+            restTemplate1.put("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, Event.class);
+
+
             return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
         }
         catch (Exception e) {

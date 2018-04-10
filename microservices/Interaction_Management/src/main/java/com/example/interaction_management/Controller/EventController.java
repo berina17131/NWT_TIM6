@@ -46,18 +46,13 @@ public class EventController {
         return ResponseEntity.ok(eventService.deleteById(id));
     }
 
-    @RequestMapping(value={"/create/{title}"}, method = RequestMethod.POST)
-    public ResponseEntity postByTitle(@PathVariable("title") String title) throws ServiceException {
-        return ResponseEntity.ok(eventService.postByTitle(title));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity createEvent(@RequestBody Event event) throws ServiceException {
+        return ResponseEntity.ok(eventService.createEvent(event));
     }
 
-    @RequestMapping(value={"/id/{id}/newTitle/{newTitle}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newTitle") String newTitle) throws ServiceException {
-        return ResponseEntity.ok(eventService.putById(id, newTitle));
-    }
-
-    @RequestMapping(value={"/oldTitle/{oldTitle}/newTitle/{newTitle}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByTitle(@PathVariable("oldTitle") String oldTitle, @PathVariable("newTitle") String newTitle) throws ServiceException {
-        return ResponseEntity.ok(eventService.putByTitle(oldTitle, newTitle));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putEvent(@RequestBody Event event) throws ServiceException {
+        return ResponseEntity.ok(eventService.putEvent(event));
     }
 }

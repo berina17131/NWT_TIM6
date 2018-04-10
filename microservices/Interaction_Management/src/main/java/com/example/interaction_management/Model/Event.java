@@ -10,8 +10,8 @@ public class Event {
     private int id;
 
     @NotNull
-    @Size(min = 2, max = 255)
-    private String title;
+    @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char")
+    private String name;
 
     private Set<Grade> grades;
     private Set<Comment> comments;
@@ -20,11 +20,10 @@ public class Event {
     protected Event() {}
 
     public Event (String title){
-        this.title = title;
+        this.name = name;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -33,12 +32,12 @@ public class Event {
         this.id = id;
     }
 
-    public String getTitle(){
-        return title;
+    public String getName(){
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
@@ -71,8 +70,8 @@ public class Event {
     @Override
     public String toString() {
         String result = String.format(
-                "Event[id=%d, title='%s']%n",
-                id, title);
+                "Event[id=%d, name='%s']%n",
+                id, name);
         if (grades != null) {
             for(Grade grade : grades) {
                 result += grade.toString();

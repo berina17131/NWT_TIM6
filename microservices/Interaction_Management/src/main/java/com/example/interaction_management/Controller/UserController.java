@@ -46,18 +46,13 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteById(id));
     }
 
-    @RequestMapping(value={"/create/{username}"}, method = RequestMethod.POST)
-    public ResponseEntity postByUsenname(@PathVariable("username") String username) throws ServiceException {
-        return ResponseEntity.ok(userService.postByUsername(username));
+    @RequestMapping(method = RequestMethod.POST)
+    public ResponseEntity createEvent(@RequestBody User user) throws ServiceException {
+        return ResponseEntity.ok(userService.createUser(user));
     }
 
-    @RequestMapping(value={"/id/{id}/newUsername/{newUsername}"}, method = RequestMethod.PUT)
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newUsername") String newUsername) throws ServiceException {
-        return ResponseEntity.ok(userService.putById(id, newUsername));
-    }
-
-    @RequestMapping(value={"/oldUsername/{oldUsername}/newUsername/{newUsername}"}, method = RequestMethod.PUT)
-    public ResponseEntity putByUsername(@PathVariable("oldUsername") String oldUsername, @PathVariable("newUsername") String newUsername) throws ServiceException {
-        return ResponseEntity.ok(userService.putByUsername(oldUsername, newUsername));
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putEvent(@RequestBody User user) throws ServiceException {
+        return ResponseEntity.ok(userService.putUser(user));
     }
 }

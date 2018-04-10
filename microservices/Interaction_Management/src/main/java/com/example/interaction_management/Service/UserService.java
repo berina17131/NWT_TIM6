@@ -71,7 +71,7 @@ public class UserService {
         }
     }
 
-    public String postByUsername(String username) throws ServiceException {
+ /*   public String postByUsername(String username) throws ServiceException {
         try {
             User user;
             user = new User(username);
@@ -110,6 +110,30 @@ public class UserService {
             return "User with old username " + oldUsername + " saved successfully as " + newUsername;
         }catch (Exception e) {
             throw new ServiceException("Cannot change user.");
+        }
+    }*/
+ public String createUser(User user) throws ServiceException {
+     try {
+         userRepository.save(user);
+
+         return "User with name = " + user.getUsername() + " saved successfully";
+     }
+     catch (Exception e) {
+         throw new ServiceException("Cannot create user with name = " + user.getUsername() + ".");
+     }
+ }
+
+    public String putUser(User userFromRequest) throws ServiceException {
+        try {
+            Optional userHelp = userRepository.findById(userFromRequest.getId());
+            User user = (User) userHelp.get();
+            user.setUsername(userFromRequest.getUsername());
+            userRepository.save(user);
+
+            return "User with id = " + user.getId() + " saved successfully as " + user.getUsername();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update user with id = " + userFromRequest.getId() + ".");
         }
     }
 }
