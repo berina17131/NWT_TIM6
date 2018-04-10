@@ -39,15 +39,11 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	}
 
 	@Bean
-	public CommandLineRunner run(RestTemplate restTemplate) throws Exception {
-		return args -> {
-			Event[] events = restTemplate.getForObject(
-					"http://localhost:8092/event/all", Event[].class);
-			List<Event> eventsList = Arrays.asList(events);
-			for (Event e : eventsList) {
-				log.info(e.toString());
-			}
-		};
+	public Set<Event> getEventsFromRestTemplate(RestTemplate restTemplate) throws Exception {
+		Event[] events = restTemplate.getForObject(
+				"http://localhost:8092/event/all", Event[].class);
+		Set<Event> eventsSet = new HashSet<Event>(Arrays.asList(events));
+		return eventsSet;
 	}
 
 	@Override
@@ -89,10 +85,10 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		}};
 		addressC.setPlaces(places);
 
-		Event eventA = new Event("Gost Katarina Grujić", placeA);
-		Set events = new HashSet<Event>(){{
-			add(eventA);
-		}};
+		RestTemplate restTemplate = new RestTemplate();
+
+		Set<Event> events = getEventsFromRestTemplate(restTemplate);
+
 		placeA.setEvents(events);
 
 		cityRepository.deleteAll();
@@ -100,7 +96,7 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		cityRepository.save(cityB);
 		cityRepository.save(cityC);
 
-		// fetch all categories
+		// fetch all cities
 		for (City city : cityRepository.findAll()) {
 			log.info(city.toString());
 		}

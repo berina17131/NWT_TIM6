@@ -16,17 +16,18 @@ public class Event {
 
     protected Event() {}
 
-    public Event(String title) {
+    public Event(int id, String title) {
+        this.id = id;
         this.title = title;
     }
 
-    public Event(String title, Place place) {
+    public Event(int id, String title, Place place) {
+        this.id = id;
         this.title = title;
         this.place = place;
     }
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
