@@ -1,5 +1,6 @@
 package com.example.place_management.Controller;
 
+import com.example.place_management.Model.City;
 import com.example.place_management.Service.CityService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
@@ -41,8 +42,8 @@ public class CityController {
     }
 
     @RequestMapping(value="/name/{name}", method = RequestMethod.POST)
-    public ResponseEntity postByName(@PathVariable("name") String name) throws ServiceException {
-        return ResponseEntity.ok(cityService.postByName(name));
+    public ResponseEntity postByName(@RequestBody City city) throws ServiceException {
+        return ResponseEntity.ok(cityService.postByName(city));
     }
     
     @RequestMapping(value="/id/{id}/newName/{newName}", method = RequestMethod.PUT)

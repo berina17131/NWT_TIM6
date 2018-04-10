@@ -73,14 +73,13 @@ public class AddressService {
         }
     }
 
-    public String postByName(String name) throws ServiceException {
+    public String postByName(Address address) throws ServiceException {
         try {
-            Address address = new Address(name);
             addressRepository.save(address);
-            return "Address with name = " + name + " saved successfully";
+            return "Address with name = " + address.getName() + " saved successfully";
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot create address with name = " + name + ".");
+            throw new ServiceException("Cannot create address with name = " + address.getName() + ".");
         }
     }
 

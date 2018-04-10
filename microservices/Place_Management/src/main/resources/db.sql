@@ -48,7 +48,7 @@ CREATE TABLE `place` (
 
 DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(10) unsigned NOT NULL,
   `title` varchar(255) DEFAULT NULL,
   `place_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),

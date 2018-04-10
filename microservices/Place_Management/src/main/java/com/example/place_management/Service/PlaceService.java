@@ -73,16 +73,13 @@ public class    PlaceService {
         }
     }
 
-    public String postByName(String name, Optional<String> description) throws ServiceException {
+    public String postByName(Place place) throws ServiceException {
         try {
-            Place place;
-            if (description.isPresent()) place = new Place(name, description.get());
-            else place = new Place(name, "");
             placeRepository.save(place);
-            return "Place with name = " + name + " saved successfully";
+            return "Place with name = " + place.getName() + " saved successfully";
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot create place with name = " + name + ".");
+            throw new ServiceException("Cannot create place with name = " + place.getName() + ".");
         }
     }
 

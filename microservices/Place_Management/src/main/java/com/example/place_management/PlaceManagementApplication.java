@@ -5,6 +5,8 @@ import com.example.place_management.Model.City;
 import com.example.place_management.Model.Event;
 import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.CityRepository;
+import com.netflix.appinfo.InstanceInfo;
+import com.netflix.discovery.EurekaClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class PlaceManagementApplication implements CommandLineRunner {
 	private static final Logger log = LoggerFactory.getLogger(PlaceManagementApplication.class);
 
 	@Autowired
+	private EurekaClient discoveryClient;
+
+	@Autowired
 	private CityRepository cityRepository;
 
 	public static void main(String[] args) {
@@ -40,8 +45,9 @@ public class PlaceManagementApplication implements CommandLineRunner {
 
 	@Bean
 	public Set<Event> getEventsFromRestTemplate(RestTemplate restTemplate) throws Exception {
+		InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
 		Event[] events = restTemplate.getForObject(
-				"http://localhost:8092/event/all", Event[].class);
+				"http://localhost:" + Integer.toString(instance.getPort()) + "/event/all", Event[].class);
 		Set<Event> eventsSet = new HashSet<Event>(Arrays.asList(events));
 		return eventsSet;
 	}

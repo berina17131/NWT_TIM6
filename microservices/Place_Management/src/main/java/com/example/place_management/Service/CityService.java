@@ -73,14 +73,13 @@ public class CityService {
         }
     }
 
-    public String postByName(String name) throws ServiceException {
+    public String postByName(City city) throws ServiceException {
         try {
-            City city = new City(name);
             cityRepository.save(city);
-            return "City with name = " + name + " saved successfully";
+            return "City with name = " + city.getName() + " saved successfully";
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot create city with name = " + name + ".");
+            throw new ServiceException("Cannot create city with name = " + city.getName() + ".");
         }
     }
 
