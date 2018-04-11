@@ -1,7 +1,7 @@
 package com.example.interaction_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,15 +9,19 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Event {
     private int id;
-    @NotNull (message = "Grade cannont be null")
+    @NotNull (message = "Name can not be null")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char")
     private String name;
 
+    @JsonIgnoreProperties("event")
     private Set<Grade> grades;
+
+    @JsonIgnoreProperties("event")
     private Set<Comment> comments;
+
+    @JsonIgnoreProperties("event")
     private Set<Status> statuses;
 
     protected Event() {}
