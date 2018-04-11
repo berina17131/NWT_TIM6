@@ -11,7 +11,7 @@ public class Status {
     private int id;
     @NotNull(message = "Status cannont be null")
     @Size(min=4, max = 10, message = "Status must be between 4 and 10 char")
-    private String st;
+    private String status;
     @JsonIgnoreProperties("statuses")
     private User user;
     @JsonIgnoreProperties("statuses")
@@ -20,7 +20,7 @@ public class Status {
     protected Status() {}
 
     public Status(String st) {
-        this.st = st;
+        this.status = st;
     }
 
     @Id
@@ -33,11 +33,11 @@ public class Status {
     }
 
     public String getSt() {
-        return this.st;
+        return this.status;
     }
 
     public void setSt(String st) {
-        this.st = st;
+        this.status = st;
     }
 
     @ManyToOne
@@ -64,6 +64,6 @@ public class Status {
     public String toString() {
         return String.format(
                 "Status[id=%d, status='%s']",
-                id, st);
+                id, status);
     }
 }

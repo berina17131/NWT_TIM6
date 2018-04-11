@@ -118,6 +118,7 @@ public class EventService {
 */
          // Creating a event in Interaction microservice
         // log.info("");
+         System.out.println("PRVI");
         InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
          RestTemplate restTemplate1 = new RestTemplate();
          restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, null);

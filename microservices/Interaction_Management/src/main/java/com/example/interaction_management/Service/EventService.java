@@ -75,7 +75,9 @@ public class EventService {
 
     public String createEvent(Event event) throws ServiceException {
         try {
-            eventRepository.save(new Event(event.getId(), event.getName()));
+            Event ev = new Event(event.getId(), event.getName());
+;                    System.out.println(ev.toString());
+            eventRepository.save(ev);
 
             return "Event with name = " + event.getName() + " saved successfully";
         }

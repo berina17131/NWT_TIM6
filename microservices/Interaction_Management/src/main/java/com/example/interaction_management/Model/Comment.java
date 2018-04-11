@@ -11,7 +11,7 @@ public class Comment {
     private int id;
     @NotNull (message = "Comment cannont be null")
     @Size(min = 2, max = 255, message = "Comment must be between 2 and 255 char")
-    private String com;
+    private String comment;
     @JsonIgnoreProperties("comments")
     private User user;
     @JsonIgnoreProperties("comments")
@@ -20,7 +20,7 @@ public class Comment {
     protected Comment() {}
 
     public Comment(String co) {
-        this.com = co;
+        this.comment = co;
     }
 
     @Id
@@ -33,11 +33,11 @@ public class Comment {
     }
 
     public String getCom() {
-        return this.com;
+        return this.comment;
     }
 
     public void setCom(String co) {
-        this.com = co;
+        this.comment = co;
     }
 
     @ManyToOne
@@ -64,6 +64,6 @@ public class Comment {
     public String toString() {
         return String.format(
                 "Comment[id=%d, comment='%s']",
-                id, com);
+                id, comment);
     }
 }

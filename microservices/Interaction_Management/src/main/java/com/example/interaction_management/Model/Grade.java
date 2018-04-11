@@ -13,7 +13,7 @@ public class Grade {
     @NotNull (message = "Grade cannont be null")
     @Min(value = 1, message = "Grade cannont be lower than 1")
     @Max(value = 5, message = "Grade cannont be higher than 5")
-    private int gr;
+    private int grade;
     @JsonIgnoreProperties("grades")
     private User user;
     @JsonIgnoreProperties("grades")
@@ -22,7 +22,7 @@ public class Grade {
     protected Grade() {}
 
     public Grade(int gr) {
-        this.gr = gr;
+        this.grade = gr;
     }
 
     @Id
@@ -55,17 +55,17 @@ public class Grade {
     }
 
     public int getGr() {
-        return this.gr;
+        return this.grade;
     }
 
     public void setGr(int gr) {
-        this.gr = gr;
+        this.grade = gr;
     }
 
     @Override
     public String toString() {
         return String.format(
                 "Grade[id=%d, grade='%d']",
-                id, gr);
+                id, grade);
     }
 }

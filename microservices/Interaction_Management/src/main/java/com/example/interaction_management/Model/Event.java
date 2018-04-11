@@ -1,6 +1,7 @@
 package com.example.interaction_management.Model;
 
 
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -31,10 +32,6 @@ public class Event {
         this.name = name;
     }
 
-    public Event(int id, @NotNull(message = "Name can not be null") @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char") String name) {
-        this.id = id;
-        this.name = name;
-    }
 
     @Id
     public int getId() {
@@ -53,7 +50,7 @@ public class Event {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
+    /*@OneToMany(mappedBy = "event", cascade = CascadeType.ALL)
     public Set<Comment> getComments() {
         return comments;
     }
@@ -78,14 +75,14 @@ public class Event {
 
     public void setStatuses(Set<Status> statuses) {
         this.statuses = statuses;
-    }
+    }*/
 
     @Override
     public String toString() {
         String result = String.format(
                 "Event[id=%d, name='%s']%n",
                 id, name);
-        if (grades != null) {
+        /*if (grades != null) {
             for(Grade grade : grades) {
                 result += grade.toString();
             }
@@ -101,7 +98,7 @@ public class Event {
             for(Status status : statuses) {
                 result += status.toString();
             }
-        }
+        }*/
 
         return result;
     }
