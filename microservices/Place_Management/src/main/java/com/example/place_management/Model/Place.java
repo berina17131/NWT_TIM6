@@ -1,6 +1,8 @@
 package com.example.place_management.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -8,6 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Place {
 
     private int id;
@@ -59,7 +62,6 @@ public class Place {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "address_id")
     public Address getAddress() {
         return address;

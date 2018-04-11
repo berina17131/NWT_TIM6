@@ -1,12 +1,17 @@
 package com.example.place_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Event {
 
     private int id;
@@ -46,7 +51,6 @@ public class Event {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "place_id")
     public Place getPlace() {
         return place;
