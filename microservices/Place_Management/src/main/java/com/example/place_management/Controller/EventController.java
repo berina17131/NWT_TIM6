@@ -16,6 +16,16 @@ public class EventController {
         this.eventService = eventService;
     }
 
+    @RequestMapping(value="/all", method = RequestMethod.GET)
+    public ResponseEntity getAll() throws ServiceException {
+        return ResponseEntity.ok(eventService.getAll());
+    }
+
+    @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
+    public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
+        return ResponseEntity.ok(eventService.getById(id));
+    }
+
     @RequestMapping(value="/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(eventService.deleteAll());

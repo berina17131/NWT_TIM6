@@ -1,20 +1,20 @@
 package com.example.interaction_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Status {
     private int id;
     @NotNull(message = "Status cannont be null")
     @Size(min=4, max = 10, message = "Status must be between 4 and 10 char")
     private String st;
+    @JsonIgnoreProperties("statuses")
     private User user;
+    @JsonIgnoreProperties("statuses")
     private Event event;
 
     protected Status() {}

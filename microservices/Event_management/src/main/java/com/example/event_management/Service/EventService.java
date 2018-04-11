@@ -111,15 +111,16 @@ public class EventService {
  public String createEvent(Event event) throws ServiceException {
      try {
          eventRepository.save(event);
-         // Creating a event in Place microservice
-         InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
+        /// Creating a event in Place microservice
+        /* InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
          RestTemplate restTemplate = new RestTemplate();
-         restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
-
+         restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, null);
+*/
          // Creating a event in Interaction microservice
-         InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+        // log.info("");
+        InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
          RestTemplate restTemplate1 = new RestTemplate();
-         restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, Event.class);
+         restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, null);
 
 
          return "Event with name = " + event.getName() + " saved successfully";
@@ -139,12 +140,12 @@ public class EventService {
             // Updating a event in Place microservice
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, Event.class);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event);
 
             // Updating a event in Interaction microservice
             InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
             RestTemplate restTemplate1 = new RestTemplate();
-            restTemplate1.put("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, Event.class);
+            restTemplate1.put("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event);
 
 
             return "Event with id = " + event.getId() + " saved successfully as " + event.getName();

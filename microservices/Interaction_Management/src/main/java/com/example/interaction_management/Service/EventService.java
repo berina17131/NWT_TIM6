@@ -7,6 +7,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import java.util.logging.Logger;
 
 import java.util.List;
 import java.util.Optional;
@@ -74,7 +75,7 @@ public class EventService {
 
     public String createEvent(Event event) throws ServiceException {
         try {
-            eventRepository.save(event);
+            eventRepository.save(new Event(event.getId(), event.getName()));
 
             return "Event with name = " + event.getName() + " saved successfully";
         }

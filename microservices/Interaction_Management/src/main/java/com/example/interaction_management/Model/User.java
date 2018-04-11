@@ -1,7 +1,6 @@
 package com.example.interaction_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,14 +8,19 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class User {
     private int id;
     @NotNull(message = "Username cannont be null")
     @Size(min = 4, max = 10, message = "Username must be between 4 and 10 char")
     private String username;
+
+    @JsonIgnoreProperties("user")
     private Set<Grade> grades;
+
+    @JsonIgnoreProperties("user")
     private Set<Comment> comments;
+
+    @JsonIgnoreProperties("user")
     private Set<Status> statuses;
 
     protected User() {}
@@ -42,7 +46,8 @@ public class User {
         this.username = username;
     }
 
-    public User(int id, @NotNull(message = "Username cannont be null") @Size(min = 4, max = 10, message = "Username must be between 4 and 10 char") String username) {
+
+    public User(int id, String username) {
         this.id = id;
         this.username = username;
     }

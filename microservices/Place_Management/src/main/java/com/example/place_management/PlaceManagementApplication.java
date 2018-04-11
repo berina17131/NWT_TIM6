@@ -47,7 +47,7 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		}};
 		cityB.setAddresses(addresses);
 
-		cityRepository.deleteAll();
+		//cityRepository.deleteAll();
 		cityRepository.save(cityA);
 		cityRepository.save(cityB);
 		cityRepository.save(cityC);

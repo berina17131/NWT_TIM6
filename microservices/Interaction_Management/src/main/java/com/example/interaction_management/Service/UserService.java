@@ -71,47 +71,6 @@ public class UserService {
         }
     }
 
- /*   public String postByUsername(String username) throws ServiceException {
-        try {
-            User user;
-            user = new User(username);
-            userRepository.save(user);
-
-            return "user with title " + username + " saved successfully";
-        }catch (Exception e) {
-            throw new ServiceException("Cannot save user with title={" + username + "}");
-        }
-    }
-
-    public String putById(String id, String newUsername) throws ServiceException {
-        try {
-            Optional userHelp = userRepository.findById(Integer.parseInt(id));
-            User user = (User) userHelp.get();
-            String oldUsername = user.getUsername();
-            user.setUsername(newUsername);
-            userRepository.save(user);
-
-            return "User with old title " + oldUsername + " saved successfully as " + newUsername;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change user.");
-        }
-    }
-
-    public String putByUsername(String oldUsername, String newUsername) throws ServiceException {
-        try {
-            User user = null;
-            for (User userHelp : userRepository.findAll()) {
-                if (userHelp.getUsername().equals(oldUsername))
-                    user = userHelp;
-            }
-            user.setUsername(newUsername);
-            userRepository.save(user);
-
-            return "User with old username " + oldUsername + " saved successfully as " + newUsername;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot change user.");
-        }
-    }*/
  public String createUser(int id, String username) throws ServiceException {
      try {
          User u;

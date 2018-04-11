@@ -1,20 +1,20 @@
 package com.example.interaction_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Comment {
     private int id;
     @NotNull (message = "Comment cannont be null")
     @Size(min = 2, max = 255, message = "Comment must be between 2 and 255 char")
     private String com;
+    @JsonIgnoreProperties("comments")
     private User user;
+    @JsonIgnoreProperties("comments")
     private Event event;
 
     protected Comment() {}
