@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="addressId")
 public class Address {
 
     private int id;
