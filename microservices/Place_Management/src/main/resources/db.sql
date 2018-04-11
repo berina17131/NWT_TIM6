@@ -1,53 +1,57 @@
-DROP DATABASE IF EXISTS `place_management_database`;
-CREATE DATABASE  IF NOT EXISTS `place_management_database`;
-USE `place_management_database`;
+DROP DATABASE IF EXISTS `base`;
+CREATE DATABASE  IF NOT EXISTS `base`;
+USE `base`;
 
---
--- Table structure for table `city`
---
-
-CREATE TABLE `city` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(30) NOT NULL,
+DROP TABLE IF EXISTS `user`;
+CREATE TABLE `user` (
+  `id` int(10) unsigned NOT NULL,
+  `username` varchar(10) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
---
--- Table structure for table `address`
---
-
-CREATE TABLE `address` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `city_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_address_city_id_idx` (`city_id`),
-  CONSTRAINT `fk_address_city_id` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
---
--- Table structure for table `place`
---
-
-CREATE TABLE `place` (
-  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) NOT NULL,
-  `description` varchar(255) DEFAULT NULL,
-  `address_id` int(10) unsigned NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `fk_place_address_id_idx` (`address_id`),
-  CONSTRAINT `fk_place_address_id` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
-
---
--- Table structure for table `event`
---
-
+DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(50) NOT NULL,
-  `place_id` int(10) unsigned NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `comment`;
+CREATE TABLE `comment` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `comment` varchar(255) NOT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `event_id` int(10) unsigned DEFAULT NULL,
   PRIMARY KEY (`id`),
-  KEY `fk_event_place_id_idx` (`place_id`),
-  CONSTRAINT `fk_event_place_id` FOREIGN KEY (`place_id`) REFERENCES `place` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+  KEY `fk_comment_user_id_idx` (`user_id`),
+  KEY `fk_comment_event_id_idx` (`event_id`),
+  CONSTRAINT `fk_comment_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_comment_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `grade`;
+CREATE TABLE `grade` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `grade` int(10) NOT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `event_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_grade_user_id_idx` (`user_id`),
+  KEY `fk_grade_event_id_idx` (`event_id`),
+  CONSTRAINT `fk_grade_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_grade_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS `status`;
+CREATE TABLE `status` (
+  `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
+  `status` varchar(10) NOT NULL,
+  `user_id` int(10) unsigned DEFAULT NULL,
+  `event_id` int(10) unsigned DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_status_user_id_idx` (`user_id`),
+  KEY `fk_status_event_id_idx` (`event_id`),
+  CONSTRAINT `fk_status_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `fk_status_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
