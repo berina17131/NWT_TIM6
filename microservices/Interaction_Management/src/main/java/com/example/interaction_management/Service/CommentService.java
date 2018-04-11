@@ -2,6 +2,7 @@ package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Comment;
 import com.example.interaction_management.Model.Grade;
+import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Repository.CommentRepository;
 import com.example.interaction_management.Repository.GradeRepository;
 import org.hibernate.service.spi.ServiceException;
@@ -80,6 +81,31 @@ public class CommentService {
             return "Comment with id=" + id + " changed to " + newComment;
         }catch (Exception e) {
             throw new ServiceException("Cannot change comment.");
+        }
+    }
+
+    public String createComment(Comment comment) throws ServiceException {
+        try {
+            commentRepository.save(comment);
+
+            return "Comment = " + comment.getCom() + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create comment = " + comment.getCom() + ".");
+        }
+    }
+
+    public String putComment(Comment commentFromRequest) throws ServiceException {
+        try {
+            Optional commentHelp = commentRepository.findById(commentFromRequest.getId());
+            Comment comment = (Comment) commentHelp.get();
+            comment.setCom(commentFromRequest.getCom());
+            commentRepository.save(comment);
+
+            return "Comment with id= " + comment.getCom() + " saved successfully as " + comment.getCom();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update comment with id = " + commentFromRequest.getId() + ".");
         }
     }
 }

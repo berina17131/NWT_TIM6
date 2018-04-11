@@ -1,6 +1,7 @@
 package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Comment;
+import com.example.interaction_management.Model.Grade;
 import com.example.interaction_management.Model.Status;
 import com.example.interaction_management.Repository.CommentRepository;
 import com.example.interaction_management.Repository.StatusRepository;
@@ -80,6 +81,31 @@ public class StatusService {
             return "Status with id=" + id + " changed to " + newStatus;
         }catch (Exception e) {
             throw new ServiceException("Cannot change status.");
+        }
+    }
+
+    public String createStatus(Status status) throws ServiceException {
+        try {
+            statusRepository.save(status);
+
+            return "Status = " + status.getSt() + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create status = " + status.getSt() + ".");
+        }
+    }
+
+    public String putStatus(Status statusFromRequest) throws ServiceException {
+        try {
+            Optional statusHelp = statusRepository.findById(statusFromRequest.getId());
+            Status status = (Status) statusHelp.get();
+            status.setSt(statusFromRequest.getSt());
+            statusRepository.save(status);
+
+            return "Status with id= " + status.getId() + " saved successfully as " + status.getSt();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update status with id = " + statusFromRequest.getId() + ".");
         }
     }
 }
