@@ -1,7 +1,6 @@
 package com.example.place_management.Model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,13 +10,13 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="eventId")
 public class Event {
 
     private int id;
     @NotNull(message = "Name can not be null")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
+    @JsonIgnoreProperties("events")
     private Place place;
 
     protected Event() {}
