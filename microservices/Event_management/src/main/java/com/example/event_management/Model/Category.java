@@ -6,6 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Category {
@@ -17,6 +18,7 @@ public class Category {
 
     private String description;
 
+    @JsonIgnoreProperties("category")
     private Set<Event> events;
 
 

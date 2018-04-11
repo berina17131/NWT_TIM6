@@ -10,6 +10,7 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Set;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Place {
@@ -19,6 +20,7 @@ public class Place {
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 characters")
     private String name;
 
+    @JsonIgnoreProperties("place")
     private Set<Event> events;
 
     public Place() {}
@@ -27,7 +29,7 @@ public class Place {
 
     @Id
     @NotNull
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

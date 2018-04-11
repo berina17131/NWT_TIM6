@@ -1,7 +1,8 @@
 package com.example.event_management.Model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -16,7 +17,11 @@ public class Event {
     private String name;
     @Size(max = 255, message = "Description can not be longer than 255 characters")
     private String description;
+
+    @JsonIgnoreProperties("events")
     private Category category;
+
+    @JsonIgnoreProperties("events")
     private Place place;
 
     public Event() {}
@@ -65,7 +70,6 @@ public class Event {
 
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "place_id")
     public Place getPlace() {
         return place;
@@ -76,7 +80,6 @@ public class Event {
     }
 
     @ManyToOne
-    @JsonIgnore
     @JoinColumn(name = "category_id")
     public Category getCategory() {
         return category;
