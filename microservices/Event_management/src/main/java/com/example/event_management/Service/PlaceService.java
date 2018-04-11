@@ -75,8 +75,26 @@ public class PlaceService {
         }
     }
 
+    public String createPlace(Place place) throws ServiceException {
+        try {
+            placeRepository.save(place);
+            return "Place with name = " + place.getName() + " saved successfully";
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot create place with name = " + place.getName() + ".");
+        }
+    }
 
-
-
-
+    public String putPlace(Place placeFromRequest) throws ServiceException {
+        try {
+            Optional placeHelp = placeRepository.findById(placeFromRequest.getId());
+            Place place = (Place) placeHelp.get();
+            place.setName(placeFromRequest.getName());
+            placeRepository.save(place);
+            return "Place with id = " + place.getId() + " saved successfully as " + place.getName();
+        }
+        catch (Exception e) {
+            throw new ServiceException("Cannot update place with id = " + placeFromRequest.getId() + ".");
+        }
+    }
 }

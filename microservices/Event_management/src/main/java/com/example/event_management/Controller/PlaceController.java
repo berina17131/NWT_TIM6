@@ -1,12 +1,10 @@
 package com.example.event_management.Controller;
 
+import com.example.event_management.Model.Place;
 import com.example.event_management.Service.PlaceService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/place")
@@ -46,7 +44,7 @@ public class PlaceController {
         return ResponseEntity.ok(placeService.deleteById(id));
 
     }
-/*
+
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity postNewPlace(@RequestBody Place place) throws ServiceException {
         return ResponseEntity.ok(placeService.createPlace(place));
@@ -55,5 +53,5 @@ public class PlaceController {
     @RequestMapping(method = RequestMethod.PUT)
     public ResponseEntity putChangePlace(@RequestBody Place place) throws ServiceException {
         return ResponseEntity.ok(placeService.putPlace(place));
-    }*/
+    }
 }

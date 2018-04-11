@@ -102,7 +102,7 @@ public class PlaceService {
             // Creating a place in Event microservice
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, Place.class);
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, null);
             return "Place with name = " + place.getName() + " saved successfully";
         }
         catch (Exception e) {
@@ -120,7 +120,7 @@ public class PlaceService {
             // Updating a place in Event microservice
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, Place.class);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place);
             return "Place with id = " + place.getId() + " saved successfully as " + place.getName();
         }
         catch (Exception e) {
