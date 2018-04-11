@@ -30,6 +30,11 @@ public class Event {
         this.name = name;
     }
 
+    public Event(int id, @NotNull(message = "Name can not be null") @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char") String name) {
+        this.id = id;
+        this.name = name;
+    }
+
     @Id
     public int getId() {
         return id;

@@ -127,14 +127,14 @@ public class UserService {
      }
  }
 
-    public String putUser(User userFromRequest) throws ServiceException {
+    public String putUser(int id, User userFromRequest) throws ServiceException {
         try {
-            Optional userHelp = userRepository.findById(userFromRequest.getId());
+            Optional userHelp = userRepository.findById(id);
             User user = (User) userHelp.get();
             user.setUsername(userFromRequest.getUsername());
-            userRepository.save(user);
+            userRepository.changeUser(id, user.getUsername());
 
-            return "User with id = " + user.getId() + " saved successfully as " + user.getUsername();
+            return "User with id = " + id + " saved successfully as " + user.getUsername();
         }
         catch (Exception e) {
             throw new ServiceException("Cannot update user with id = " + userFromRequest.getId() + ".");

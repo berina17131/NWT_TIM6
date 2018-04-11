@@ -47,14 +47,15 @@ public class UserController {
     }
 
     @RequestMapping(value="/create/{id}/{username}", method = RequestMethod.POST)
-    public ResponseEntity createEvent(@PathVariable("id") int id, @PathVariable("username") String username) throws ServiceException {
+    public ResponseEntity createUser(@PathVariable("id") int id, @PathVariable("username") String username) throws ServiceException {
         System.out.println(id);
         System.out.println(username);
         return ResponseEntity.ok(userService.createUser(id, username));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity putEvent(@RequestBody User user) throws ServiceException {
-        return ResponseEntity.ok(userService.putUser(user));
+    @RequestMapping(value="/update/{id}", method = RequestMethod.PUT)
+    public ResponseEntity putUser(@PathVariable("id") int id, @RequestBody User user) throws ServiceException {
+        System.out.println(user);
+        return ResponseEntity.ok(userService.putUser(id, user));
     }
 }
