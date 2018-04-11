@@ -1,11 +1,15 @@
 package com.example.interaction_management.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Grade {
     private int id;
     @NotNull (message = "Grade cannont be null")

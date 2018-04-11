@@ -1,10 +1,14 @@
 package com.example.interaction_management.Model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
+@JsonIdentityInfo(generator=ObjectIdGenerators.IntSequenceGenerator.class, property="id")
 public class Status {
     private int id;
     @NotNull(message = "Status cannont be null")

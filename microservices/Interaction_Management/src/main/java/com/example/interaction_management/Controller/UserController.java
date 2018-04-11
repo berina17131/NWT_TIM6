@@ -46,9 +46,11 @@ public class UserController {
         return ResponseEntity.ok(userService.deleteById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity createEvent(@RequestBody User user) throws ServiceException {
-        return ResponseEntity.ok(userService.createUser(user));
+    @RequestMapping(value="/create/{id}/{username}", method = RequestMethod.POST)
+    public ResponseEntity createEvent(@PathVariable("id") int id, @PathVariable("username") String username) throws ServiceException {
+        System.out.println(id);
+        System.out.println(username);
+        return ResponseEntity.ok(userService.createUser(id, username));
     }
 
     @RequestMapping(method = RequestMethod.PUT)

@@ -55,13 +55,6 @@ public class Role {
     @Override
     public String toString() {
         String result = String.format("Role[id=%d, role='%s']%n", id, role);
-        /*if(users != null) {
-            for(User user : users ) {
-                result += String.format(
-                        "User[id=%d, username='%s']%n",
-                        user.getId(), user.getUsername());
-            }
-        }*/
         return result;
     }
 }

@@ -41,4 +41,9 @@ public class UserController {
     public ResponseEntity deleteAllUsers() {
         return ResponseEntity.ok(userService.deleteAllUsers());
     }
+
+    @RequestMapping(method = RequestMethod.PUT)
+    public ResponseEntity putChangeUser(@RequestBody User user) throws ServiceException {
+        return ResponseEntity.ok(userService.putChangeUser(user));
+    }
 }

@@ -112,14 +112,18 @@ public class UserService {
             throw new ServiceException("Cannot change user.");
         }
     }*/
- public String createUser(User user) throws ServiceException {
+ public String createUser(int id, String username) throws ServiceException {
      try {
-         userRepository.save(user);
+         User u;
+         u = new User(id, username);
+         System.out.println("HEHEHEHHEHEEH");
+         System.out.println(u);
+         userRepository.saveUser(id, username);
 
-         return "User with name = " + user.getUsername() + " saved successfully";
+         return "User with name = " + u.getUsername() + " saved successfully";
      }
      catch (Exception e) {
-         throw new ServiceException("Cannot create user with name = " + user.getUsername() + ".");
+         throw new ServiceException("Cannot create user with name = " + username + ".");
      }
  }
 
