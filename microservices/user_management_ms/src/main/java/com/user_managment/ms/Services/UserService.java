@@ -54,7 +54,6 @@ public class UserService {
     public User createUser(User user) throws ServiceException {
         try {
             User u = userRepository.save(user);
-            System.out.println(u);
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/user/create/" + u.getId() + "/" + user.getUsername(), null, null);
@@ -93,11 +92,11 @@ public class UserService {
 
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user", user, User.class);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), user);
             return "User with id = " + u.getId() + " saved successfully";
         }
         catch (Exception e) {
-            throw new ServiceException("Cannot update place with id = " + u.getId() + ".");
+            throw new ServiceException("Cannot update user with id = " + u.getId() + ".");
         }
     }
 }

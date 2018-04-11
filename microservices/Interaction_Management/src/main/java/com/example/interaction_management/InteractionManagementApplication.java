@@ -42,12 +42,18 @@ public class InteractionManagementApplication implements CommandLineRunner {
 	@Override
 	@Transactional
 	public void run (String... strings) throws  Exception {
+<<<<<<< HEAD
 		//final User user1 = new User(3,"Ussser");
 		//System.out.println(user1.toString());
 		//userRepository.saveUser(user1.getId(), user1.getUsername());
 		//log.info(user1.toString());
+=======
+		/*final User user1 = new User(1,"username1");
+		userRepository.saveUser(user1.getId(), user1.getUsername());
+		log.info(user1.toString());
+>>>>>>> 6e4d68c448af949c1e543ba4241384ffddeff553
 
-	/*	final Event event1 = new Event("Eveent");
+		final Event event1 = new Event(1, "Eveent");
 
 		final Grade grade1 = new Grade(5);
 		final Grade grade2 = new Grade(3);
