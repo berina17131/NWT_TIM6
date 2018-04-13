@@ -25,7 +25,6 @@ public class EventService {
         this.placeRepository = pr;
     }
 
-
     public List<Event> getAll() throws ServiceException {
         try {
             return eventRepository.findAll();
@@ -98,7 +97,7 @@ public class EventService {
             Event event = (Event) eventHelp.get();
             event.setName(eventFromRequest.getName());
             eventRepository.save(event);
-            return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
+            return "Event with id = " + event.getId() + " and name = " + event.getName() + " updated successfully";
         }
         catch (Exception e) {
             throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");

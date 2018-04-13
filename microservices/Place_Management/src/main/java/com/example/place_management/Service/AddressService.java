@@ -89,7 +89,7 @@ public class AddressService {
             Address address = (Address) addressHelp.get();
             address.setName(addressFromRequest.getName());
             addressRepository.save(address);
-            return "Address with id = " + address.getId() + " saved successfully as " + address.getName();
+            return "Address with id = " + address.getId() + " and name = " + address.getName() + " updated successfully";
         }
         catch (Exception e) {
             throw new ServiceException("Cannot update address with id = " + addressFromRequest.getId() + ".");

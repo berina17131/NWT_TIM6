@@ -121,7 +121,7 @@ public class PlaceService {
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place);
-            return "Place with id = " + place.getId() + " saved successfully as " + place.getName();
+            return "Place with id = " + place.getId() + " and name = " + place.getName() + " updated successfully";
         }
         catch (Exception e) {
             throw new ServiceException("Cannot update place with id = " + placeFromRequest.getId() + ".");

@@ -89,7 +89,7 @@ public class CityService {
             City city = (City) cityHelp.get();
             city.setName(cityFromRequest.getName());
             cityRepository.save(city);
-            return "City with id = " + city.getId() + " saved successfully as " + city.getName();
+            return "City with id = " + city.getId() + " and name = " + city.getName() + " updated successfully";
         }
         catch (Exception e) {
             throw new ServiceException("Cannot update city with id = " + cityFromRequest.getId() + ".");
