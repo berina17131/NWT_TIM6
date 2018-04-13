@@ -5,6 +5,8 @@ import com.netflix.discovery.EurekaClient;
 import com.user_managment.ms.Models.User;
 import com.user_managment.ms.Repository.UserRepository;
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
@@ -18,10 +20,15 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final RabbitTemplate rabbitTemplate;
+    private final Exchange exchange;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    public UserService(RabbitTemplate rabbitTemplate, Exchange exchange, UserRepository usersRepository){
+               this.exchange = exchange;
+               this.rabbitTemplate = rabbitTemplate;
+               this.userRepository = usersRepository;
+               //usersRepository.deleteAll();
     }
 
     public List<User> getAllUsers() throws ServiceException {
@@ -66,6 +73,10 @@ public class UserService {
     public String deleteUser(String id) throws ServiceException {
         try {
             userRepository.deleteById(Integer.parseInt(id));
+            String routingKey = "user.deleted";
+            String message = id;
+
+            rabbitTemplate.convertAndSend(exchange.getName(), routingKey, message);
             return "User deleted";
         } catch (Exception e) {
             throw new ServiceException("Cannot delete user with id={" + id + "}");

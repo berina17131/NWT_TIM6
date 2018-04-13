@@ -5,6 +5,8 @@ import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Repository.EventRepository;
 import com.example.interaction_management.Repository.UserRepository;
 import org.hibernate.service.spi.ServiceException;
+import org.springframework.amqp.core.Exchange;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,11 +15,17 @@ import java.util.Optional;
 
 @Service
 public class UserService {
+
     private final UserRepository userRepository;
+    private final RabbitTemplate rabbitTemplate;
+    private final Exchange exchange;
 
     @Autowired
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, RabbitTemplate rabbitTemplate, Exchange exchange) {
+
         this.userRepository = userRepository;
+        this.exchange = exchange;
+        this.rabbitTemplate = rabbitTemplate;
     }
 
     public List<User> getAll() throws ServiceException {
