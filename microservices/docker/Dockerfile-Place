@@ -1,0 +1,8 @@
+FROM alpine-jdk:base
+VOLUME /tmp
+MAINTAINER javaonfly
+RUN apk --no-cache add netcat-openbsd
+COPY place.jar /var/lib/docker/
+ENTRYPOINT ["java"]
+CMD ["-jar", "/var/lib/docker/place.jar"]
+EXPOSE 8099

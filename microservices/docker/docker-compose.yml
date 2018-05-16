@@ -1,0 +1,110 @@
+version: '2.2'
+services:
+    eureka-server:
+        container_name: eureka-server
+        build:
+            context: .
+            dockerfile: Dockerfile-EurekaServer
+        image: eureka-server:latest
+        expose:
+            - 8761
+        ports:
+            - 8761:8761
+        networks:
+            - emp-network
+    PlaceService:
+        container_name: Place
+        build:
+            context: .
+            dockerfile: Dockerfile-Place
+        image: place:latest
+        expose:
+            - 8099
+        ports:
+            - 8099:8099
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+    EventService:
+        container_name: Event
+        build:
+            context: .
+            dockerfile: Dockerfile-Event
+        image: event:latest
+        expose:
+            - 8092
+        ports:
+            - 8092:8092
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+    UserService:
+        container_name: User
+        build:
+            context: .
+            dockerfile: Dockerfile-User
+        image: user:latest
+        expose:
+            - 8070
+        ports:
+            - 8070:8070
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+    InteractionService:
+        container_name: Interaction
+        build:
+            context: .
+            dockerfile: Dockerfile-Interaction
+        image: interaction:latest
+        expose:
+            - 8181
+        ports:
+            - 8181:8181
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+    GatewayService:
+        container_name: Gateway
+        build:
+            context: .
+            dockerfile: Dockerfile-Gateway
+        image: gateway:latest
+        expose:
+            - 8080
+        ports:
+            - 8080:8080
+        networks:
+            - emp-network
+        links:
+            - eureka-server:eureka-server
+        depends_on:
+            - eureka-server
+        logging:
+            driver: json-file
+networks:
+    emp-network:
+        driver: bridge
+volumes:
+    tmp:
+        external: false
