@@ -8,13 +8,23 @@ import { KulturaComponent } from './kultura/kultura.component';
 import { SportComponent } from './sport/sport.component';
 import { ZabavaComponent } from './zabava/zabava.component';
 import { NaukaComponent } from './nauka/nauka.component';
+import { NaukaDetaljiComponent } from './nauka-detalji/nauka-detalji.component';
+import { SportDetaljiComponent } from './sport-detalji/sport-detalji.component';
+import { ZabavaDetaljiComponent } from './zabava-detalji/zabava-detalji.component';
+import { KulturaDetaljiComponent } from './kultura-detalji/kultura-detalji.component';
+import { MuzikaDetaljiComponent } from './muzika-detalji/muzika-detalji.component';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
   { path: 'kultura', component: KulturaComponent },
   { path: 'sport', component: SportComponent },
   { path: 'zabava', component: ZabavaComponent },
-  { path: 'nauka', component: NaukaComponent }
+  { path: 'nauka', component: NaukaComponent },
+  { path: 'kultura-detalji', component: KulturaDetaljiComponent },
+  { path: 'nauka-detalji', component: NaukaDetaljiComponent },
+  { path: 'zabava-detalji', component: ZabavaDetaljiComponent },
+  { path: 'sport-detalji', component: SportDetaljiComponent },
+  { path: 'muzika-detalji', component: MuzikaDetaljiComponent }
 ];
 
 
@@ -25,7 +35,12 @@ const routes: Routes = [
     KulturaComponent,
     SportComponent,
     ZabavaComponent,
-    NaukaComponent
+    NaukaComponent,
+    NaukaDetaljiComponent,
+    SportDetaljiComponent,
+    ZabavaDetaljiComponent,
+    KulturaDetaljiComponent,
+    MuzikaDetaljiComponent
   ],
   imports: [
     BrowserModule,
