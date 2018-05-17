@@ -9,12 +9,5 @@ import {Router} from '@angular/router';
 export class AppComponent {
   title = 'app';
 
-  constructor(private router: Router) {
-
-  }
-
-  /*goToMuzikaComponent() {
-    this.router.navigate(['/muzika']);
-  }*/
-
+  constructor(private router: Router) {}
 }
