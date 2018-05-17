@@ -1,0 +1,6 @@
+FROM alpine-jdk:base
+VOLUME /tmp
+MAINTAINER javaonfly
+COPY gateway.jar /var/lib/docker/
+ENTRYPOINT ["java", "-jar", "/var/lib/docker/gateway.jar"]
+EXPOSE 8080

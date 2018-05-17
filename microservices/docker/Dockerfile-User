@@ -1,0 +1,8 @@
+FROM alpine-jdk:base
+VOLUME /tmp
+MAINTAINER javaonfly
+RUN apk --no-cache add netcat-openbsd
+COPY user.jar /var/lib/docker/
+ENTRYPOINT ["java"]
+CMD ["-jar", "/var/lib/docker/user.jar"]
+EXPOSE 8070
