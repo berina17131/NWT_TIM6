@@ -13,6 +13,7 @@ import { SportDetaljiComponent } from './sport-detalji/sport-detalji.component';
 import { ZabavaDetaljiComponent } from './zabava-detalji/zabava-detalji.component';
 import { KulturaDetaljiComponent } from './kultura-detalji/kultura-detalji.component';
 import { MuzikaDetaljiComponent } from './muzika-detalji/muzika-detalji.component';
+import { AdminLokacijaComponent } from './admin-lokacija/admin-lokacija.component';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'nauka-detalji', component: NaukaDetaljiComponent },
   { path: 'zabava-detalji', component: ZabavaDetaljiComponent },
   { path: 'sport-detalji', component: SportDetaljiComponent },
-  { path: 'muzika-detalji', component: MuzikaDetaljiComponent }
+  { path: 'muzika-detalji', component: MuzikaDetaljiComponent },
+  { path: 'admin-lokacija', component: AdminLokacijaComponent }
 ];
 
 
@@ -40,7 +42,8 @@ const routes: Routes = [
     SportDetaljiComponent,
     ZabavaDetaljiComponent,
     KulturaDetaljiComponent,
-    MuzikaDetaljiComponent
+    MuzikaDetaljiComponent,
+    AdminLokacijaComponent
   ],
   imports: [
     BrowserModule,
