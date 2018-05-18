@@ -16,6 +16,9 @@ import { MuzikaDetaljiComponent } from './muzika-detalji/muzika-detalji.componen
 import { AdminLokacijaComponent } from './admin-lokacija/admin-lokacija.component';
 import { PlaceService } from './services/place/place.service';
 import { EventService } from './services/event/event.service';
+import { AdminUseriComponent } from './admin-useri/admin-useri.component';
+import { AdminEventsComponent } from './admin-events/admin-events.component';
+import { UserDetaljiComponent } from './user-detalji/user-detalji.component';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
@@ -28,7 +31,9 @@ const routes: Routes = [
   { path: 'zabava-detalji', component: ZabavaDetaljiComponent },
   { path: 'sport-detalji', component: SportDetaljiComponent },
   { path: 'muzika-detalji', component: MuzikaDetaljiComponent },
-  { path: 'admin-lokacija', component: AdminLokacijaComponent }
+  { path: 'admin-lokacija', component: AdminLokacijaComponent },
+  { path: 'admin-useri', component: AdminUseriComponent },
+  { path: 'admin-events', component: AdminEventsComponent }
 ];
 
 
@@ -45,7 +50,10 @@ const routes: Routes = [
     ZabavaDetaljiComponent,
     KulturaDetaljiComponent,
     MuzikaDetaljiComponent,
-    AdminLokacijaComponent
+    AdminLokacijaComponent,
+    AdminUseriComponent,
+    AdminEventsComponent,
+    UserDetaljiComponent
   ],
   imports: [
     BrowserModule,
