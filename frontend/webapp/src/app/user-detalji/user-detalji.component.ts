@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserService } from '../services/user/user.service';
 
 @Component({
   selector: 'app-user-detalji',
@@ -7,9 +8,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetaljiComponent implements OnInit {
 
-  constructor() { }
+  userr: any;
+  id: number;
+
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
+    this.getUserById();
+  }
+
+  getUserById() {
+    this.userService.getUserById(this.id).subscribe(data => {
+      this.userr = data;
+    });
   }
 
 }

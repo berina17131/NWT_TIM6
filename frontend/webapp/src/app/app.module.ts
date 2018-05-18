@@ -33,7 +33,8 @@ const routes: Routes = [
   { path: 'muzika-detalji', component: MuzikaDetaljiComponent },
   { path: 'admin-lokacija', component: AdminLokacijaComponent },
   { path: 'admin-useri', component: AdminUseriComponent },
-  { path: 'admin-events', component: AdminEventsComponent }
+  { path: 'admin-events', component: AdminEventsComponent },
+  { path: 'user-detalji', component: UserDetaljiComponent }
 ];
 
 
