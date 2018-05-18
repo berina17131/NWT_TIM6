@@ -14,6 +14,8 @@ import { ZabavaDetaljiComponent } from './zabava-detalji/zabava-detalji.componen
 import { KulturaDetaljiComponent } from './kultura-detalji/kultura-detalji.component';
 import { MuzikaDetaljiComponent } from './muzika-detalji/muzika-detalji.component';
 import { AdminLokacijaComponent } from './admin-lokacija/admin-lokacija.component';
+import { PlaceService } from './services/place/place.service';
+import { EventService } from './services/event/event.service';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
@@ -49,7 +51,7 @@ const routes: Routes = [
     BrowserModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [],
+  providers: [PlaceService, EventService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

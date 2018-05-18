@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { EventService } from '../services/event/event.service';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Http, Headers, Response, RequestOptions } from '@angular/http';
 
 @Component({
   selector: 'app-kultura',
@@ -7,9 +10,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class KulturaComponent implements OnInit {
 
-  constructor() { }
+  events: any;
+  constructor(private eventService: EventService, private http: HttpClient) { }
 
   ngOnInit() {
+    this.getAllEvents();
   }
 
+  getAllEvents() {
+    this.eventService.getAllEvents().subscribe(data => {
+      this.events = data;
+    });
+  }
 }
