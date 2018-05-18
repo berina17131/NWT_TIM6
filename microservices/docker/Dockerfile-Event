@@ -1,8 +1,9 @@
 FROM alpine-jdk:base
-VOLUME /tmp
 MAINTAINER javaonfly
 RUN apk --no-cache add netcat-openbsd
-COPY event.jar /var/lib/docker/
-ENTRYPOINT ["java"]
-CMD ["-jar", "/var/lib/docker/event.jar"]
+COPY ./event_management.jar /opt/lib/
+COPY ./Event-entrypoint.sh /opt/bin/Event-entrypoint.sh
+RUN chmod 755 /opt/bin/Event-entrypoint.sh
+ENTRYPOINT ["/usr/bin/java"]
+CMD ["-jar", "/opt/lib/event_management.jar"]
 EXPOSE 8092

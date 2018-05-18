@@ -1,6 +1,5 @@
 package com.example.interaction_management;
 
-import com.example.interaction_management.Model.*;
 import com.example.interaction_management.Repository.EventRepository;
 import com.example.interaction_management.Repository.UserRepository;
 import org.slf4j.Logger;
@@ -14,10 +13,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-
 import javax.transaction.Transactional;
-import java.util.HashSet;
-import java.util.Set;
 
 @SpringBootApplication
 @ComponentScan({"com.example.interaction_management"})

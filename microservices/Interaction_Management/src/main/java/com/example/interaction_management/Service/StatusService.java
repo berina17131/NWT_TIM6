@@ -1,9 +1,6 @@
 package com.example.interaction_management.Service;
 
-import com.example.interaction_management.Model.Comment;
-import com.example.interaction_management.Model.Grade;
 import com.example.interaction_management.Model.Status;
-import com.example.interaction_management.Repository.CommentRepository;
 import com.example.interaction_management.Repository.StatusRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;

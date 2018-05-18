@@ -1,7 +1,6 @@
 FROM alpine-jdk:base
-VOLUME /tmp
 MAINTAINER javaonfly
-COPY eureka-server.jar /var/lib/docker/
-ENTRYPOINT ["java"]
-CMD ["-jar", "/var/lib/docker/eureka-server.jar"]
+COPY ./eureka-service2.jar /opt/lib/
+ENTRYPOINT ["/usr/bin/java"]
+CMD ["-jar", "/opt/lib/eureka-service2.jar"]
 EXPOSE 8761

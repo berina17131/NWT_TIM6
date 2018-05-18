@@ -1,15 +1,12 @@
 package com.example.interaction_management.Controller;
 
-import com.example.interaction_management.Model.Grade;
-import com.example.interaction_management.Repository.GradeRepository;
-import com.example.interaction_management.Service.EventService;
 import com.example.interaction_management.Service.GradeService;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/grade")

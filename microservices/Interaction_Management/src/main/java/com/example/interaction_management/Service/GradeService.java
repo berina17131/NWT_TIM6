@@ -1,10 +1,7 @@
 package com.example.interaction_management.Service;
 
-import com.example.interaction_management.Model.Comment;
 import com.example.interaction_management.Model.Grade;
-import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Repository.GradeRepository;
-import com.example.interaction_management.Repository.UserRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

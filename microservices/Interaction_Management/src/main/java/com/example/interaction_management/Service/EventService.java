@@ -2,12 +2,9 @@ package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Event;
 import com.example.interaction_management.Repository.EventRepository;
-import com.netflix.appinfo.InstanceInfo;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-import java.util.logging.Logger;
 
 import java.util.List;
 import java.util.Optional;

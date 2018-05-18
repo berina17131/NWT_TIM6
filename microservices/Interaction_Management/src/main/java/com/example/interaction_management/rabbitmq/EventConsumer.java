@@ -3,8 +3,6 @@ package com.example.interaction_management.rabbitmq;
 
 import com.example.interaction_management.Repository.UserRepository;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 

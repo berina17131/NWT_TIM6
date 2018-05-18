@@ -1,15 +1,10 @@
 package com.example.interaction_management.Controller;
 
 import com.example.interaction_management.Model.Event;
-import com.example.interaction_management.Repository.EventRepository;
 import com.example.interaction_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/event")

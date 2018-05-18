@@ -1,15 +1,10 @@
 package com.example.interaction_management.Controller;
 
 import com.example.interaction_management.Model.User;
-import com.example.interaction_management.Repository.UserRepository;
-import com.example.interaction_management.Service.EventService;
 import com.example.interaction_management.Service.UserService;
 import org.hibernate.service.spi.ServiceException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")

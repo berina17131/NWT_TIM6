@@ -1,6 +1,8 @@
 FROM alpine-jdk:base
-VOLUME /tmp
 MAINTAINER javaonfly
-COPY gateway.jar /var/lib/docker/
-ENTRYPOINT ["java", "-jar", "/var/lib/docker/gateway.jar"]
+COPY ./Gateway.jar /opt/lib/
+COPY ./Gateway-entrypoint.sh /opt/bin/Gateway-entrypoint.sh
+RUN chmod 755 /opt/bin/Gateway-entrypoint.sh
+ENTRYPOINT ["/usr/bin/java"]
+CMD ["-jar", "/opt/lib/Gateway.jar"]
 EXPOSE 8080
