@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `base`;
-CREATE DATABASE  IF NOT EXISTS `base`;
-USE `base`;
+DROP DATABASE IF EXISTS `interaction_management`;
+CREATE DATABASE  IF NOT EXISTS `interaction_management`;
+USE `interaction_management`;
 
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (

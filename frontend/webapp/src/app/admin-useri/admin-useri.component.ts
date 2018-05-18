@@ -9,7 +9,6 @@ import {Router} from '@angular/router';
 })
 export class AdminUseriComponent implements OnInit {
 
-  usersBE: any;
   users: any;
 
   constructor(private router: Router, private userService: UserService) { }
@@ -19,10 +18,10 @@ export class AdminUseriComponent implements OnInit {
   }
 
   getAllUsers() {
-    this.users = [{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' },{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' }];
-    /*this.userService.getAllUsers().subscribe(data => {
-      this.usersBE = data;
-    });*/
+//    this.users = [{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' },{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' }];
+    this.userService.getAllUsers().subscribe(data => {
+      this.users = data;
+    });
   }
 
   openUserDetails(user) {

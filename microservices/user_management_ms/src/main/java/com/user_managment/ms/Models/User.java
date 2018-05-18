@@ -23,11 +23,11 @@ public class User {
     private String email;
 
     @Size(min=4, max=10)
-    @Pattern(regexp="/^A-Za-z]+$/")
+ //   @Pattern(regexp="/^A-Za-z]+$/")
     private String ime;
 
     @Size(min=4, max=20)
-    @Pattern(regexp="/^[A-Za-z]+$/")
+   // @Pattern(regexp="/^[A-Za-z]+$/")
     private String prezime;
 
     private Role user_role;

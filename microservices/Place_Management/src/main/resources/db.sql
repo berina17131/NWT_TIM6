@@ -1,6 +1,6 @@
-DROP DATABASE IF EXISTS `place_management_database`;
-CREATE DATABASE  IF NOT EXISTS `place_management_database`;
-USE `place_management_database`;
+DROP DATABASE IF EXISTS `place_management`;
+CREATE DATABASE  IF NOT EXISTS `place_management`;
+USE `place_management`;
 
 
 --

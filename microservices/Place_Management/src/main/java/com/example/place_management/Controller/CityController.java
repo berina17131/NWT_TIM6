@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/city")
+@CrossOrigin(origins = "*")
 public class CityController {
 
     private CityService cityService;

@@ -2,6 +2,7 @@ package com.example.place_management;
 
 import com.example.place_management.Model.Address;
 import com.example.place_management.Model.City;
+import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.CityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -47,7 +48,24 @@ public class PlaceManagementApplication implements CommandLineRunner {
 		}};
 		cityB.setAddresses(addresses);
 
-		//cityRepository.deleteAll();
+		Place placeA = new Place("My Face", "Mjesto najbolje zabave u gradu", addressA);
+		Place placeB = new Place("Sloga", "Zabava vikendom zagarantovana", addressB);
+		Place placeC = new Place("Shopping centar", "Mjesto dobre kupovine", addressC);
+
+		Set places = new HashSet<Place>(){{
+			add(placeA);
+		}};
+		addressA.setPlaces(places);
+		places = new HashSet<Place>(){{
+			add(placeB);
+		}};
+		addressB.setPlaces(places);
+		places = new HashSet<Place>(){{
+			add(placeC);
+		}};
+		addressC.setPlaces(places);
+
+		cityRepository.deleteAll();
 		cityRepository.save(cityA);
 		cityRepository.save(cityB);
 		cityRepository.save(cityC);

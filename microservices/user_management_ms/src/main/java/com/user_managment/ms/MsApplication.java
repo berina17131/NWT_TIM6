@@ -34,26 +34,33 @@ public class MsApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception {
 		Role user = new Role("User");
+		User user1 = new User("noviUser", "password", user);
+		user1.setIme("Novi");
+		user1.setPrezime("Novic");
 		Set ordinary_users = new HashSet<User>(){{
-			add(new User("username1","123541", user));
-			add(new User("username2","123541", user));
-			add(new User("username3", "123541",user));
+//			add(new User("username1","123541", user));
+//			add(new User("username2","123541", user));
+//			add(new User("username3", "123541",user));
+			add(user1);
 		}};
 		user.setUsers(ordinary_users);
 
 		Role admin = new Role("Admin");
+		User user2 = new User("admin", "password", admin);
+		user2.setIme("Admin");
+		user2.setPrezime("Adminovic");
 		Set admin_users = new HashSet<User>(){{
-			add(new User("username11", "123", admin));
-			add(new User("username12","123", admin));
-			add(new User("username13", "123", admin));
+//			add(new User("username11", "123", admin));
+//			add(new User("username12","123", admin));
+//			add(new User("username13", "123", admin));
+			add(user2);
 		}};
 
 		admin.setUsers(admin_users);
 
-
-		//roleRepository.deleteAll();
-		//roleRepository.save(user);
-		//roleRepository.save(admin);
+		roleRepository.deleteAll();
+		roleRepository.save(user);
+		roleRepository.save(admin);
 
 		for (Role role : roleRepository.findAll()) {
 			log.info(role.toString());

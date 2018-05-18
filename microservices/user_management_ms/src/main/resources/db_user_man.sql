@@ -1,5 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `users`;
-USE `users`;
+CREATE DATABASE  IF NOT EXISTS `user_management`;
+USE `user_management`;
 
 --
 -- Table structure for table `role`

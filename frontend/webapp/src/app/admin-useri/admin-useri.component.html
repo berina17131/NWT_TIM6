@@ -6,7 +6,7 @@
   <div class="list-group" style="height: 100px; margin-left: 20%;" *ngFor="let user of users">
     <button type="button" class="list-group-item" style="height: 100%; width: 70%; margin: 2%" (click)="openUserDetails(user)">
       <h3>{{ user.username }}</h3>
-      <h4>{{ user.name }}</h4>
+      <h4>{{ user.ime + ' ' + user.prezime }}</h4>
     </button>
     <!--<button type="button" class="list-group-item" style="height: 70%; width: 70%; margin: 2%">Dapibus ac facilisis in</button>
     <button type="button" class="list-group-item" style="height: 70%; width: 70%; margin: 2%">Morbi leo risus</button>
