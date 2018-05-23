@@ -1,3 +1,3 @@
 FROM alpine:edge
 MAINTAINER javaonfly
-RUN apk add --no-cache openjdk8 
+RUN apk add --no-cache openjdk8

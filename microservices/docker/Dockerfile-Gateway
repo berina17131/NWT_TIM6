@@ -1,8 +1,8 @@
 FROM alpine-jdk:base
 MAINTAINER javaonfly
-COPY ./Gateway.jar /opt/lib/
+COPY ./gateway-0.0.1-SNAPSHOT.jar /opt/lib/
 COPY ./Gateway-entrypoint.sh /opt/bin/Gateway-entrypoint.sh
 RUN chmod 755 /opt/bin/Gateway-entrypoint.sh
 ENTRYPOINT ["/usr/bin/java"]
-CMD ["-jar", "/opt/lib/Gateway.jar"]
+CMD ["-jar", "/opt/lib/gateway-0.0.1-SNAPSHOT.jar"]
 EXPOSE 8080

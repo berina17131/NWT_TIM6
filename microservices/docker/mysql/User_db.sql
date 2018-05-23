@@ -1,4 +1,5 @@
-CREATE DATABASE  IF NOT EXISTS `user_management`;
+DROP DATABASE IF EXISTS `user_management`;
+CREATE DATABASE IF NOT EXISTS `user_management`;
 USE `user_management`;
 
 --
@@ -27,4 +28,3 @@ CREATE TABLE `user` (
   KEY `fk_user_role_id_idx` (`role_id`),
   CONSTRAINT `fk_book_role_id` FOREIGN KEY (`role_id`) REFERENCES `role` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-

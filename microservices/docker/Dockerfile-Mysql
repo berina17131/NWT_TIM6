@@ -1,0 +1,5 @@
+FROM mysql:5.6
+COPY ./mysql/Event_db.sql /docker-entrypoint-initdb.d/
+COPY ./mysql/Interaction_db.sql /docker-entrypoint-initdb.d/
+COPY ./mysql/User_db.sql /docker-entrypoint-initdb.d/
+COPY ./mysql/Place_db.sql /docker-entrypoint-initdb.d/

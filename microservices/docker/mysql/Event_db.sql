@@ -1,5 +1,5 @@
-DROP DATABASE `event_management`;
-CREATE DATABASE  IF NOT EXISTS `event_management`;
+DROP DATABASE IF EXISTS `event_management`;
+CREATE DATABASE IF NOT EXISTS `event_management`;
 USE `event_management`;
 
 DROP TABLE IF EXISTS `category`;
