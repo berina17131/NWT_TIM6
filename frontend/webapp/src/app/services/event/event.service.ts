@@ -27,4 +27,14 @@ export class EventService {
     return this.http.delete(this.EVENT_API + '/' + id);
   }
 
+  createEvent(event: Event): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.post<Event>(this.EVENT_API, event, httpOptions);
+  }
+
 }
