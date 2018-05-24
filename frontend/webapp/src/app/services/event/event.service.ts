@@ -19,4 +19,8 @@ export class EventService {
     return this.http.get(this.EVENT_API + '/' + category);
   }
 
+  getEvent(id: number): Observable<any> {
+    return this.http.get(this.EVENT_API + '/' + id);
+  }
+
 }

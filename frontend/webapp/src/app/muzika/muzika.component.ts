@@ -23,4 +23,9 @@ export class MuzikaComponent implements OnInit {
     });
   }
 
+  prikaziDetalje(event: any){
+    this.selectedEvent = event;
+    this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
+  }
+
 }
