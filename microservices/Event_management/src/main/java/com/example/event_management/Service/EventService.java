@@ -12,8 +12,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @EnableDiscoveryClient
@@ -42,6 +41,25 @@ public class EventService {
             return event;
         }catch (Exception e) {
             throw new ServiceException("Cannot find event with id={" + id + "}");
+        }
+    }
+
+    public List<Event> getByCategory(String category) throws ServiceException {
+        try {
+            List<Event> events =  eventRepository.findAll();
+            Set<Event> eventsSet = new HashSet<>();
+
+            for(Event e: events)
+            {
+                if(e.getCategory().getName().equals(category))
+                {
+                    eventsSet.add(e);
+                }
+            }
+
+            return new ArrayList<>(eventsSet);
+        }catch (Exception e) {
+            throw new ServiceException("Cannot fetch all events.");
         }
     }
 

@@ -3,13 +3,11 @@ package com.example.interaction_management.Controller;
 import com.example.interaction_management.Service.GradeService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/grade")
+@CrossOrigin(origins = "*")
 public class GradeController {
 
     private GradeService gradeService;
