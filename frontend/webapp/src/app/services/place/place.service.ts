@@ -18,4 +18,8 @@ export class PlaceService {
   getAllPlaces(): Observable<any> {
     return this.http.get(this.PLACE_API + '/all');
   }
+
+  deletePlace(id: number): Observable<any> {
+    return this.http.delete(this.PLACE_API + '/' + id);
+  }
 }

@@ -23,4 +23,8 @@ export class EventService {
     return this.http.get(this.EVENT_API + '/' + id);
   }
 
+  deleteEvent(id: number): Observable<any> {
+    return this.http.delete(this.EVENT_API + '/' + id);
+  }
+
 }
