@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/event")
+@CrossOrigin(origins = "*")
 public class EventController {
 
     private EventService eventService;
@@ -30,6 +31,12 @@ public class EventController {
     @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
     public ResponseEntity getByTitle(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(eventService.getByTitle(name));
+
+    }
+
+    @RequestMapping(value="/{category}", method = RequestMethod.GET)
+    public ResponseEntity getByCategory(@PathVariable("category") String category) throws ServiceException {
+        return ResponseEntity.ok(eventService.getByCategory(category));
 
     }
 

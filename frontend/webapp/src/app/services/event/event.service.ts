@@ -15,8 +15,26 @@ export class EventService {
 
   constructor(private http: HttpClient) { }
 
-  getAllEvents(): Observable<any> {
-    return this.http.get(this.EVENT_API + '/all');
+  getEventsByCategory(category: string): Observable<any> {
+    return this.http.get(this.EVENT_API + '/' + category);
+  }
+
+  getEvent(id: number): Observable<any> {
+    return this.http.get(this.EVENT_API + '/' + id);
+  }
+
+  deleteEvent(id: number): Observable<any> {
+    return this.http.delete(this.EVENT_API + '/' + id);
+  }
+
+  createEvent(event: Event): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.post<Event>(this.EVENT_API, event, httpOptions);
   }
 
 }

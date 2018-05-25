@@ -1,6 +1,8 @@
 package com.example.event_management;
 
 import com.example.event_management.Model.Category;
+import com.example.event_management.Model.Place;
+import com.example.event_management.Model.Event;
 import com.example.event_management.Repository.CategoryRepository;
 import com.example.event_management.Repository.EventRepository;
 import com.example.event_management.Repository.PlaceRepository;
@@ -15,6 +17,8 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.awt.*;
 
 @ComponentScan({"com.example.event_management"})
 @EntityScan("com.example.event_management.Model")
@@ -45,9 +49,23 @@ public class EventManagementApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception {
 
-		Category categoryB = new Category("Category123","aaaaa");
-    Category categoryA = new Category("CategoryAA","");
+		Category categoryB = new Category("muzika","aaaaa");
+    Category categoryA = new Category("zabava","");
     categoryRepository.save(categoryA);
+		categoryRepository.save(categoryB);
+
+		/*Place aa = new Place("FaceTv");
+		Place bb = new Place("Vatra");
+		placeRepository.save(aa);
+		placeRepository.save(bb);
+
+		Event ev1 = new Event("Nezaboravna zabava","Oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",categoryB, bb);
+		Event ev2 = new Event("Nejbolji događaj","Oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",categoryB, bb);
+
+		eventRepository.save(ev1);
+		eventRepository.save(ev2);*/
+
+
 /*
     Place placeA = new Place("placeeAA");
     placeRepository.save(placeA);

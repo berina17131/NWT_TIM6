@@ -10,14 +10,19 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class UserService {
+@Service(value = "userService")
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
     private final RabbitTemplate rabbitTemplate;
@@ -29,6 +34,18 @@ public class UserService {
                this.rabbitTemplate = rabbitTemplate;
                this.userRepository = usersRepository;
                //usersRepository.deleteAll();
+    }
+
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        User user = userRepository.getByUsername(username);
+        if(user == null){
+            throw new UsernameNotFoundException("Invalid username or password.");
+        }
+        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
+    }
+
+    private List<SimpleGrantedAuthority> getAuthority(User user) {
+        return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getUser_role()));
     }
 
     public List<User> getAllUsers() throws ServiceException {
