@@ -36,7 +36,7 @@ const routes: Routes = [
   { path: 'admin-lokacija', component: AdminLokacijaComponent },
   { path: 'admin-useri', component: AdminUseriComponent },
   { path: 'admin-events', component: AdminEventsComponent },
-  { path: 'user-detalji', component: UserDetaljiComponent }
+  { path: 'user-detalji/:idUser', component: UserDetaljiComponent }
 ];
 
 

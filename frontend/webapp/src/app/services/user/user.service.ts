@@ -19,7 +19,11 @@ export class UserService {
   }
 
   getUserById(id: number): Observable<any> {
-    return this.http.get(this.USER_API + '?=id' + id);
+    return this.http.get(this.USER_API + '?id=' + id);
+  }
+
+  deleteUserById(id: number): Observable<any> {
+    return this.http.delete(this.USER_API + '/delete/' + id);
   }
   
 }

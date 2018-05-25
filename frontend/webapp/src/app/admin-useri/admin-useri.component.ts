@@ -25,7 +25,11 @@ export class AdminUseriComponent implements OnInit {
   }
 
   openUserDetails(user) {
-    this.router.navigate(['/user-detalji']);
+    this.router.navigate(['/user-detalji', user.id]);
+  }
+
+  deleteUser(user) {
+    this.userService.deleteUserById(user.id).subscribe(data => console.log(data));
   }
 
 }
