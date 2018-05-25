@@ -28,4 +28,11 @@ export class MuzikaComponent implements OnInit {
     this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
   }
 
+  obrisi(event: any){
+
+    this.eventService.deleteEvent(event.id).subscribe(data => {
+      console.log('successful');
+    });
+  }
+
 }

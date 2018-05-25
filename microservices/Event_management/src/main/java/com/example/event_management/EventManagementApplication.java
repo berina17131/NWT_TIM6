@@ -54,7 +54,7 @@ public class EventManagementApplication implements CommandLineRunner {
     categoryRepository.save(categoryA);
 		categoryRepository.save(categoryB);
 
-		Place aa = new Place("FaceTv");
+		/*Place aa = new Place("FaceTv");
 		Place bb = new Place("Vatra");
 		placeRepository.save(aa);
 		placeRepository.save(bb);
@@ -63,7 +63,7 @@ public class EventManagementApplication implements CommandLineRunner {
 		Event ev2 = new Event("Nejbolji događaj","Oooooooooooooooooooooooooooooooooooooooooooooooooooooooooo",categoryB, bb);
 
 		eventRepository.save(ev1);
-		eventRepository.save(ev2);
+		eventRepository.save(ev2);*/
 
 
 /*

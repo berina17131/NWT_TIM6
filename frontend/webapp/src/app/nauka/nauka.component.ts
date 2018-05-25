@@ -22,4 +22,11 @@ export class NaukaComponent implements OnInit {
       console.log(this.events.length);
     });
   }
+
+  obrisi(event: any){
+    
+    this.eventService.deleteEvent(event.id).subscribe(data => {
+      console.log('successful');
+    });
+  }
 }

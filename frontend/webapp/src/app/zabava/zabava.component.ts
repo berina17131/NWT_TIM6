@@ -23,4 +23,11 @@ export class ZabavaComponent implements OnInit {
     });
   }
 
+  obrisi(event: any){
+    
+    this.eventService.deleteEvent(event.id).subscribe(data => {
+      console.log('successful');
+    });
+  }
+
 }
