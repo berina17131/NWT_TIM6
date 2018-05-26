@@ -1,3 +1,120 @@
-<p>
-  admin-events works!
-</p>
+<hr>
+<button class="btn btn-default" type="submit" data-toggle="modal" data-target="#exampleModal4">Dodaj novi event</button>
+<hr>
+<div class="row featurette" >
+  <div class="col-md-7">
+      <h2 class="featurette-heading">Probaa naziiv
+          <span class="text-muted"> Neki tekst</span>
+      </h2>
+      <p class="lead">OPIS blaa blaa blaaa</p>
+  </div>
+  <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto" width="30%" margin="5%" src="assets/event2.jpg" alt="Generic placeholder image">
+  </div>
+  <p>
+      <a class="btn btn-secondary" role="button" data-toggle="modal" data-target="#exampleModal3">Uredi &raquo;</a>
+      <a class="btn btn-secondary" role="button" (click)="obrisi(event)">Obriši &raquo;</a>
+  </p>
+  <hr>
+</div>
+<div class="row featurette" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
+  <div class="col-md-7">
+      <h2 class="featurette-heading">{{ event.name }}
+          <span class="text-muted"> Neki tekst</span>
+      </h2>
+      <p class="lead">{{ event.description }}</p>
+  </div>
+  <div class="col-md-5">
+      <img class="featurette-image img-fluid mx-auto" width="30%" margin="5%" src="assets/event2.jpg" alt="Generic placeholder image">
+  </div>
+  <p>
+      <a class="btn btn-secondary" role="button" data-toggle="modal" data-target="#exampleModal3" (click)="prikaziDetalje(event)">Uredi &raquo;</a>
+      <a class="btn btn-secondary" role="button" (click)="obrisi(event)">Obriši &raquo;</a>
+  </p>
+  <hr>
+</div>
+<!--Detalji eventa i izmjene eventa modal-->
+<div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel"> Izmjeni: </h3>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Naziv:</label>
+                      <input type="text" class="form-control" id="naziv_usluga" value="{{ modal_naziv }}" [(ngModel)]="modal_name" [ngModelOptions]="{standalone: true}"> 
+                    </div>
+                    <div class="form-group">
+                      <label for="message-text" class="col-form-label">Opis:</label>
+                      <textarea class="form-control" id="opis_usluga" value="{{ modal_opis }}" [(ngModel)]="modal_description" [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div class="form-group">
+                      <label for="recipient-name" class="col-form-label">Kategorija:</label>
+                      <input type="text" class="form-control" id="cijena_usluga" value="{{ modal_kategorija }}">
+                    </div>
+                  </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal">Zatvori</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn_podnesi_zahtjev" (click)="sacuvajIzmjeneEvent()">Sačuvaj izmjene</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Kreitanje novog eventa-->
+<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title" id="exampleModalLabel"> Novi događaj: </h3>
+            </div>
+            <div class="modal-body">
+                 <form>
+                    <div class="form-group">
+                       <label for="recipient-name" class="col-form-label"> Naziv događaja: </label>
+                        <input type="text" class="form-control" id="naziv_objekta" [(ngModel)]="modal_naziv" [ngModelOptions]="{standalone: true}">
+                    </div>
+                    <div class="form-group">
+                        <label for="detalji_zahtjev" class="col-form-label">Opis:</label>
+                        <textarea class="form-control" id="opis_objekta" style="height: 150px" [(ngModel)]="modal_opis" [ngModelOptions]="{standalone: true}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Izaberi kategoriju:</label>
+                        <br>
+                        <select class="form-control" id="hitnost">
+                            <option>Lista kategorija</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Izaberi objekat:</label>
+                        <br>
+                        <select class="form-control" id="hitnost">
+                            <option>Lista objekata</option>
+                        </select>
+                    </div>
+                    <!--<div class="form-group">
+                        <label for="recipient-name" class="col-form-label">Adresa:</label>
+                        <br>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="" [(ngModel)]="wayOfResponseTelefon" [ngModelOptions]="{standalone: true}">Telefon</label>
+                        <label class="checkbox-inline">
+                            <input type="checkbox" value="" [(ngModel)]="wayOfResponseEmail" [ngModelOptions]="{standalone: true}">E-mail</label>
+                    </div>-->
+                 <!--   <div class="form-group">
+                        <label for="hitnost1" class="col-form-label">Adresa:</label>
+                        <select class="form-control" id="hitnost1" [(ngModel)]="odabraniPrioritet1" name="priorities">
+                            <option *ngFor="let p of prioritetii" [value]="p.id">{{p.name}}</option>
+                        </select>
+                    </div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal">Zatvori</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn_podnesi_zahtjev" (click)="kreirajEvent()">Sačuvaj</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,7 +1,8 @@
-<div class="text-center">
-  <h1 id="naslov"> Naslov</h1>
-  <h5 id="naslov_linija"> ______________________________________ </h5>  
-</div>
+<div *ngIf="event">
+    <div class="text-center">
+        <h1 id="naslov"> {{ event.name }}</h1>
+        <h5 id="naslov_linija"> ______________________________________ </h5>  
+    </div>
 
 <div>
   <table class="table1">
@@ -10,7 +11,7 @@
         <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRY9LJ2av90-f03zLLtI_IeSVesNWCD_OHw9MJLqXZh_zw9E2MD" class="img-rounded" width="400" height="400">
     </td>
     <td class="col2"> 
-      <p class="opis">Lorem ipsum dolor sit amet, consectetur adipiscing elit. In pulvinar aliquam leo. Praesent accumsan faucibus ex, vel ullamcorper mi ultrices sollicitudin. Sed nec interdum arcu. Nullam tortor est, vestibulum nec venenatis eget, congue sed purus. Nam maximus augue a suscipit fermentum. Integer eget bibendum neque. Interdum et malesuada fames ac ante ipsum primis in faucibus. Quisque maximus enim risus, in ullamcorper massa lacinia sit amet. Curabitur sed dolor dui. Duis cursus augue id vehicula viverra. Phasellus vel lacus in lorem ullamcorper dignissim pharetra at dolor. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer semper volutpat risus sed fringilla. Duis varius eros justo, in eleifend justo fringilla a. Maecenas iaculis vehicula felis sit amet ullamcorper. Cras auctor eget orci sit amet aliquet.</p>
+      <p class="opis">{{ event.description }}</p>
     </td>
     </tr>
     
@@ -82,4 +83,4 @@
     </table>
   </div>
 
-  
+</div>

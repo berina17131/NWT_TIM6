@@ -23,6 +23,11 @@ export class NaukaComponent implements OnInit {
     });
   }
 
+  prikaziDetalje(event: any){
+    this.selectedEvent = event;
+    this.router.navigate(['/nauka-detalji', this.selectedEvent.id]);
+  }
+
   obrisi(event: any){
     
     this.eventService.deleteEvent(event.id).subscribe(data => {

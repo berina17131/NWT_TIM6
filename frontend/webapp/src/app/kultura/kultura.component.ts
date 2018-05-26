@@ -22,4 +22,17 @@ export class KulturaComponent implements OnInit {
       console.log(this.events.length);
     });
   }
+
+  prikaziDetalje(event: any){
+    this.selectedEvent = event;
+    this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
+  }
+
+  obrisi(event: any){
+
+    this.eventService.deleteEvent(event.id).subscribe(data => {
+      console.log('successful');
+    });
+  }
+  
 }

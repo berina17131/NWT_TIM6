@@ -103,7 +103,23 @@
         <hr class="featurette-divider">
 
         <div class="row featurette" >
-            <div class="col-md-7" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
+                <div class="col-md-7">
+                    <h2 class="featurette-heading">Naziv hardkodiranooo
+                        <span class="text-muted"> Neki tekst</span>
+                    </h2>
+                    <p class="lead">opis blaa blaaa</p>
+                </div>
+                <div class="col-md-5">
+                    <img class="featurette-image img-fluid mx-auto" src="assets/event2.jpg" alt="Generic placeholder image">
+                </div>
+                <p>
+                    <a class="btn btn-secondary" role="button" (click)="prikaziDetalje(event)">Više informacija &raquo;</a>
+                    <a class="btn btn-secondary" role="button" (click)="obrisi(event)">Obriši &raquo;</a>
+                </p>
+            </div>
+
+        <div class="row featurette" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
+            <div class="col-md-7">
                 <h2 class="featurette-heading">{{ event.name }}
                     <span class="text-muted"> Neki tekst</span>
                 </h2>
@@ -113,7 +129,8 @@
                 <img class="featurette-image img-fluid mx-auto" src="assets/event2.jpg" alt="Generic placeholder image">
             </div>
             <p>
-                <a class="btn btn-secondary" href="#" role="button">View details &raquo;</a>
+                <a class="btn btn-secondary" role="button" (click)="prikaziDetalje(event)">Više informacija &raquo;</a>
+                <a class="btn btn-secondary" role="button" (click)="obrisi(event)">Obriši &raquo;</a>
             </p>
         </div>
 <!--

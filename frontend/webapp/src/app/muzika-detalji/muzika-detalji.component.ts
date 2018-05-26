@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
+import {CommentService} from '../services/comment/comment.service';
 
 @Component({
   selector: 'app-muzika-detalji',
@@ -10,15 +11,18 @@ import {EventService} from '../services/event/event.service';
 export class MuzikaDetaljiComponent implements OnInit {
 
   event: any;
+  comments: Array<any>;
 
-  constructor(private eventService: EventService, private router: ActivatedRoute) {
-  }
+  constructor(
+    private eventService: EventService, 
+    private router: ActivatedRoute, 
+    private commentService: CommentService) {}
 
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getEvent();
-    //this.getFeedbacks(id);
+    this.getComments(id);
   }
 
   getEvent(){
@@ -28,5 +32,11 @@ export class MuzikaDetaljiComponent implements OnInit {
       this.event = data;
        });
    }
+
+  getComments(id){
+    this.commentService.getCommentsForEvent(id).dubscribe(data =>{
+      this.comments = data;
+    })
+  }
 
 }

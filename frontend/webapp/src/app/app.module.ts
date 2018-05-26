@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
 
 import { AppComponent } from './app.component';
 import { MuzikaComponent } from './muzika/muzika.component';
@@ -63,6 +64,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     HttpModule,
+    FormsModule
   ],
   providers: [PlaceService, EventService],
   bootstrap: [AppComponent]
