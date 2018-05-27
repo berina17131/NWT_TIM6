@@ -11,7 +11,7 @@ export class EventService {
 
   public API = '//localhost:8080/events';
   public EVENT_API = this.API + '/event';
-  result:Array<Object>; 
+  result: Array<Object>; 
 
   constructor(private http: HttpClient) { }
 
@@ -36,5 +36,23 @@ export class EventService {
 
     return this.http.post<Event>(this.EVENT_API, event, httpOptions);
   }
+
+  changeEvent(event: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.put<Request>(this.EVENT_API + '/' + event.id, event, httpOptions);
+  }
+
+  getByName(name: string): Observable<any> {
+      return this.http.get(this.EVENT_API + '/name/' + name);               
+  }
+
+  getByNameOfPlace(name: string): Observable<any> {
+    return this.http.get(this.API + '/place/name/' + name);               
+}
 
 }

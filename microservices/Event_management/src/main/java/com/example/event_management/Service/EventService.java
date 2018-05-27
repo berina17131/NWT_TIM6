@@ -63,15 +63,25 @@ public class EventService {
         }
     }
 
-    public Event getByTitle(String title) throws ServiceException {
+    public List<Event> getByTitle(String title) throws ServiceException {
         try {
-            for (Event event : eventRepository.findAll()) {
-                if (event.getName().equals(title))
-                    return event;
+            List<Event> events =  eventRepository.findAll();
+            Set<Event> eventsSet = new HashSet<>();
+            boolean exist = false;
+
+            for (Event event : events) {
+                if (event.getName().equals(title)) {
+                    eventsSet.add(event);
+                    exist = true;
+                }
             }
-            return null;
+
+            if(exist == false)
+               return null;
+            else
+                return new ArrayList<>(eventsSet);
         }catch (Exception e) {
-            throw new ServiceException("Cannot find place with title={" + title+ "}");
+            throw new ServiceException("Cannot find event with title={" + title+ "}");
         }
     }
 

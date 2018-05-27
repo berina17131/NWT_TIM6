@@ -34,7 +34,7 @@ export class MuzikaDetaljiComponent implements OnInit {
    }
 
   getComments(id){
-    this.commentService.getCommentsForEvent(id).dubscribe(data =>{
+    this.commentService.getCommentsForEvent(id).subscribe(data =>{
       this.comments = data;
     })
   }

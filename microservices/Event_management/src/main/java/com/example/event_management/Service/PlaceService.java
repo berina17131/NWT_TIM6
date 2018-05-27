@@ -1,13 +1,15 @@
 package com.example.event_management.Service;
 
 import com.example.event_management.Model.Place;
+import com.example.event_management.Model.Event;
 import com.example.event_management.Repository.PlaceRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
+import java.util.*;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PlaceService {
@@ -40,12 +42,20 @@ public class PlaceService {
         }
     }
 
-    public Place getByName(String name) throws ServiceException {
+    public List<Event>  getByName(String name) throws ServiceException {
        try
        {
-           for (Place place : placeRepository.findAll()) {
-               if (place.getName().equals(name))
-                   return place;
+           List<Place> places =  placeRepository.findAll();
+           Set<Event> eventsSet = new HashSet<>();
+
+           for (Place place : places) {
+               if(place.getName().equals(name)) {
+
+                   eventsSet = place.getEvents();
+
+                   return new ArrayList<>(eventsSet);
+
+               }
            }
            return null;
 

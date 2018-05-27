@@ -53,6 +53,10 @@ export class AdminEventsComponent implements OnInit {
     //this.modal_adresa = place.address;
   }
 
+  loadajStranicu() {
+    window.location.reload();
+  }
+
   kreirajEvent(){
     this.newEvent.name = this.modal_naziv;
     this.newEvent.description = this.modal_opis;
@@ -66,7 +70,16 @@ export class AdminEventsComponent implements OnInit {
   }
 
   sacuvajIzmjeneEvent(){
+    
+      this.newEvent.name = this.modal_naziv;
+      this.newEvent.description = this.modal_opis;
+      this.newEvent.category.id = 1;
+      this.newEvent.place.id = 1;
 
+      this.eventService.changeEvent(this.newEvent).subscribe((data) => {
+      console.log(data);
+      this.loadajStranicu();
+    });
   }
 
 

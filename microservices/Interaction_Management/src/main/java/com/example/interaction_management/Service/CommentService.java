@@ -6,8 +6,7 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class CommentService {
@@ -26,7 +25,7 @@ public class CommentService {
         }
     }
 
-    public Comment getById(String id) throws ServiceException {
+   /* public Comment getById(String id) throws ServiceException {
         try {
             Optional commentHelp = commentRepository.findById(Integer.parseInt(id));
             Comment comment = (Comment) commentHelp.get();
@@ -34,6 +33,25 @@ public class CommentService {
             return comment;
         }catch (Exception e) {
             throw new ServiceException("Cannot find comment with id={" + id + "}");
+        }
+    }*/
+
+    public List<Comment> getByEventId(String id) throws ServiceException {
+        try {
+            List<Comment> comments =  commentRepository.findAll();
+            Set<Comment> commentsSet = new HashSet<>();
+
+            for(Comment e: comments)
+            {
+                if(e.getEvent().getId() == Integer.parseInt(id))
+                {
+                    commentsSet.add(e);
+                }
+            }
+
+            return new ArrayList<>(commentsSet);
+        }catch (Exception e) {
+            throw new ServiceException("Cannot fetch all events.");
         }
     }
 

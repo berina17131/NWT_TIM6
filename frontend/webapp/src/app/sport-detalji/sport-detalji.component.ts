@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
+import {CommentService} from '../services/comment/comment.service';
 
 @Component({
   selector: 'app-sport-detalji',
@@ -10,15 +11,16 @@ import {EventService} from '../services/event/event.service';
 export class SportDetaljiComponent implements OnInit {
 
   event: any;
+  comments: Array<any>;
 
-  constructor(private eventService: EventService, private router: ActivatedRoute) {
+  constructor(private eventService: EventService, private commentService: CommentService, private router: ActivatedRoute) {
   }
 
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getEvent();
-    //this.getFeedbacks(id);
+    this.getComments(id);
   }
 
   getEvent(){
@@ -28,4 +30,12 @@ export class SportDetaljiComponent implements OnInit {
       this.event = data;
        });
    }
+
+   getComments(id){
+
+    this.commentService.getCommentsForEvent(id).subscribe(data => {
+      this.comments = data;
+       });
+   }
+
 }

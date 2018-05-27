@@ -33,4 +33,15 @@ export class PlaceService {
 
     return this.http.post<Event>(this.PLACE_API, place, httpOptions);
   }
+
+  changeEvent(place: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.put<Request>(this.PLACE_API + '/' + place.id, place, httpOptions);
+  }
+
 }

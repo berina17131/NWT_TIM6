@@ -21,9 +21,9 @@ public class CommentController {
         return ResponseEntity.ok(commentService.getAll());
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value="/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
-        return ResponseEntity.ok(commentService.getById(id));
+        return ResponseEntity.ok(commentService.getByEventId(id));
     }
 
     @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
