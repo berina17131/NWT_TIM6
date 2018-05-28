@@ -3,6 +3,7 @@ package com.user_managment.ms;
 import com.user_managment.ms.Models.Role;
 import com.user_managment.ms.Models.User;
 import com.user_managment.ms.Repository.UserRoleRepository;
+import com.user_managment.ms.Security.UpdatableBCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,9 @@ import java.util.Set;
 public class MsApplication implements CommandLineRunner {
 
 	private static final Logger log = LoggerFactory.getLogger(MsApplication.class);
+    private static final UpdatableBCrypt bcrypt = new UpdatableBCrypt(11);
 
-	@Autowired
+    @Autowired
 	private UserRoleRepository roleRepository;
 
 	public static void main(String[] args) {
@@ -34,28 +36,21 @@ public class MsApplication implements CommandLineRunner {
 	@Transactional
 	public void run(String... strings) throws Exception {
 		Role user = new Role("User");
-		User user1 = new User("noviUser", "password", user);
+		User user1 = new User("noviUser", bcrypt.hash("password"), user);
 		user1.setIme("Novi");
 		user1.setPrezime("Novic");
 		Set ordinary_users = new HashSet<User>(){{
-//			add(new User("username1","123541", user));
-//			add(new User("username2","123541", user));
-//			add(new User("username3", "123541",user));
 			add(user1);
 		}};
 		user.setUsers(ordinary_users);
 
 		Role admin = new Role("Admin");
-		User user2 = new User("admin", "password", admin);
+		User user2 = new User("admin", bcrypt.hash("password"), admin);
 		user2.setIme("Admin");
 		user2.setPrezime("Adminovic");
 		Set admin_users = new HashSet<User>(){{
-//			add(new User("username11", "123", admin));
-//			add(new User("username12","123", admin));
-//			add(new User("username13", "123", admin));
 			add(user2);
 		}};
-
 		admin.setUsers(admin_users);
 
 		roleRepository.deleteAll();

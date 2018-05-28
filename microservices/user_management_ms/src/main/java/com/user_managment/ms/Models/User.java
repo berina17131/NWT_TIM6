@@ -16,7 +16,7 @@ public class User {
     private String username;
 
     @NotNull
-    @Size(min = 2, max = 10)
+    @Size(min = 2)
     private String password;
 
     @Email(message = "Email should be valid")
