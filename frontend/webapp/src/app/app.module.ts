@@ -23,6 +23,7 @@ import { AdminUseriComponent } from './admin-useri/admin-useri.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { UserDetaljiComponent } from './user-detalji/user-detalji.component';
 import { LoginComponent } from './login/login.component';
+import { RegistracijaComponent } from './registracija/registracija.component';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
@@ -39,7 +40,8 @@ const routes: Routes = [
   { path: 'admin-useri', component: AdminUseriComponent },
   { path: 'admin-events', component: AdminEventsComponent },
   { path: 'user-detalji/:idUser', component: UserDetaljiComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'registracija', component: RegistracijaComponent }
 ];
 
 
@@ -60,7 +62,8 @@ const routes: Routes = [
     AdminUseriComponent,
     AdminEventsComponent,
     UserDetaljiComponent,
-    LoginComponent
+    LoginComponent,
+    RegistracijaComponent
   ],
   imports: [
     BrowserModule,
