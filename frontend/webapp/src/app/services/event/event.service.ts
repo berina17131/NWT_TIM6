@@ -20,11 +20,11 @@ export class EventService {
   }
 
   getEvent(id: number): Observable<any> {
-    return this.http.get(this.EVENT_API + '/' + id);
+    return this.http.get(this.EVENT_API + '/id/' + id);
   }
 
   deleteEvent(id: number): Observable<any> {
-    return this.http.delete(this.EVENT_API + '/' + id);
+    return this.http.delete(this.EVENT_API + '/delete/' + id);
   }
 
   createEvent(event: any): Observable<any> {

@@ -24,8 +24,8 @@ export class NaukaComponent implements OnInit {
   }
 
   prikaziDetalje(event: any){
-    this.selectedEvent = event;
-    this.router.navigate(['/nauka-detalji', this.selectedEvent.id]);
+    
+    this.router.navigate(['/nauka-detalji', event.id]);
   }
 
   obrisi(event: any){

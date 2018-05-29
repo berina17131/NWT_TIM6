@@ -25,7 +25,8 @@ export class ZabavaComponent implements OnInit {
 
   prikaziDetalje(event: any){
     this.selectedEvent = event;
-    this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
+    console.log(this.selectedEvent.id);
+    this.router.navigate(['/zabava-detalji', this.selectedEvent.id]);
   }
 
   obrisi(event: any){
