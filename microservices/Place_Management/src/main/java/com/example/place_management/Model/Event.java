@@ -19,7 +19,8 @@ public class Event {
     @JsonIgnoreProperties("events")
     private Place place;
 
-    protected Event() {}
+    protected Event() {
+    }
 
     public Event(int id, String name) {
         this.id = id;

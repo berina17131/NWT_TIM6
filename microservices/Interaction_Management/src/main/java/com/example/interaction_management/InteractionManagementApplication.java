@@ -22,27 +22,27 @@ import javax.transaction.Transactional;
 @EnableDiscoveryClient
 public class InteractionManagementApplication implements CommandLineRunner {
 
-	private static final Logger log = LoggerFactory.getLogger(InteractionManagementApplication.class);
+    private static final Logger log = LoggerFactory.getLogger(InteractionManagementApplication.class);
 
 
-	@Autowired
-	private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
-	@Autowired
-	private EventRepository eventRepository;
+    @Autowired
+    private EventRepository eventRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(InteractionManagementApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(InteractionManagementApplication.class, args);
+    }
 
-	@Override
-	@Transactional
-	public void run (String... strings) throws  Exception {
+    @Override
+    @Transactional
+    public void run(String... strings) throws Exception {
 
-		//final User user1 = new User(3,"Ussser");
-		//System.out.println(user1.toString());
-		//userRepository.saveUser(user1.getId(), user1.getUsername());
-		//log.info(user1.toString());
+        //final User user1 = new User(3,"Ussser");
+        //System.out.println(user1.toString());
+        //userRepository.saveUser(user1.getId(), user1.getUsername());
+        //log.info(user1.toString());
 
 		/*final User user1 = new User(1,"username1");
 		userRepository.saveUser(user1.getId(), user1.getUsername());
@@ -90,7 +90,5 @@ public class InteractionManagementApplication implements CommandLineRunner {
 		for (User user : userRepository.findAll()){
 			log.info(user.toString());
 		}*/
-
-	}
-
+    }
 }

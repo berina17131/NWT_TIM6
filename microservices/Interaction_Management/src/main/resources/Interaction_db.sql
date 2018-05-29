@@ -2,21 +2,18 @@ DROP DATABASE IF EXISTS `interaction_management`;
 CREATE DATABASE  IF NOT EXISTS `interaction_management`;
 USE `interaction_management`;
 
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL,
   `username` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
   `id` int(10) unsigned NOT NULL,
   `name` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `comment`;
 CREATE TABLE `comment` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `comment` varchar(255) DEFAULT NULL,
@@ -29,7 +26,6 @@ CREATE TABLE `comment` (
   CONSTRAINT `fk_comment_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `grade`;
 CREATE TABLE `grade` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `grade` int(10) DEFAULT NULL,
@@ -43,7 +39,6 @@ CREATE TABLE `grade` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-DROP TABLE IF EXISTS `status`;
 CREATE TABLE `status` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `status` varchar(255) DEFAULT NULL,

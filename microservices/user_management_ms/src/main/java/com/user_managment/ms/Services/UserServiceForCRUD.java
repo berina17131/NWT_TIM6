@@ -10,42 +10,25 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-@Service(value = "userService")
-public class UserService implements UserDetailsService {
+public class UserServiceForCRUD {
 
     private final UserRepository userRepository;
     private final RabbitTemplate rabbitTemplate;
     private final Exchange exchange;
 
     @Autowired
-    public UserService(RabbitTemplate rabbitTemplate, Exchange exchange, UserRepository usersRepository){
-               this.exchange = exchange;
-               this.rabbitTemplate = rabbitTemplate;
-               this.userRepository = usersRepository;
-               //usersRepository.deleteAll();
-    }
+    private EurekaClient discoveryClient;
 
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userRepository.getByUsername(username);
-        if(user == null){
-            throw new UsernameNotFoundException("Invalid username or password.");
-        }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(), getAuthority(user));
-    }
-
-    private List<SimpleGrantedAuthority> getAuthority(User user) {
-        return Arrays.asList(new SimpleGrantedAuthority("ROLE_" + user.getUser_role()));
+    @Autowired
+    public UserServiceForCRUD(RabbitTemplate rabbitTemplate, Exchange exchange, UserRepository usersRepository) {
+        this.exchange = exchange;
+        this.rabbitTemplate = rabbitTemplate;
+        this.userRepository = usersRepository;
     }
 
     public List<User> getAllUsers() throws ServiceException {
@@ -71,9 +54,6 @@ public class UserService implements UserDetailsService {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-    @Autowired
-    private EurekaClient discoveryClient;
 
     public User createUser(User user) throws ServiceException {
         try {
@@ -105,8 +85,7 @@ public class UserService implements UserDetailsService {
             userRepository.deleteAll();
             String s = "Users deleted";
             return s;
-        }
-        catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all users");
         }
     }
@@ -122,8 +101,7 @@ public class UserService implements UserDetailsService {
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), user);
             return "User with id = " + u.getId() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update user with id = " + u.getId() + ".");
         }
     }

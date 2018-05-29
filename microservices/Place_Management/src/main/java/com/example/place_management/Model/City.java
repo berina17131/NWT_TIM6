@@ -17,7 +17,8 @@ public class City {
     @JsonIgnoreProperties("city")
     private Set<Address> addresses;
 
-    protected City() {}
+    protected City() {
+    }
 
     public City(String name) {
         this.name = name;
@@ -56,7 +57,7 @@ public class City {
                 "City[id=%d, name='%s']%n",
                 id, name);
         if (addresses != null) {
-            for(Address address : addresses) {
+            for (Address address : addresses) {
                 result += address.toString();
             }
         }

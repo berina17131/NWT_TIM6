@@ -17,30 +17,30 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value="/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(categoryService.getById(id));
 
     }
 
-    @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(categoryService.getByName(name));
 
     }
 
-    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(categoryService.deleteAll());
 
     }
 
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(categoryService.deleteById(id));
 

@@ -12,40 +12,40 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class EventConsumerConfiguration {
 
-            @Bean
+    @Bean
     public Exchange eventExchange() {
-                return new TopicExchange("eventExchange");
-            }
+        return new TopicExchange("eventExchange");
+    }
 
-            @Bean
+    @Bean
     public Queue queue() {
-                return new Queue("interactionServiceQueue");
-            }
+        return new Queue("interactionServiceQueue");
+    }
 
-            @Bean
+    @Bean
     public Binding binding(Queue queue, TopicExchange eventExchange) {
-                return BindingBuilder.bind(queue).to(eventExchange).with("user.deleted");
-            }
+        return BindingBuilder.bind(queue).to(eventExchange).with("user.deleted");
+    }
 
-            @Bean
+    @Bean
     public EventConsumer eventReceiver(UserRepository ur) {
-               return new EventConsumer(ur);
-            }
+        return new EventConsumer(ur);
+    }
 
-            @Bean
-            SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
+    @Bean
+    SimpleMessageListenerContainer container(ConnectionFactory connectionFactory, MessageListenerAdapter listenerAdapter) {
 
-                SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
-                container.setConnectionFactory(connectionFactory);
-                container.setQueueNames(this.queue().getName());
-                container.setMessageListener(listenerAdapter);
-                return container;
-            }
+        SimpleMessageListenerContainer container = new SimpleMessageListenerContainer();
+        container.setConnectionFactory(connectionFactory);
+        container.setQueueNames(this.queue().getName());
+        container.setMessageListener(listenerAdapter);
+        return container;
+    }
 
-            @Bean
-            MessageListenerAdapter listenerAdapter(EventConsumer receiver) {
+    @Bean
+    MessageListenerAdapter listenerAdapter(EventConsumer receiver) {
 
-                return new MessageListenerAdapter(receiver, "receive");
-            }
+        return new MessageListenerAdapter(receiver, "receive");
+    }
 
-        }
+}

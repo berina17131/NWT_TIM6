@@ -14,8 +14,6 @@ CREATE TABLE `role` (
 --
 -- Table structure for table `user`
 --
-
-DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(255) DEFAULT NULL,

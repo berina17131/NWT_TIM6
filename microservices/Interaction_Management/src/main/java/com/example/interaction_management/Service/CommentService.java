@@ -20,7 +20,7 @@ public class CommentService {
     public List<Comment> getAll() throws ServiceException {
         try {
             return commentRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all comments.");
         }
     }
@@ -38,19 +38,17 @@ public class CommentService {
 
     public List<Comment> getByEventId(String id) throws ServiceException {
         try {
-            List<Comment> comments =  commentRepository.findAll();
+            List<Comment> comments = commentRepository.findAll();
             Set<Comment> commentsSet = new HashSet<>();
 
-            for(Comment e: comments)
-            {
-                if(e.getEvent().getId() == Integer.parseInt(id))
-                {
+            for (Comment e : comments) {
+                if (e.getEvent().getId() == Integer.parseInt(id)) {
                     commentsSet.add(e);
                 }
             }
 
             return new ArrayList<>(commentsSet);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all events.");
         }
     }
@@ -60,7 +58,7 @@ public class CommentService {
             commentRepository.deleteAll();
             return "All comments deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all comments");
         }
     }
@@ -70,7 +68,7 @@ public class CommentService {
             commentRepository.deleteById(Integer.parseInt(id));
             return "Comment with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete comment with id={" + id + "}");
         }
     }
@@ -82,7 +80,7 @@ public class CommentService {
             commentRepository.save(comment);
 
             return "Comment=" + co + " saved successfully";
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot save comment={" + co + "}");
         }
     }
@@ -94,7 +92,7 @@ public class CommentService {
             comment.setCom(newComment);
             commentRepository.save(comment);
             return "Comment with id=" + id + " changed to " + newComment;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot change comment.");
         }
     }
@@ -104,8 +102,7 @@ public class CommentService {
             commentRepository.save(comment);
 
             return "Comment = " + comment.getCom() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create comment = " + comment.getCom() + ".");
         }
     }
@@ -118,8 +115,7 @@ public class CommentService {
             commentRepository.save(comment);
 
             return "Comment with id= " + comment.getCom() + " saved successfully as " + comment.getCom();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update comment with id = " + commentFromRequest.getId() + ".");
         }
     }

@@ -10,14 +10,15 @@ import javax.validation.constraints.Size;
 public class Status {
     private int id;
     @NotNull(message = "Status cannont be null")
-    @Size(min=4, max = 10, message = "Status must be between 4 and 10 char")
+    @Size(min = 4, max = 10, message = "Status must be between 4 and 10 char")
     private String status;
     @JsonIgnoreProperties("statuses")
     private User user;
     @JsonIgnoreProperties("statuses")
     private Event event;
 
-    protected Status() {}
+    protected Status() {
+    }
 
     public Status(String st) {
         this.status = st;
@@ -28,6 +29,7 @@ public class Status {
     public int getId() {
         return this.id;
     }
+
     public void setId(int id) {
         this.id = id;
     }

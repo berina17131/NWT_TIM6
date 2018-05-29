@@ -15,6 +15,7 @@ import java.util.Optional;
 @Service
 public class EventService {
 
+    private static final org.slf4j.Logger log = LoggerFactory.getLogger(EventService.class);
     private final EventRepository eventRepository;
     private final PlaceRepository placeRepository;
 
@@ -27,8 +28,7 @@ public class EventService {
     public List<Event> getAll() throws ServiceException {
         try {
             return eventRepository.findAll();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all events.");
         }
     }
@@ -38,8 +38,7 @@ public class EventService {
             Optional eventHelp = eventRepository.findById(Integer.parseInt(id));
             Event event = (Event) eventHelp.get();
             return event;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find event with id = " + id + ".");
         }
     }
@@ -48,8 +47,7 @@ public class EventService {
         try {
             eventRepository.deleteAll();
             return "All events deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete all events");
         }
     }
@@ -58,13 +56,10 @@ public class EventService {
         try {
             eventRepository.deleteById(Integer.parseInt(id));
             return "Event with id = " + id + " deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete event with id = " + id + ".");
         }
     }
-
-    private static final org.slf4j.Logger log = LoggerFactory.getLogger(EventService.class);
 
     public String postNewEvent(Event event) throws ServiceException {
         log.info(event.toString());
@@ -76,15 +71,12 @@ public class EventService {
             Place place = (Place) placeHelp.get();
 
 
-            Event novi = new Event(event.getId(),event.getName(), place);
-
-
+            Event novi = new Event(event.getId(), event.getName(), place);
 
 
             eventRepository.save(novi);
             return "Event with name = " + event.getName() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             log.info(e.getMessage());
             throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
         }
@@ -97,8 +89,7 @@ public class EventService {
             event.setName(eventFromRequest.getName());
             eventRepository.save(event);
             return "Event with id = " + event.getId() + " and name = " + event.getName() + " updated successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");
         }
     }

@@ -12,15 +12,14 @@ public class EventConsumer {
     UserRepository userRepository;
 
     @Autowired
-    public EventConsumer(UserRepository us)
-    {
+    public EventConsumer(UserRepository us) {
         this.userRepository = us;
     }
 
-    @RabbitListener(queues="interactionServiceQueue")
+    @RabbitListener(queues = "interactionServiceQueue")
     public void receive(String message) {
         userRepository.deleteById(Integer.parseInt(message));
 
-            }
+    }
 
 }

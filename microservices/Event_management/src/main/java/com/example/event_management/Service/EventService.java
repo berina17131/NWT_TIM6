@@ -19,6 +19,8 @@ import java.util.*;
 public class EventService {
 
     private final EventRepository eventRepository;
+    @Autowired
+    private EurekaClient discoveryClient;
 
     @Autowired
     public EventService(EventRepository eventRepository) {
@@ -28,7 +30,7 @@ public class EventService {
     public List<Event> getAll() throws ServiceException {
         try {
             return eventRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all events.");
         }
     }
@@ -39,33 +41,31 @@ public class EventService {
             Event event = (Event) eventHelp.get();
 
             return event;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find event with id={" + id + "}");
         }
     }
 
     public List<Event> getByCategory(String category) throws ServiceException {
         try {
-            List<Event> events =  eventRepository.findAll();
+            List<Event> events = eventRepository.findAll();
             Set<Event> eventsSet = new HashSet<>();
 
-            for(Event e: events)
-            {
-                if(e.getCategory().getName().equals(category))
-                {
+            for (Event e : events) {
+                if (e.getCategory().getName().equals(category)) {
                     eventsSet.add(e);
                 }
             }
 
             return new ArrayList<>(eventsSet);
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all events.");
         }
     }
 
     public List<Event> getByTitle(String title) throws ServiceException {
         try {
-            List<Event> events =  eventRepository.findAll();
+            List<Event> events = eventRepository.findAll();
             Set<Event> eventsSet = new HashSet<>();
             boolean exist = false;
 
@@ -76,12 +76,12 @@ public class EventService {
                 }
             }
 
-            if(exist == false)
-               return null;
+            if (exist == false)
+                return null;
             else
                 return new ArrayList<>(eventsSet);
-        }catch (Exception e) {
-            throw new ServiceException("Cannot find event with title={" + title+ "}");
+        } catch (Exception e) {
+            throw new ServiceException("Cannot find event with title={" + title + "}");
         }
     }
 
@@ -89,9 +89,6 @@ public class EventService {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-    @Autowired
-    private EurekaClient discoveryClient;
 
     public String deleteAll() throws ServiceException {
         try {
@@ -108,7 +105,7 @@ public class EventService {
 
             return "All events deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all events");
         }
 
@@ -130,34 +127,33 @@ public class EventService {
 
             return "Event with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete event with id={" + id + "}");
         }
 
     }
 
- public String createEvent(Event event) throws ServiceException {
-     try {
-         eventRepository.save(event);
-        /// Creating a event in Place microservice
+    public String createEvent(Event event) throws ServiceException {
+        try {
+            eventRepository.save(event);
+            /// Creating a event in Place microservice
         /* InstanceInfo instance = discoveryClient.getNextServerFromEureka("PLACE_MANAGEMENT", false);
          RestTemplate restTemplate = new RestTemplate();
          restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/event", event, null);
 */
-         // Creating a event in Interaction microservice
-        // log.info("");
-         System.out.println("PRVI");
-        InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
-         RestTemplate restTemplate1 = new RestTemplate();
-         restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, null);
+            // Creating a event in Interaction microservice
+            // log.info("");
+            System.out.println("PRVI");
+            InstanceInfo instance1 = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            RestTemplate restTemplate1 = new RestTemplate();
+            restTemplate1.postForEntity("http://localhost:" + Integer.toString(instance1.getPort()) + "/event", event, null);
 
 
-         return "Event with name = " + event.getName() + " saved successfully";
-     }
-     catch (Exception e) {
-         throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
-     }
- }
+            return "Event with name = " + event.getName() + " saved successfully";
+        } catch (Exception e) {
+            throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
+        }
+    }
 
     public String putEvent(Event eventFromRequest) throws ServiceException {
         try {
@@ -178,13 +174,8 @@ public class EventService {
 
 
             return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");
         }
     }
-
-
-
-
 }

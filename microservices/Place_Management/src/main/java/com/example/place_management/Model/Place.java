@@ -21,7 +21,8 @@ public class Place {
     @JsonIgnoreProperties("place")
     private Set<Event> events;
 
-    protected Place() {}
+    protected Place() {
+    }
 
     public Place(String name, String description) {
         this.name = name;
@@ -29,9 +30,9 @@ public class Place {
     }
 
     public Place(String name, String description, Address address) {
-            this.name = name;
-            this.description = description;
-            this.address = address;
+        this.name = name;
+        this.description = description;
+        this.address = address;
     }
 
     @Id
@@ -85,7 +86,7 @@ public class Place {
                 "Place[id=%d, name='%s', description = '%s']%n",
                 id, name, description);
         if (events != null) {
-            for(Event event : events) {
+            for (Event event : events) {
                 result += event.toString();
             }
         }

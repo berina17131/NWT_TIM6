@@ -22,8 +22,7 @@ public class AddressService {
     public List<Address> getAll() throws ServiceException {
         try {
             return addressRepository.findAll();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all addresses.");
         }
     }
@@ -33,8 +32,7 @@ public class AddressService {
             Optional addressHelp = addressRepository.findById(Integer.parseInt(id));
             Address address = (Address) addressHelp.get();
             return address;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find address with id = " + id + ".");
         }
     }
@@ -47,8 +45,7 @@ public class AddressService {
             }
             // In case it did not find an address with given name
             throw new Exception();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find address with name = " + name + ".");
         }
     }
@@ -57,8 +54,7 @@ public class AddressService {
         try {
             addressRepository.deleteAll();
             return "All addresses deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete all addresses");
         }
     }
@@ -67,8 +63,7 @@ public class AddressService {
         try {
             addressRepository.deleteById(Integer.parseInt(id));
             return "Address with id = " + id + " deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete address with id = " + id + ".");
         }
     }
@@ -77,8 +72,7 @@ public class AddressService {
         try {
             addressRepository.save(address);
             return "Address with name = " + address.getName() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create address with name = " + address.getName() + ".");
         }
     }
@@ -90,8 +84,7 @@ public class AddressService {
             address.setName(addressFromRequest.getName());
             addressRepository.save(address);
             return "Address with id = " + address.getId() + " and name = " + address.getName() + " updated successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update address with id = " + addressFromRequest.getId() + ".");
         }
     }

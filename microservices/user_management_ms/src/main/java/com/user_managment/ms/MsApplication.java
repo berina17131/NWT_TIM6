@@ -3,7 +3,6 @@ package com.user_managment.ms;
 import com.user_managment.ms.Models.Role;
 import com.user_managment.ms.Models.User;
 import com.user_managment.ms.Repository.UserRoleRepository;
-import com.user_managment.ms.Security.UpdatableBCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,43 +21,42 @@ import java.util.Set;
 @EnableEurekaClient
 public class MsApplication implements CommandLineRunner {
 
-	private static final Logger log = LoggerFactory.getLogger(MsApplication.class);
-    private static final UpdatableBCrypt bcrypt = new UpdatableBCrypt(11);
+    private static final Logger log = LoggerFactory.getLogger(MsApplication.class);
 
     @Autowired
-	private UserRoleRepository roleRepository;
+    private UserRoleRepository roleRepository;
 
-	public static void main(String[] args) {
-		SpringApplication.run(MsApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(MsApplication.class, args);
+    }
 
-	@Override
-	@Transactional
-	public void run(String... strings) throws Exception {
-		Role user = new Role("User");
-		User user1 = new User("noviUser", bcrypt.hash("password"), user);
-		user1.setIme("Novi");
-		user1.setPrezime("Novic");
-		Set ordinary_users = new HashSet<User>(){{
-			add(user1);
-		}};
-		user.setUsers(ordinary_users);
+    @Override
+    @Transactional
+    public void run(String... strings) throws Exception {
+        Role user = new Role("User");
+        User user1 = new User("noviUser", "password", user);
+        user1.setIme("Novi");
+        user1.setPrezime("Novic");
+        Set ordinary_users = new HashSet<User>() {{
+            add(user1);
+        }};
+        user.setUsers(ordinary_users);
 
-		Role admin = new Role("Admin");
-		User user2 = new User("admin", bcrypt.hash("password"), admin);
-		user2.setIme("Admin");
-		user2.setPrezime("Adminovic");
-		Set admin_users = new HashSet<User>(){{
-			add(user2);
-		}};
-		admin.setUsers(admin_users);
+        Role admin = new Role("Admin");
+        User user2 = new User("admin", "password", admin);
+        user2.setIme("Admin");
+        user2.setPrezime("Adminovic");
+        Set admin_users = new HashSet<User>() {{
+            add(user2);
+        }};
+        admin.setUsers(admin_users);
 
-		roleRepository.deleteAll();
-		roleRepository.save(user);
-		roleRepository.save(admin);
+        roleRepository.deleteAll();
+        roleRepository.save(user);
+        roleRepository.save(admin);
 
-		for (Role role : roleRepository.findAll()) {
-			log.info(role.toString());
-		}
-	}
+        for (Role role : roleRepository.findAll()) {
+            log.info(role.toString());
+        }
+    }
 }

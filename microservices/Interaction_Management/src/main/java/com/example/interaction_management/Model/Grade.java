@@ -10,7 +10,7 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Grade {
     private int id;
-    @NotNull (message = "Grade cannont be null")
+    @NotNull(message = "Grade cannont be null")
     @Min(value = 1, message = "Grade cannont be lower than 1")
     @Max(value = 5, message = "Grade cannont be higher than 5")
     private int grade;
@@ -19,7 +19,8 @@ public class Grade {
     @JsonIgnoreProperties("grades")
     private Event event;
 
-    protected Grade() {}
+    protected Grade() {
+    }
 
     public Grade(int gr) {
         this.grade = gr;
@@ -30,6 +31,7 @@ public class Grade {
     public int getId() {
         return this.id;
     }
+
     public void setId(int id) {
         this.id = id;
     }

@@ -1,8 +1,6 @@
 package com.example.event_management;
 
 import com.example.event_management.Model.Category;
-import com.example.event_management.Model.Place;
-import com.example.event_management.Model.Event;
 import com.example.event_management.Repository.CategoryRepository;
 import com.example.event_management.Repository.EventRepository;
 import com.example.event_management.Repository.PlaceRepository;
@@ -18,8 +16,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.awt.*;
-
 @ComponentScan({"com.example.event_management"})
 @EntityScan("com.example.event_management.Model")
 @EnableJpaRepositories("com.example.event_management.Repository")
@@ -27,32 +23,30 @@ import java.awt.*;
 @EnableDiscoveryClient
 public class EventManagementApplication implements CommandLineRunner {
 
+    private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
 
-	private static final Logger log = LoggerFactory.getLogger(EventManagementApplication.class);
+    @Autowired
+    private CategoryRepository categoryRepository;
 
-	@Autowired
-	private CategoryRepository categoryRepository;
-	@Autowired
-	private PlaceRepository placeRepository;
-	@Autowired
-	private EventRepository eventRepository;
+    @Autowired
+    private PlaceRepository placeRepository;
 
-
-	public static void main(String[] args) {
+    @Autowired
+    private EventRepository eventRepository;
 
 
+    public static void main(String[] args) {
+        SpringApplication.run(EventManagementApplication.class, args);
+    }
 
-		SpringApplication.run(EventManagementApplication.class, args);
-	}
+    @Override
+    @Transactional
+    public void run(String... strings) throws Exception {
 
-	@Override
-	@Transactional
-	public void run(String... strings) throws Exception {
-
-		Category categoryB = new Category("muzika","aaaaa");
-    Category categoryA = new Category("zabava","");
-    categoryRepository.save(categoryA);
-		categoryRepository.save(categoryB);
+        Category categoryB = new Category("muzika", "aaaaa");
+        Category categoryA = new Category("zabava", "");
+        categoryRepository.save(categoryA);
+        categoryRepository.save(categoryB);
 
 		/*Place aa = new Place("FaceTv");
 		Place bb = new Place("Vatra");
@@ -79,9 +73,5 @@ public class EventManagementApplication implements CommandLineRunner {
 		eventRepository.save(eventC);
 		Event eventD = new Event("Zabava444","NaAAAAAAAAAA1", categoryA, placeA);
 		eventRepository.save(eventD);*/
-	}
-
+    }
 }
-
-
-

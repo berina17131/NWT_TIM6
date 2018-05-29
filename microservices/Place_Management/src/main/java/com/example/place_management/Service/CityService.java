@@ -22,8 +22,7 @@ public class CityService {
     public List<City> getAll() throws ServiceException {
         try {
             return cityRepository.findAll();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all cities.");
         }
     }
@@ -33,8 +32,7 @@ public class CityService {
             Optional cityHelp = cityRepository.findById(Integer.parseInt(id));
             City city = (City) cityHelp.get();
             return city;
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find city with id = " + id + ".");
         }
     }
@@ -47,8 +45,7 @@ public class CityService {
             }
             // In case it did not find a city with given name
             throw new Exception();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find city with name = " + name + ".");
         }
     }
@@ -57,8 +54,7 @@ public class CityService {
         try {
             cityRepository.deleteAll();
             return "All cities deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete all cities");
         }
     }
@@ -67,8 +63,7 @@ public class CityService {
         try {
             cityRepository.deleteById(Integer.parseInt(id));
             return "City with id = " + id + " deleted";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete city with id = " + id + ".");
         }
     }
@@ -77,8 +72,7 @@ public class CityService {
         try {
             cityRepository.save(city);
             return "City with name = " + city.getName() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create city with name = " + city.getName() + ".");
         }
     }
@@ -90,8 +84,7 @@ public class CityService {
             city.setName(cityFromRequest.getName());
             cityRepository.save(city);
             return "City with id = " + city.getId() + " and name = " + city.getName() + " updated successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update city with id = " + cityFromRequest.getId() + ".");
         }
     }

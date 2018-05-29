@@ -17,27 +17,27 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @RequestMapping(value="/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(eventService.getAll());
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(eventService.getById(id));
     }
 
-    @RequestMapping(value="/title/{title}", method = RequestMethod.GET)
+    @RequestMapping(value = "/title/{title}", method = RequestMethod.GET)
     public ResponseEntity getByTitle(@PathVariable("title") String title) throws ServiceException {
         return ResponseEntity.ok(eventService.getByTitle(title));
     }
 
-    @RequestMapping(value="/delete/all", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(eventService.deleteAll());
     }
 
-    @RequestMapping(value="delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(eventService.deleteById(id));
     }

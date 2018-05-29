@@ -26,9 +26,15 @@ public class User {
     @JsonIgnoreProperties("user")
     private Set<Status> statuses;
 
-    protected User() {}
+    protected User() {
+    }
 
-    public User (String username){
+    public User(String username) {
+        this.username = username;
+    }
+
+    public User(int id, String username) {
+        this.id = id;
         this.username = username;
     }
 
@@ -41,17 +47,11 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername(){
+    public String getUsername() {
         return username;
     }
 
     public void setUsername(String username) {
-        this.username = username;
-    }
-
-
-    public User(int id, String username) {
-        this.id = id;
         this.username = username;
     }
 
@@ -88,19 +88,19 @@ public class User {
                 "User[id=%d, username='%s']%n",
                 id, username);
         if (grades != null) {
-            for(Grade grade : grades) {
+            for (Grade grade : grades) {
                 result += grade.toString();
             }
         }
 
         if (comments != null) {
-            for(Comment comment : comments) {
+            for (Comment comment : comments) {
                 result += comment.toString();
             }
         }
 
         if (statuses != null) {
-            for(Status status : statuses) {
+            for (Status status : statuses) {
                 result += status.toString();
             }
         }

@@ -29,7 +29,7 @@ public class UserService {
     public List<User> getAll() throws ServiceException {
         try {
             return userRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all users.");
         }
     }
@@ -40,7 +40,7 @@ public class UserService {
             User user = (User) userHelp.get();
 
             return user;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find user with id={" + id + "}");
         }
     }
@@ -51,8 +51,8 @@ public class UserService {
                 if (user.getUsername().equals(username))
                     return user;
             }
-            throw new ServiceException("Cannot find user with username={" + username+ "}");
-        }catch (Exception e) {
+            throw new ServiceException("Cannot find user with username={" + username + "}");
+        } catch (Exception e) {
             throw new ServiceException("Cannot find user with username={" + username + "}");
         }
     }
@@ -62,7 +62,7 @@ public class UserService {
             userRepository.deleteAll();
             return "All users deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all users");
         }
     }
@@ -72,25 +72,24 @@ public class UserService {
             userRepository.deleteById(Integer.parseInt(id));
             return "user with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete user with id={" + id + "}");
         }
     }
 
- public String createUser(int id, String username) throws ServiceException {
-     try {
-         User u;
-         u = new User(id, username);
-         System.out.println("HEHEHEHHEHEEH");
-         System.out.println(u);
-         userRepository.saveUser(id, username);
+    public String createUser(int id, String username) throws ServiceException {
+        try {
+            User u;
+            u = new User(id, username);
+            System.out.println("HEHEHEHHEHEEH");
+            System.out.println(u);
+            userRepository.saveUser(id, username);
 
-         return "User with name = " + u.getUsername() + " saved successfully";
-     }
-     catch (Exception e) {
-         throw new ServiceException("Cannot create user with name = " + username + ".");
-     }
- }
+            return "User with name = " + u.getUsername() + " saved successfully";
+        } catch (Exception e) {
+            throw new ServiceException("Cannot create user with name = " + username + ".");
+        }
+    }
 
     public String putUser(int id, User userFromRequest) throws ServiceException {
         try {
@@ -100,8 +99,7 @@ public class UserService {
             userRepository.changeUser(id, user.getUsername());
 
             return "User with id = " + id + " saved successfully as " + user.getUsername();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update user with id = " + userFromRequest.getId() + ".");
         }
     }

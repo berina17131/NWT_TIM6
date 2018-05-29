@@ -1,6 +1,5 @@
 package com.example.event_management.Service;
 
-
 import com.example.event_management.Model.Category;
 import com.example.event_management.Repository.CategoryRepository;
 import org.hibernate.service.spi.ServiceException;
@@ -16,7 +15,7 @@ public class CategoryService {
     private final CategoryRepository categoryRepository;
 
     @Autowired
-    public CategoryService(CategoryRepository  categoryRepository) {
+    public CategoryService(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
 
@@ -24,7 +23,7 @@ public class CategoryService {
     public List<Category> getAll() throws ServiceException {
         try {
             return categoryRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all categories.");
         }
     }
@@ -35,7 +34,7 @@ public class CategoryService {
             Category category = (Category) categoryHelp.get();
 
             return category;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find category with id={" + id + "}");
         }
     }
@@ -47,8 +46,8 @@ public class CategoryService {
                     return category;
             }
             return null;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot find category with title={" + title+ "}");
+        } catch (Exception e) {
+            throw new ServiceException("Cannot find category with title={" + title + "}");
         }
     }
 
@@ -57,7 +56,7 @@ public class CategoryService {
             categoryRepository.deleteAll();
             return "All categories deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all categories");
         }
 
@@ -68,7 +67,7 @@ public class CategoryService {
             categoryRepository.deleteById(Integer.parseInt(id));
             return "category with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete category with id={" + id + "}");
         }
 
@@ -78,8 +77,7 @@ public class CategoryService {
         try {
             categoryRepository.save(category);
             return "Category with name = " + category.getName() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create category with name = " + category.getName() + ".");
         }
     }
@@ -91,11 +89,8 @@ public class CategoryService {
             category.setName(categoryFromRequest.getName());
             categoryRepository.save(category);
             return "Category with id = " + category.getId() + " saved successfully as " + category.getName();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update category with id = " + categoryFromRequest.getId() + ".");
         }
     }
-
-
 }

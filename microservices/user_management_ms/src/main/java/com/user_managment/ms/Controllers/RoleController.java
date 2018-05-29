@@ -27,12 +27,12 @@ public class RoleController {
         return ResponseEntity.ok(roleService.getRole(id));
     }
 
-    @RequestMapping(value="/create", method = RequestMethod.POST)
+    @RequestMapping(value = "/create", method = RequestMethod.POST)
     public ResponseEntity createRole(@RequestBody Role role) {
         return ResponseEntity.ok(roleService.createRole(role));
     }
 
-    @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteRole(@PathVariable("id") String id) {
         return ResponseEntity.ok(roleService.deleteRole(id));
     }

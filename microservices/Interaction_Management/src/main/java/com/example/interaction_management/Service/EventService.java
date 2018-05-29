@@ -21,7 +21,7 @@ public class EventService {
     public List<Event> getAll() throws ServiceException {
         try {
             return eventRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all events.");
         }
     }
@@ -32,7 +32,7 @@ public class EventService {
             Event event = (Event) eventHelp.get();
 
             return event;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find event with id={" + id + "}");
         }
     }
@@ -43,9 +43,9 @@ public class EventService {
                 if (event.getName().equals(title))
                     return event;
             }
-            throw new ServiceException("Cannot find place with title={" + title+ "}");
-        }catch (Exception e) {
-            throw new ServiceException("Cannot find place with title={" + title+ "}");
+            throw new ServiceException("Cannot find place with title={" + title + "}");
+        } catch (Exception e) {
+            throw new ServiceException("Cannot find place with title={" + title + "}");
         }
     }
 
@@ -54,7 +54,7 @@ public class EventService {
             eventRepository.deleteAll();
             return "All events deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all events");
         }
     }
@@ -64,7 +64,7 @@ public class EventService {
             eventRepository.deleteById(Integer.parseInt(id));
             return "event with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete place with id={" + id + "}");
         }
     }
@@ -73,12 +73,12 @@ public class EventService {
     public String createEvent(Event event) throws ServiceException {
         try {
             Event ev = new Event(event.getId(), event.getName());
-;                    System.out.println(ev.toString());
+            ;
+            System.out.println(ev.toString());
             eventRepository.save(ev);
 
             return "Event with name = " + event.getName() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
         }
     }
@@ -91,8 +91,7 @@ public class EventService {
             eventRepository.save(event);
 
             return "Event with id = " + event.getId() + " saved successfully as " + event.getName();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update event with id = " + eventFromRequest.getId() + ".");
         }
     }

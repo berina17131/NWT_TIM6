@@ -11,7 +11,7 @@ public class User {
     private int id;
 
     @NotNull
-    @Size(min=4, max=10)
+    @Size(min = 4, max = 10)
     private String username;
 
     @NotNull
@@ -21,17 +21,18 @@ public class User {
     @Email(message = "Email should be valid")
     private String email;
 
-    @Size(min=4, max=10)
- //   @Pattern(regexp="/^A-Za-z]+$/")
+    @Size(min = 4, max = 10)
+    //   @Pattern(regexp="/^A-Za-z]+$/")
     private String ime;
 
-    @Size(min=4, max=20)
-   // @Pattern(regexp="/^[A-Za-z]+$/")
+    @Size(min = 4, max = 20)
+    // @Pattern(regexp="/^[A-Za-z]+$/")
     private String prezime;
 
     private Role user_role;
 
-    protected User() {}
+    protected User() {
+    }
 
     public User(String ime, String prezime) {
         this.ime = ime;
@@ -50,7 +51,7 @@ public class User {
     }
 
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }
@@ -111,10 +112,10 @@ public class User {
 
     @Override
     public String toString() {
-        String result =  String.format(
+        String result = String.format(
                 "User[id=%d, username='%s', password='%s', email='%s', ime='%s', prezime='%s']%n",
                 id, username, password, email, ime, prezime);
-        result+=user_role.toString();
+        result += user_role.toString();
         return result;
     }
 

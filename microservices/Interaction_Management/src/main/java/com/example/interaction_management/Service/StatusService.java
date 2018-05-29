@@ -21,7 +21,7 @@ public class StatusService {
     public List<Status> getAll() throws ServiceException {
         try {
             return statusRepository.findAll();
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot fetch all statuses.");
         }
     }
@@ -32,7 +32,7 @@ public class StatusService {
             Status status = (Status) statusHelp.get();
 
             return status;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot find status with id={" + id + "}");
         }
     }
@@ -42,7 +42,7 @@ public class StatusService {
             statusRepository.deleteAll();
             return "All statuses deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannon delete all statuses");
         }
     }
@@ -52,7 +52,7 @@ public class StatusService {
             statusRepository.deleteById(Integer.parseInt(id));
             return "Status with id=" + id + " deleted";
 
-        }catch(Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot delete status with id={" + id + "}");
         }
     }
@@ -64,7 +64,7 @@ public class StatusService {
             statusRepository.save(status);
 
             return "Status=" + st + " saved successfully";
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot save status={" + st + "}");
         }
     }
@@ -76,7 +76,7 @@ public class StatusService {
             status.setSt(newStatus);
             statusRepository.save(status);
             return "Status with id=" + id + " changed to " + newStatus;
-        }catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot change status.");
         }
     }
@@ -86,8 +86,7 @@ public class StatusService {
             statusRepository.save(status);
 
             return "Status = " + status.getSt() + " saved successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot create status = " + status.getSt() + ".");
         }
     }
@@ -100,8 +99,7 @@ public class StatusService {
             statusRepository.save(status);
 
             return "Status with id= " + status.getId() + " saved successfully as " + status.getSt();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             throw new ServiceException("Cannot update status with id = " + statusFromRequest.getId() + ".");
         }
     }

@@ -1,7 +1,5 @@
 package com.example.event_management.Model;
 
-
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -24,16 +22,16 @@ public class Event {
     @JsonIgnoreProperties("events")
     private Place place;
 
-    public Event() {}
-    public Event(String name, String description)
-    {
+    public Event() {
+    }
+
+    public Event(String name, String description) {
         this.name = name;
         this.description = description;
 
     }
 
-    public Event(String name, String description, Category category, Place place)
-    {
+    public Event(String name, String description, Category category, Place place) {
         this.name = name;
         this.description = description;
         this.category = category;
@@ -88,7 +86,6 @@ public class Event {
     public void setCategory(Category category) {
         this.category = category;
     }
-
 
 
     @Override

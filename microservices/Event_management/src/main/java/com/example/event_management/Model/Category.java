@@ -1,6 +1,5 @@
 package com.example.event_management.Model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
@@ -22,7 +21,8 @@ public class Category {
     private Set<Event> events;
 
 
-    public Category() {}
+    public Category() {
+    }
 
     public Category(String name, String description) {
 
@@ -73,7 +73,7 @@ public class Category {
                 "Category[id=%d, name='%s', description = '%s']%n",
                 id, name, description);
         if (events != null) {
-            for(Event event : events) {
+            for (Event event : events) {
                 result += event.toString();
             }
         }

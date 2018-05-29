@@ -18,14 +18,15 @@ public class Role {
 
     private Set<User> users;
 
-    protected Role() {}
+    protected Role() {
+    }
 
     public Role(String role) {
         this.role = role;
     }
 
     @Id
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public int getId() {
         return id;
     }

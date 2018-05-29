@@ -17,30 +17,30 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @RequestMapping(value="/all", method = RequestMethod.GET)
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(placeService.getAll());
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(placeService.getById(id));
 
     }
 
-    @RequestMapping(value="/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
     public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(placeService.getByName(name));
 
     }
 
-    @RequestMapping(value="/all", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/all", method = RequestMethod.DELETE)
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(placeService.deleteAll());
 
     }
 
-    @RequestMapping(value="/id/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(placeService.deleteById(id));
 

@@ -1,6 +1,5 @@
 package com.example.event_management.Model;
 
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.CascadeType;
@@ -22,9 +21,12 @@ public class Place {
     @JsonIgnoreProperties("place")
     private Set<Event> events;
 
-    public Place() {}
+    public Place() {
+    }
 
-    public Place(String name) {this.name = name;}
+    public Place(String name) {
+        this.name = name;
+    }
 
     @Id
     @NotNull
@@ -38,7 +40,7 @@ public class Place {
     }
 
 
-   @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "place", cascade = CascadeType.ALL)
     public Set<Event> getEvents() {
         return events;
     }
@@ -62,14 +64,13 @@ public class Place {
                 "Place[id=%d, name='%s', description = '%s']%n",
                 id, name);
         if (events != null) {
-            for(Event event : events) {
+            for (Event event : events) {
                 result += event.toString();
             }
         }
 
         return result;
     }
-
 
 
 }

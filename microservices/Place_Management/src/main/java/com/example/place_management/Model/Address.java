@@ -19,7 +19,8 @@ public class Address {
     @JsonIgnoreProperties("address")
     private Set<Place> places;
 
-    protected Address() {}
+    protected Address() {
+    }
 
     public Address(String name) {
         this.name = name;
@@ -73,7 +74,7 @@ public class Address {
                 "Address[id=%d, name='%s']%n",
                 id, name);
         if (places != null) {
-            for(Place place : places) {
+            for (Place place : places) {
                 result += place.toString();
             }
         }

@@ -12,7 +12,7 @@ import java.util.Set;
 @Entity
 public class Event {
     private int id;
-    @NotNull (message = "Name can not be null")
+    @NotNull(message = "Name can not be null")
     @Size(min = 3, max = 50, message = "Name must be between 3 and 50 char")
     private String name;
 
@@ -25,10 +25,11 @@ public class Event {
     @JsonIgnoreProperties("event")
     private Set<Status> statuses;
 
-    protected Event() {}
+    protected Event() {
+    }
 
-    public Event (int id, String name){
-        this.id =id;
+    public Event(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -42,7 +43,7 @@ public class Event {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
