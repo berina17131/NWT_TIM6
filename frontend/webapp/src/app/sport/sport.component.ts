@@ -25,7 +25,7 @@ export class SportComponent implements OnInit {
 
   prikaziDetalje(event: any){
     this.selectedEvent = event;
-    this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
+    this.router.navigate(['/sport-detalji', this.selectedEvent.id]);
   }
 
   obrisi(event: any){

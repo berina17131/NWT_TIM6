@@ -25,7 +25,7 @@ export class KulturaComponent implements OnInit {
 
   prikaziDetalje(event: any){
     this.selectedEvent = event;
-    this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
+    this.router.navigate(['/kultura-detalji', this.selectedEvent.id]);
   }
 
   obrisi(event: any){

@@ -59,8 +59,8 @@
 
      <hr class="featurette-divider">
 
-        <div class="row featurette" >
-            <div class="col-md-7" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
+        <div class="row featurette" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent" >
+            <div class="col-md-7">
                 <h2 class="featurette-heading">{{ event.name }}
                     <span class="text-muted"> Neki tekst</span>
                 </h2>
