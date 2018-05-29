@@ -22,29 +22,19 @@ public class User {
     private String email;
 
     @Size(min = 4, max = 10)
-    //   @Pattern(regexp="/^A-Za-z]+$/")
     private String ime;
 
     @Size(min = 4, max = 20)
-    // @Pattern(regexp="/^[A-Za-z]+$/")
     private String prezime;
 
     private Role user_role;
 
-    protected User() {
+    public User() {
     }
 
-    public User(String ime, String prezime) {
+    public User(String ime, String prezime, String username, String password, Role user_role) {
         this.ime = ime;
         this.prezime = prezime;
-    }
-
-    public User(String username, Role user_role) {
-        this.username = username;
-        this.user_role = user_role;
-    }
-
-    public User(@NotNull @Size(min = 4, max = 10) String username, @NotNull @Size(min = 2, max = 10) String password, Role user_role) {
         this.username = username;
         this.password = password;
         this.user_role = user_role;
