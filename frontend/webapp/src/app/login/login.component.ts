@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
   }
 
   prijaviSe(){
-  // this.userService.getToken
+    console.log(this.username);
+    console.log(this.password);
   }
 }

@@ -23,6 +23,7 @@ import { AdminUseriComponent } from './admin-useri/admin-useri.component';
 import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { UserDetaljiComponent } from './user-detalji/user-detalji.component';
 import { LoginComponent } from './login/login.component';
+import { RegistracijaComponent } from './registracija/registracija.component';
 
 const routes: Routes = [
   { path: 'muzika', component: MuzikaComponent },
@@ -30,16 +31,17 @@ const routes: Routes = [
   { path: 'sport', component: SportComponent },
   { path: 'zabava', component: ZabavaComponent },
   { path: 'nauka', component: NaukaComponent },
-  { path: 'kultura-detalji', component: KulturaDetaljiComponent },
-  { path: 'nauka-detalji', component: NaukaDetaljiComponent },
-  { path: 'zabava-detalji', component: ZabavaDetaljiComponent },
-  { path: 'sport-detalji', component: SportDetaljiComponent },
-  { path: 'muzika-detalji', component: MuzikaDetaljiComponent },
+  { path: 'kultura-detalji/:id', component: KulturaDetaljiComponent },
+  { path: 'nauka-detalji/:id', component: NaukaDetaljiComponent },
+  { path: 'zabava-detalji/:id', component: ZabavaDetaljiComponent },
+  { path: 'sport-detalji/:id', component: SportDetaljiComponent },
+  { path: 'muzika-detalji/:id', component: MuzikaDetaljiComponent },
   { path: 'admin-lokacija', component: AdminLokacijaComponent },
   { path: 'admin-useri', component: AdminUseriComponent },
   { path: 'admin-events', component: AdminEventsComponent },
   { path: 'user-detalji/:idUser', component: UserDetaljiComponent },
-  { path: 'login', component: LoginComponent }
+  { path: 'login', component: LoginComponent },
+  { path: 'registracija', component: RegistracijaComponent }
 ];
 
 
@@ -60,7 +62,8 @@ const routes: Routes = [
     AdminUseriComponent,
     AdminEventsComponent,
     UserDetaljiComponent,
-    LoginComponent
+    LoginComponent,
+    RegistracijaComponent
   ],
   imports: [
     BrowserModule,

@@ -18,6 +18,11 @@ html {
   body.fixed-nav {
     padding-top: 56px;
   }
+
+  .bg-dark {
+    background-color: #343a40!important;
+    height: 703px;
+  }
   
   .content-wrapper {
     min-height: calc(100vh - 56px);
@@ -463,11 +468,6 @@ html {
     height: 56px;
     background-color: #e9ecef;
     line-height: 55px;
-  }
-
-  .bg-dark {
-    background-color: #343a40!important;
-    height: 703px;
   }
   
   @media (min-width: 992px) {
