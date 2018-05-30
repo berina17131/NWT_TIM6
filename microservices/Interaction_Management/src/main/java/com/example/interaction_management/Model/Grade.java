@@ -10,12 +10,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Grade {
     private int id;
-    @NotNull(message = "Grade cannont be null")
-    @Min(value = 1, message = "Grade cannont be lower than 1")
-    @Max(value = 5, message = "Grade cannont be higher than 5")
+
+    @NotNull(message = "Grade can not be null")
+    @Min(value = 1, message = "Grade can not be lower than 1")
+    @Max(value = 5, message = "Grade can not be higher than 5")
     private int grade;
+
     @JsonIgnoreProperties("grades")
     private User user;
+
     @JsonIgnoreProperties("grades")
     private Event event;
 
@@ -36,6 +39,14 @@ public class Grade {
         this.id = id;
     }
 
+    public int getGrade() {
+        return grade;
+    }
+
+    public void setGrade(int grade) {
+        this.grade = grade;
+    }
+
     @ManyToOne
     @JoinColumn(name = "user_id")
     public User getUser() {
@@ -54,14 +65,6 @@ public class Grade {
 
     public void setEvent(Event event) {
         this.event = event;
-    }
-
-    public int getGr() {
-        return this.grade;
-    }
-
-    public void setGr(int gr) {
-        this.grade = gr;
     }
 
     @Override

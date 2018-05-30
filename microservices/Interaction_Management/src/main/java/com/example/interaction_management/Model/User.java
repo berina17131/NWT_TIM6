@@ -13,8 +13,9 @@ import java.util.Set;
 @Entity
 public class User {
     private int id;
-    @NotNull(message = "Username cannont be null")
-    @Size(min = 4, max = 10, message = "Username must be between 4 and 10 char")
+
+    @NotNull(message = "Username can not be null")
+    @Size(min = 4, message = "Username must be longer than 4 characters")
     private String username;
 
     @JsonIgnoreProperties("user")
@@ -87,23 +88,6 @@ public class User {
         String result = String.format(
                 "User[id=%d, username='%s']%n",
                 id, username);
-        if (grades != null) {
-            for (Grade grade : grades) {
-                result += grade.toString();
-            }
-        }
-
-        if (comments != null) {
-            for (Comment comment : comments) {
-                result += comment.toString();
-            }
-        }
-
-        if (statuses != null) {
-            for (Status status : statuses) {
-                result += status.toString();
-            }
-        }
 
         return result;
     }
