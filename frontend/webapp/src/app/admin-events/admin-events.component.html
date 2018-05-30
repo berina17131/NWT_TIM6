@@ -1,4 +1,4 @@
-<hr>
+<!--<hr>
 <button class="btn btn-default" type="submit" data-toggle="modal" data-target="#exampleModal4">Dodaj novi event</button>
 <hr>
 <div class="row featurette" >
@@ -33,7 +33,6 @@
   </p>
   <hr>
 </div>
-<!--Detalji eventa i izmjene eventa modal-->
 <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -63,58 +62,51 @@
         </div>
     </div>
 </div>
-
-<!--Kreitanje novog eventa-->
-<div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel"> Novi događaj: </h3>
-            </div>
-            <div class="modal-body">
-                 <form>
-                    <div class="form-group">
-                       <label for="recipient-name" class="col-form-label"> Naziv događaja: </label>
-                        <input type="text" class="form-control" id="naziv_objekta" [(ngModel)]="modal_naziv" [ngModelOptions]="{standalone: true}">
-                    </div>
-                    <div class="form-group">
-                        <label for="detalji_zahtjev" class="col-form-label">Opis:</label>
-                        <textarea class="form-control" id="opis_objekta" style="height: 150px" [(ngModel)]="modal_opis" [ngModelOptions]="{standalone: true}"></textarea>
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Izaberi kategoriju:</label>
-                        <br>
-                        <select class="form-control" id="hitnost">
-                            <option>Lista kategorija</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Izaberi objekat:</label>
-                        <br>
-                        <select class="form-control" id="hitnost">
-                            <option>Lista objekata</option>
-                        </select>
-                    </div>
-                    <!--<div class="form-group">
-                        <label for="recipient-name" class="col-form-label">Adresa:</label>
-                        <br>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="" [(ngModel)]="wayOfResponseTelefon" [ngModelOptions]="{standalone: true}">Telefon</label>
-                        <label class="checkbox-inline">
-                            <input type="checkbox" value="" [(ngModel)]="wayOfResponseEmail" [ngModelOptions]="{standalone: true}">E-mail</label>
-                    </div>-->
-                 <!--   <div class="form-group">
-                        <label for="hitnost1" class="col-form-label">Adresa:</label>
-                        <select class="form-control" id="hitnost1" [(ngModel)]="odabraniPrioritet1" name="priorities">
-                            <option *ngFor="let p of prioritetii" [value]="p.id">{{p.name}}</option>
-                        </select>
-                    </div>-->
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal">Zatvori</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"  id="btn_podnesi_zahtjev" (click)="kreirajEvent()">Sačuvaj</button>
-            </div>
+-->
+<div class="row">
+    <div class="col-md-12">
+        <div class="jumbotron" style="text-align: center; height: 150px;">
+            <h1>Novi događaj</h1>
         </div>
     </div>
+</div>
+
+<div class="row">
+    <div class="col-md-3">
+
+    </div>
+
+    <div class="col-md-6">
+        <form>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label"> Naziv događaja: </label>
+                <input type="text" class="form-control" id="naziv_objekta" [(ngModel)]="event.name" [ngModelOptions]="{standalone: true}">
+            </div>
+            <div class="form-group">
+                <label for="detalji_zahtjev" class="col-form-label">Opis:</label>
+                <textarea class="form-control" id="opis_objekta" style="height: 150px" [(ngModel)]="event.description" [ngModelOptions]="{standalone: true}"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Izaberi kategoriju:</label>
+                <br>
+                <select class="form-control" id="hitnost">
+                    <option>Lista kategorija</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="recipient-name" class="col-form-label">Izaberi objekat:</label>
+                <br>
+                <select class="form-control" id="hitnost">
+                    <option>Lista objekata</option>
+                </select>
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_podnesi_zahtjev" (click)="kreirajEvent()">Spremi</button>
+        </div>
+    </div>
+
+    <div class="col-md-3">
+    </div>
+
 </div>

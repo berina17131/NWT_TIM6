@@ -10,11 +10,7 @@ import {Event} from '../services/event/Event';
 })
 export class AdminEventsComponent implements OnInit {
 
-  events: Array<any>;
-  event: any;
-  selectedEvent: any;
-
-  newEvent: Event = {
+  event: Event = {
     name: '',
     description: '',
     category: {
@@ -25,51 +21,42 @@ export class AdminEventsComponent implements OnInit {
     }
   };
 
-  modal_naziv: any;
-  modal_opis: any;
-  modal_kategorija: any;
-
   constructor(private eventService: EventService, private router: Router) { }
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("muzika").subscribe(data => {
+    /*this.eventService.getEventsByCategory("muzika").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
-    });
+    });*/
   }
 
-  obrisi(event: any){
+  /*obrisi(event: any){
 
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
     });
-  }
+  }*/
 
-  prikaziDetalje(event) {
+  /*prikaziDetalje(event) {
     this.modal_naziv = event.name;
     this.modal_opis = event.description;
     this.modal_kategorija ="a";
     //this.modal_adresa = place.address;
-  }
+  }*/
 
   loadajStranicu() {
     window.location.reload();
   }
 
   kreirajEvent(){
-    this.newEvent.name = this.modal_naziv;
-    this.newEvent.description = this.modal_opis;
-    this.newEvent.category.id = 1;
-    this.newEvent.place.id = 1;
-    
-
-    this.eventService.createEvent(this.newEvent).subscribe(data => {
+    console.log(this.event);
+      /*this.eventService.createEvent(this.event).subscribe(data => {
       console.log(data);
-    });
+    });*/
   }
 
-  sacuvajIzmjeneEvent(){
+  /*sacuvajIzmjeneEvent(){
     
       this.newEvent.name = this.modal_naziv;
       this.newEvent.description = this.modal_opis;
@@ -80,7 +67,7 @@ export class AdminEventsComponent implements OnInit {
       console.log(data);
       this.loadajStranicu();
     });
-  }
+  }*/
 
 
 }
