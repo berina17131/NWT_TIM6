@@ -12,6 +12,7 @@ export class MuzikaDetaljiComponent implements OnInit {
 
   event: any;
   comments: Array<any>;
+  selectedComment: any;
 
   constructor(
     private eventService: EventService, 
@@ -35,8 +36,10 @@ export class MuzikaDetaljiComponent implements OnInit {
 
   getComments(id){
     this.commentService.getCommentsForEvent(id).subscribe(data =>{
+      console.log("aaaaaa");
       this.comments = data;
-    })
+      console.log(this.comments.length);
+    });   
   }
 
 }

@@ -39,7 +39,7 @@ public class CommentService {
     public List<Comment> getByEventId(String id) throws ServiceException {
         try {
             List<Comment> comments = commentRepository.findAll();
-            Set<Comment> commentsSet = new HashSet<>();
+            List<Comment> commentsSet = new ArrayList<>();
 
             for (Comment e : comments) {
                 if (e.getEvent().getId() == Integer.parseInt(id)) {
@@ -47,9 +47,9 @@ public class CommentService {
                 }
             }
 
-            return new ArrayList<>(commentsSet);
+            return commentsSet;
         } catch (Exception e) {
-            throw new ServiceException("Cannot fetch all events.");
+            throw new ServiceException("Cannot fetch all comments from event.");
         }
     }
 

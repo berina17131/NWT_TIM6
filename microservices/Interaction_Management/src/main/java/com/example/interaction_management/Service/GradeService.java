@@ -1,13 +1,13 @@
 package com.example.interaction_management.Service;
 
+import com.example.interaction_management.Model.Comment;
 import com.example.interaction_management.Model.Grade;
 import com.example.interaction_management.Repository.GradeRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class GradeService {
@@ -26,12 +26,25 @@ public class GradeService {
         }
     }
 
-    public Grade getById(String id) throws ServiceException {
+    public float getAverageGradeForEvent(String id) throws ServiceException {
         try {
-            Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
+            List<Grade> grades = gradeRepository.findAll();
+            float averageGrade = 0;
+            int count = 0;
+
+                for (Grade e : grades) {
+                if (e.getEvent().getId() == Integer.parseInt(id)) {
+                    count++;
+                    averageGrade += e.getGr();
+
+                }
+            }
+
+            return averageGrade/count;
+            /*Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
             Grade grade = (Grade) gradeHelp.get();
 
-            return grade;
+            return grade;*/
         } catch (Exception e) {
             throw new ServiceException("Cannot find grade with id={" + id + "}");
         }

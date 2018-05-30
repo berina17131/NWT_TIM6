@@ -21,9 +21,9 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
-        return ResponseEntity.ok(gradeService.getById(id));
+        return ResponseEntity.ok(gradeService.getAverageGradeForEvent(id));
     }
 
     @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
