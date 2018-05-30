@@ -73,7 +73,7 @@ public class StatusService {
         try {
             Optional statusHelp = statusRepository.findById(Integer.parseInt(id));
             Status status = (Status) statusHelp.get();
-            status.setSt(newStatus);
+            status.setStatus(newStatus);
             statusRepository.save(status);
             return "Status with id=" + id + " changed to " + newStatus;
         } catch (Exception e) {
@@ -85,9 +85,9 @@ public class StatusService {
         try {
             statusRepository.save(status);
 
-            return "Status = " + status.getSt() + " saved successfully";
+            return "Status = " + status.getStatus() + " saved successfully";
         } catch (Exception e) {
-            throw new ServiceException("Cannot create status = " + status.getSt() + ".");
+            throw new ServiceException("Cannot create status = " + status.getStatus() + ".");
         }
     }
 
@@ -95,10 +95,10 @@ public class StatusService {
         try {
             Optional statusHelp = statusRepository.findById(statusFromRequest.getId());
             Status status = (Status) statusHelp.get();
-            status.setSt(statusFromRequest.getSt());
+            status.setStatus(statusFromRequest.getStatus());
             statusRepository.save(status);
 
-            return "Status with id= " + status.getId() + " saved successfully as " + status.getSt();
+            return "Status with id= " + status.getId() + " saved successfully as " + status.getStatus();
         } catch (Exception e) {
             throw new ServiceException("Cannot update status with id = " + statusFromRequest.getId() + ".");
         }

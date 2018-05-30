@@ -73,7 +73,7 @@ public class GradeService {
         try {
             Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
             Grade grade = (Grade) gradeHelp.get();
-            grade.setGr(newGrade);
+            grade.setGrade(newGrade);
             gradeRepository.save(grade);
             return "Grade with id=" + id + " changed to " + newGrade;
         } catch (Exception e) {
@@ -85,9 +85,9 @@ public class GradeService {
         try {
             gradeRepository.save(grade);
 
-            return "Grade = " + grade.getGr() + " saved successfully";
+            return "Grade = " + grade.getGrade() + " saved successfully";
         } catch (Exception e) {
-            throw new ServiceException("Cannot create grade = " + grade.getGr() + ".");
+            throw new ServiceException("Cannot create grade = " + grade.getGrade() + ".");
         }
     }
 
@@ -95,10 +95,10 @@ public class GradeService {
         try {
             Optional gradeHelp = gradeRepository.findById(gradeFromRequest.getId());
             Grade grade = (Grade) gradeHelp.get();
-            grade.setGr(gradeFromRequest.getGr());
+            grade.setGrade(gradeFromRequest.getGrade());
             gradeRepository.save(grade);
 
-            return "Grade with id= " + grade.getId() + " saved successfully as " + grade.getGr();
+            return "Grade with id= " + grade.getId() + " saved successfully as " + grade.getGrade();
         } catch (Exception e) {
             throw new ServiceException("Cannot update grade with id = " + gradeFromRequest.getId() + ".");
         }
