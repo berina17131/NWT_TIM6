@@ -83,23 +83,6 @@ public class Event {
         String result = String.format(
                 "Event[id=%d, name='%s']%n",
                 id, name);
-        /*if (grades != null) {
-            for(Grade grade : grades) {
-                result += grade.toString();
-            }
-        }
-
-        if (comments != null) {
-            for(Comment comment : comments) {
-                result += comment.toString();
-            }
-        }
-
-        if (statuses != null) {
-            for(Status status : statuses) {
-                result += status.toString();
-            }
-        }*/
 
         return result;
     }

@@ -9,7 +9,7 @@ import javax.validation.constraints.Size;
 @Entity
 public class Comment {
     private int id;
-    @NotNull(message = "Comment cannont be null")
+    @NotNull(message = "Comment can not be null")
     @Size(min = 2, max = 255, message = "Comment must be between 2 and 255 char")
     private String comment;
     @JsonIgnoreProperties("comments")
@@ -34,12 +34,12 @@ public class Comment {
         this.id = id;
     }
 
-    public String getCom() {
-        return this.comment;
+    public String getComment() {
+        return comment;
     }
 
-    public void setCom(String co) {
-        this.comment = co;
+    public void setComment(String comment) {
+        this.comment = comment;
     }
 
     @ManyToOne

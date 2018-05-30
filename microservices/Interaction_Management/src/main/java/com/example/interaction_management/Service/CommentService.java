@@ -89,7 +89,7 @@ public class CommentService {
         try {
             Optional commentHelp = commentRepository.findById(Integer.parseInt(id));
             Comment comment = (Comment) commentHelp.get();
-            comment.setCom(newComment);
+            comment.setComment(newComment);
             commentRepository.save(comment);
             return "Comment with id=" + id + " changed to " + newComment;
         } catch (Exception e) {
@@ -101,9 +101,9 @@ public class CommentService {
         try {
             commentRepository.save(comment);
 
-            return "Comment = " + comment.getCom() + " saved successfully";
+            return "Comment = " + comment.getComment() + " saved successfully";
         } catch (Exception e) {
-            throw new ServiceException("Cannot create comment = " + comment.getCom() + ".");
+            throw new ServiceException("Cannot create comment = " + comment.getComment() + ".");
         }
     }
 
@@ -111,10 +111,10 @@ public class CommentService {
         try {
             Optional commentHelp = commentRepository.findById(commentFromRequest.getId());
             Comment comment = (Comment) commentHelp.get();
-            comment.setCom(commentFromRequest.getCom());
+            comment.setComment(commentFromRequest.getComment());
             commentRepository.save(comment);
 
-            return "Comment with id= " + comment.getCom() + " saved successfully as " + comment.getCom();
+            return "Comment with id= " + comment.getId() + " saved successfully as " + comment.getComment();
         } catch (Exception e) {
             throw new ServiceException("Cannot update comment with id = " + commentFromRequest.getId() + ".");
         }
