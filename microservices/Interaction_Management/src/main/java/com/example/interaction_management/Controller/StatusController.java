@@ -3,6 +3,7 @@ package com.example.interaction_management.Controller;
 import com.example.interaction_management.Service.StatusService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,32 +17,33 @@ public class StatusController {
         this.statusService = statusService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(statusService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(statusService.getById(id));
     }
 
-    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(statusService.deleteAll());
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "delete/{id}")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(statusService.deleteById(id));
     }
 
-    @RequestMapping(value = {"/create/{status}"}, method = RequestMethod.POST)
+    @PostMapping(value = "/create/{status}")
     public ResponseEntity postByStatus(@PathVariable("status") String st) throws ServiceException {
         return ResponseEntity.ok(statusService.postByStatus(st));
     }
 
-    @RequestMapping(value = {"/id/{id}/newStatus/{newStatus}"}, method = RequestMethod.PUT)
+    @PutMapping(value = "/id/{id}/newStatus/{newStatus}")
     public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newStatus") String newStatus) throws ServiceException {
         return ResponseEntity.ok(statusService.putById(id, newStatus));
     }

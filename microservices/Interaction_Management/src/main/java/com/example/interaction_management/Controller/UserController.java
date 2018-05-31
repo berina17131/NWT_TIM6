@@ -4,6 +4,7 @@ import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Service.UserService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,41 +18,45 @@ public class UserController {
         this.userService = userService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(userService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(userService.getById(id));
     }
 
-    @RequestMapping(value = "/username/{username}", method = RequestMethod.GET)
+    @GetMapping(value = "/username/{username}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity getByUsername(@PathVariable("username") String username) throws ServiceException {
         return ResponseEntity.ok(userService.getByUsername(username));
     }
 
-    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(userService.deleteAll());
     }
 
-    @RequestMapping(value = "delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "delete/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(userService.deleteById(id));
     }
 
-    @RequestMapping(value = "/create/{id}/{username}", method = RequestMethod.POST)
+    @PostMapping(value = "/create/{id}/{username}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity createUser(@PathVariable("id") int id, @PathVariable("username") String username) throws ServiceException {
-        System.out.println(id);
-        System.out.println(username);
         return ResponseEntity.ok(userService.createUser(id, username));
     }
 
-    @RequestMapping(value = "/update/{id}", method = RequestMethod.PUT)
+    @PutMapping(value = "/update/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity putUser(@PathVariable("id") int id, @RequestBody User user) throws ServiceException {
-        System.out.println(user);
         return ResponseEntity.ok(userService.putUser(id, user));
     }
 }

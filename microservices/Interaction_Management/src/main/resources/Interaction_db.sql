@@ -63,10 +63,6 @@ CREATE TABLE `status` (
   PRIMARY KEY (`id`),
   KEY `fk_status_user_id_idx` (`user_id`),
   KEY `fk_status_event_id_idx` (`event_id`),
-  CONSTRAINT `fk_status_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `fk_status_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
   CONSTRAINT `fk_status_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
@@ -74,9 +70,19 @@ CREATE TABLE `status` (
     ON DELETE CASCADE
     ON UPDATE CASCADE
 )
+  ENGINE = InnoDB
+  DEFAULT CHARSET = utf8;
 
-INSERT INTO event (id, name) VALUES (1,'muzika Godine');
-INSERT INTO event (id, name) VALUES (2,'kultura Godine');
-INSERT INTO event (id, name) VALUES (3,'zabava Godine');
-INSERT INTO event (id, name) VALUES (4,'sport Godine');
-INSERT INTO event (id, name) VALUES (5,'nauka Godine');
+CONSTRAINT `fk_status_user_id` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`)
+ON DELETE CASCADE
+ON UPDATE CASCADE,
+  CONSTRAINT `fk_status_event_id` FOREIGN KEY (`event_id`) REFERENCES `event` (`id`)
+ON DELETE CASCADE
+ON UPDATE CASCADE
+)
+
+INSERT INTO event (id, name) VALUES (1, 'muzika Godine');
+INSERT INTO event (id, name) VALUES (2, 'kultura Godine');
+INSERT INTO event (id, name) VALUES (3, 'zabava Godine');
+INSERT INTO event (id, name) VALUES (4, 'sport Godine');
+INSERT INTO event (id, name) VALUES (5, 'nauka Godine');

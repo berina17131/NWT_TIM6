@@ -1,13 +1,13 @@
 package com.example.interaction_management.Service;
 
-import com.example.interaction_management.Model.Comment;
 import com.example.interaction_management.Model.Grade;
 import com.example.interaction_management.Repository.GradeRepository;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class GradeService {
@@ -32,15 +32,15 @@ public class GradeService {
             float averageGrade = 0;
             int count = 0;
 
-                for (Grade e : grades) {
+            for (Grade e : grades) {
                 if (e.getEvent().getId() == Integer.parseInt(id)) {
                     count++;
-                    averageGrade += e.getGr();
+                    averageGrade += e.getGrade();
 
                 }
             }
 
-            return averageGrade/count;
+            return averageGrade / count;
             /*Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
             Grade grade = (Grade) gradeHelp.get();
 

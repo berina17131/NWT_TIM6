@@ -4,6 +4,7 @@ import com.user_managment.ms.Models.Role;
 import com.user_managment.ms.Services.RoleService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,24 +18,27 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    @RequestMapping("/all")
+    @GetMapping("/all")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity all() throws ServiceException {
         return ResponseEntity.ok(roleService.getAllRoles());
     }
 
-    @RequestMapping(method = RequestMethod.GET)
+    @GetMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity getUser(@RequestParam(value = "id") String id) {
         return ResponseEntity.ok(roleService.getRole(id));
     }
 
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
+    @PostMapping(value = "/create")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity createRole(@RequestBody Role role) {
         return ResponseEntity.ok(roleService.createRole(role));
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity deleteRole(@PathVariable("id") String id) {
         return ResponseEntity.ok(roleService.deleteRole(id));
     }
-
 }

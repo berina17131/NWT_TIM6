@@ -4,6 +4,7 @@ import com.example.place_management.Model.Place;
 import com.example.place_management.Service.PlaceService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,37 +18,41 @@ public class PlaceController {
         this.placeService = placeService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(placeService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(placeService.getById(id));
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/name/{name}")
     public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(placeService.getByName(name));
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(placeService.deleteAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/id/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(placeService.deleteById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity postNewPlace(@RequestBody Place place) throws ServiceException {
         return ResponseEntity.ok(placeService.postNewPlace(place));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity putChangePlace(@RequestBody Place place) throws ServiceException {
         return ResponseEntity.ok(placeService.putChangePlace(place));
     }
