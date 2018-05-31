@@ -29,6 +29,8 @@ export class LoginComponent implements OnInit {
           TokenStorage.saveToken(data.token);
           TokenStorage.saveCurrentUser(this.username);
           this.appComponent.goToHomePage();
+          this.appComponent.isLoggedIn = true;
+          this.appComponent.isAdmin = this.authService.isAdmin();
         },
         error => {
           console.error('Login failed...' + error);
