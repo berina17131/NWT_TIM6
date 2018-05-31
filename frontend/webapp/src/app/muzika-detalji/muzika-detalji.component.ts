@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
 import { GradeService } from '../services/grade/grade.service';
+import {Comment} from '../services/comment/Comment';
 
 @Component({
   selector: 'app-muzika-detalji',
@@ -12,10 +13,21 @@ import { GradeService } from '../services/grade/grade.service';
 export class MuzikaDetaljiComponent implements OnInit {
 
   event: any;
+  eventId: any;
   comments: Array<any>;
   selectedComment: any;
 
   averageGrade: any;
+
+  newComment: Comment = { 
+      comment: '',
+      user: {
+          id: null
+      },
+      event: {
+          id: null
+      }
+  };
 
   constructor(
     private eventService: EventService, 
@@ -38,6 +50,8 @@ export class MuzikaDetaljiComponent implements OnInit {
   getEvent(){
     const id = +this.router.snapshot.paramMap.get('id');
 
+    this.eventId = id;
+
     this.eventService.getEvent(id).subscribe(data => {
       this.event = data;
        });
@@ -49,6 +63,16 @@ export class MuzikaDetaljiComponent implements OnInit {
       this.comments = data;
       console.log(this.comments.length);
     });   
+  }
+
+  createComment(){
+    //id usera;
+    this.newComment.event.id = this.eventId;
+    //ucitaj komentar ngModal
+
+    this.commentService.createComment(this.newComment).subscribe(data => {
+      console.log(data);
+    });
   }
 
 }
