@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import {EventService} from './services/event/event.service';
+import {AuthService} from './core/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -18,8 +19,11 @@ export class AppComponent{
   odabranaOpcijaPretrage: any;
   opcijePretrage = [{id: 1, name: 'Pretraga po nazivu događaja'}, {id: 2, name: 'Pretraga po nazivu lokala'}];
 
+  isLoggedIn: boolean;
+  isAdmin: boolean;
 
-  constructor(private router: Router, private eventService: EventService) {}
+
+  constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}
 
   
   pretraziEvente(){
@@ -38,6 +42,15 @@ export class AppComponent{
         console.log(this.events.length);
       });
     }
+  }
+  
+  goToHomePage() {
+    this.router.navigate(['/muzika']);
+  }
+
+  ngOnInit() {
+    this.isLoggedIn = this.authService.isLoggedIn();
+    this.isAdmin = this.authService.isAdmin();
   }
 
 }
