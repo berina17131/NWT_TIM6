@@ -21,6 +21,7 @@ export class AdminUseriComponent implements OnInit {
 //    this.users = [{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' },{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' }];
     this.userService.getAllUsers().subscribe(data => {
       this.users = data;
+      console.log(data)
     });
   }
 

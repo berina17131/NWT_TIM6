@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs';
+import { TokenStorage } from '../../core/token.storage';
 
 
 @Injectable({
@@ -13,6 +14,13 @@ export class UserService {
   public USER_API = this.API + '/user';
 
   constructor(private http: HttpClient) { }
+
+  /*public httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization':  'Bearer ' + TokenStorage.getToken()
+    })
+  };*/
 
   getAllUsers(): Observable<any> {
     return this.http.get(this.USER_API + '/all');
