@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
+import { GradeService } from '../services/grade/grade.service';
 
 @Component({
   selector: 'app-muzika-detalji',
@@ -14,16 +15,24 @@ export class MuzikaDetaljiComponent implements OnInit {
   comments: Array<any>;
   selectedComment: any;
 
+  averageGrade: any;
+
   constructor(
     private eventService: EventService, 
     private router: ActivatedRoute, 
-    private commentService: CommentService) {}
+    private commentService: CommentService,
+    private gradeService: GradeService) {}
 
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getEvent();
     this.getComments(id);
+
+    this.gradeService.getAverageGrade(id).subscribe(data => {
+      this.averageGrade = data;
+       });
+
   }
 
   getEvent(){

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EventService} from '../services/event/event.service';
+import {CategoryService} from '../services/category/category.service';
+import {PlaceService} from '../services/place/place.service'
 import {Router} from '@angular/router';
 import {Event} from '../services/event/Event';
 
@@ -21,9 +23,29 @@ export class AdminEventsComponent implements OnInit {
     }
   };
 
-  constructor(private eventService: EventService, private router: Router) { }
+  categories: Array<any>;
+  places: Array<any>;
+
+  odabranaCategory: any;
+  odabraniPlace: any;
+
+  constructor(
+    private eventService: EventService, 
+    private categoryService: CategoryService, 
+    private placeService: PlaceService,
+    private router: Router) { }
 
   ngOnInit() {
+
+    this.categoryService.getAllCategory().subscribe(data => {
+      this.categories = data;
+      console.log(this.categories.length)
+    });
+
+    this.placeService.getAllPlaces().subscribe(data=>{
+      this.places = data;
+      console.log(this.places.length);
+    });
 
     /*this.eventService.getEventsByCategory("muzika").subscribe(data => {
       this.events = data;

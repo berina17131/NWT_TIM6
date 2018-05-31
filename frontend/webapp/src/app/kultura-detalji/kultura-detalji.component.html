@@ -22,7 +22,7 @@
       <table class="table1">
         <tr>
            <td class="col1">
-           <p class="hclass">Ocjena 5.0</p>
+           <p class="hclass">Ocjena: {{ averageGrade.grade}}</p>
            <br>
            </td>
            <td class="col2"> 
@@ -34,40 +34,40 @@
             </td>
            <td class="col2"> 
              <!--Tabela komentari-->
-              <div class="table-responsive">  
-                  <table class="table2">
-                    <tr class="row1">
-                      <th>Komentar     </th>
-                      <th>Autor        </th>
-                    </tr>
-                    <tr class="row1">
-                       <td>
-                       <p>Najbolji event u gradu, jedva cekam!</p>
-                       <br>
-                       </td>
-                       <td>
-                       <p>Selma Selma!</p>
-                       </td>
-                    </tr>
-                    <tr class="row1">
-                        <td>
-                        <p>Ideeeemoool!</p>
-                        <br>
-                        </td>
-                        <td>
-                        <p>Ajdin Ajdo!</p>
-                        </td>
-                     </tr>
-                     <tr class="row1">
-                        <td>
-                        <p>Predobroo!</p>
-                        <br>
-                        </td>
-                        <td>
-                        <p>Haris Hare!</p>
-                        </td>
-                     </tr>
-                  </table>
+             <div class="table-responsive" *ngFor="let com of comments, let i = index" [class.selected]="com === selectedComment">  
+              <table class="table2">
+                <tr class="row1">
+                  <th>Komentar     </th>
+                  <th>Autor        </th>
+                </tr>
+                <tr class="row1">
+                   <td>
+                   <p>{{com.name}}</p>
+                   <br>
+                   </td>
+                   <td>
+                   <p>{{com.user.name}}</p>
+                   </td>
+                </tr>
+              <!--  <tr class="row1">
+                    <td>
+                    <p>Ideeeemoool!</p>
+                    <br>
+                    </td>
+                    <td>
+                    <p>Ajdin Ajdo!</p>
+                    </td>
+                 </tr>
+                 <tr class="row1">
+                    <td>
+                    <p>Predobroo!</p>
+                    <br>
+                    </td>
+                    <td>
+                    <p>Haris Hare!</p>
+                    </td>
+                 </tr>-->
+              </table>
                 </div>
                 <br>
             
