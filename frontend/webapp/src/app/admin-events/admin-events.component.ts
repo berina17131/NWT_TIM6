@@ -26,6 +26,9 @@ export class AdminEventsComponent implements OnInit {
   categories: Array<any>;
   places: Array<any>;
 
+  odabranaCategory: any;
+  odabraniPlace: any;
+
   constructor(
     private eventService: EventService, 
     private categoryService: CategoryService, 
@@ -42,7 +45,7 @@ export class AdminEventsComponent implements OnInit {
     this.placeService.getAllPlaces().subscribe(data=>{
       this.places = data;
       console.log(this.places.length);
-    })
+    });
 
     /*this.eventService.getEventsByCategory("muzika").subscribe(data => {
       this.events = data;

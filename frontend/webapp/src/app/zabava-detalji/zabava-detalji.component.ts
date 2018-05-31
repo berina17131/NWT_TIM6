@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
+import { GradeService } from '../services/grade/grade.service';
 
 @Component({
   selector: 'app-zabava-detalji',
@@ -13,7 +14,13 @@ export class ZabavaDetaljiComponent implements OnInit {
   event: any;
   comments: Array<any>;
 
-  constructor(private eventService: EventService, private commentService: CommentService, private router: ActivatedRoute) {
+  averageGrade: any;
+
+  constructor(
+    private eventService: EventService, 
+    private commentService: CommentService, 
+    private router: ActivatedRoute,
+    private gradeService: GradeService) {
   }
 
 
@@ -21,6 +28,10 @@ export class ZabavaDetaljiComponent implements OnInit {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getEvent();
     this.getComments(id);
+
+    this.gradeService.getAverageGrade(id).subscribe(data => {
+      this.averageGrade = data;
+       });
   }
 
   getEvent(){

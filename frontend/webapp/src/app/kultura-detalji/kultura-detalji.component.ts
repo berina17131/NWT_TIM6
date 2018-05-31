@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
 import {Event} from '../services/event/Event';
+import { GradeService } from '../services/grade/grade.service';
 
 @Component({
   selector: 'app-kultura-detalji',
@@ -22,8 +23,12 @@ export class KulturaDetaljiComponent implements OnInit {
     }
   };
   comments: Array<any>;
+  averageGrade: any;
 
-  constructor(private eventService: EventService, private commentService: CommentService, private router: ActivatedRoute) {
+  constructor(private eventService: EventService, 
+              private commentService: CommentService, 
+              private router: ActivatedRoute,
+              private gradeService: GradeService) {
   }
 
 
@@ -31,7 +36,12 @@ export class KulturaDetaljiComponent implements OnInit {
     const id = +this.router.snapshot.paramMap.get('id');
     this.getEvent();
     console.log(this.event.name);
-   // this.getComments(id);
+    this.getComments(id);
+
+    this.gradeService.getAverageGrade(id).subscribe(data => {
+      this.averageGrade = data;
+       });
+
   }
 
   getEvent(){
