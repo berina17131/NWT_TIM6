@@ -4,6 +4,7 @@ import com.example.place_management.Model.City;
 import com.example.place_management.Service.CityService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,37 +18,41 @@ public class CityController {
         this.cityService = cityService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(cityService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(cityService.getById(id));
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/name/{name}")
     public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(cityService.getByName(name));
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(cityService.deleteAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/id/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(cityService.deleteById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity postNewCity(@RequestBody City city) throws ServiceException {
         return ResponseEntity.ok(cityService.postNewCity(city));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity putChangeCity(@RequestBody City city) throws ServiceException {
         return ResponseEntity.ok(cityService.putChangeCity(city));
     }

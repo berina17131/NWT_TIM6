@@ -26,12 +26,25 @@ public class GradeService {
         }
     }
 
-    public Grade getById(String id) throws ServiceException {
+    public float getAverageGradeForEvent(String id) throws ServiceException {
         try {
-            Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
+            List<Grade> grades = gradeRepository.findAll();
+            float averageGrade = 0;
+            int count = 0;
+
+            for (Grade e : grades) {
+                if (e.getEvent().getId() == Integer.parseInt(id)) {
+                    count++;
+                    averageGrade += e.getGrade();
+
+                }
+            }
+
+            return averageGrade / count;
+            /*Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
             Grade grade = (Grade) gradeHelp.get();
 
-            return grade;
+            return grade;*/
         } catch (Exception e) {
             throw new ServiceException("Cannot find grade with id={" + id + "}");
         }

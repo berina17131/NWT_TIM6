@@ -33,7 +33,8 @@
             <td class="col1">
             </td>
            <td class="col2"> 
-              <div class="table-responsive">  
+             <!--Tabela Komentari-->
+              <div class="table-responsive" *ngFor="let com of comments, let i = index" [class.selected]="com === selectedComment">  
                   <table class="table2">
                     <tr class="row1">
                       <th>Komentar     </th>
@@ -41,14 +42,14 @@
                     </tr>
                     <tr class="row1">
                        <td>
-                       <p>Najbolji event u gradu, jedva cekam!</p>
+                       <p>{{com.name}}</p>
                        <br>
                        </td>
                        <td>
-                       <p>Selma Selma!</p>
+                       <p>{{com.user.name}}</p>
                        </td>
                     </tr>
-                    <tr class="row1">
+                  <!--  <tr class="row1">
                         <td>
                         <p>Ideeeemoool!</p>
                         <br>
@@ -65,7 +66,7 @@
                         <td>
                         <p>Haris Hare!</p>
                         </td>
-                     </tr>
+                     </tr>-->
                   </table>
                 </div>
                 <br>
@@ -79,7 +80,7 @@
             
            </td>
            </tr>
-        
+          
       </table>
     </div>
 </div>

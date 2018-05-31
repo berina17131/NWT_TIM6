@@ -6,7 +6,9 @@ import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CommentService {
@@ -39,7 +41,7 @@ public class CommentService {
     public List<Comment> getByEventId(String id) throws ServiceException {
         try {
             List<Comment> comments = commentRepository.findAll();
-            Set<Comment> commentsSet = new HashSet<>();
+            List<Comment> commentsSet = new ArrayList<>();
 
             for (Comment e : comments) {
                 if (e.getEvent().getId() == Integer.parseInt(id)) {
@@ -47,9 +49,9 @@ public class CommentService {
                 }
             }
 
-            return new ArrayList<>(commentsSet);
+            return commentsSet;
         } catch (Exception e) {
-            throw new ServiceException("Cannot fetch all events.");
+            throw new ServiceException("Cannot fetch all comments from event.");
         }
     }
 

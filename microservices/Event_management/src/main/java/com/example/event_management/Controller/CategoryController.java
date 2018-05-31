@@ -4,6 +4,7 @@ import com.example.event_management.Model.Category;
 import com.example.event_management.Service.CategoryService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,38 +18,42 @@ public class CategoryController {
         this.categoryService = categoryService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(categoryService.getAll());
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(categoryService.getById(id));
     }
 
-    @RequestMapping(value = "/name/{name}", method = RequestMethod.GET)
+    @GetMapping(value = "/name/{name}")
     public ResponseEntity getByName(@PathVariable("name") String name) throws ServiceException {
         return ResponseEntity.ok(categoryService.getByName(name));
     }
 
-    @RequestMapping(value = "/delete/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(categoryService.deleteAll());
     }
 
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/delete/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(categoryService.deleteById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity postNewCity(@RequestBody Category category) throws ServiceException {
+    @PostMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
+    public ResponseEntity postNewCategory(@RequestBody Category category) throws ServiceException {
         return ResponseEntity.ok(categoryService.createCategory(category));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
-    public ResponseEntity putChangeCity(@RequestBody Category category) throws ServiceException {
+    @PutMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
+    public ResponseEntity putChangeCategory(@RequestBody Category category) throws ServiceException {
         return ResponseEntity.ok(categoryService.putCategory(category));
     }
 }

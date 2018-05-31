@@ -14,7 +14,7 @@ export class CommentService {
 
   constructor(private http: HttpClient) { }
 
-  getCommentsForEvent(id: number): Observable<any>{
+  getCommentsForEvent(id: number): Observable<any>{console.log("2222");
     return this.http.get(this.COMMENT_API + '/' + id);
   }
 

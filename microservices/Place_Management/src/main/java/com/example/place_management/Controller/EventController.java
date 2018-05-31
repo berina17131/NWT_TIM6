@@ -4,6 +4,7 @@ import com.example.place_management.Model.Event;
 import com.example.place_management.Service.EventService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,32 +18,36 @@ public class EventController {
         this.eventService = eventService;
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    @GetMapping(value = "/all")
     public ResponseEntity getAll() throws ServiceException {
         return ResponseEntity.ok(eventService.getAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/id/{id}")
     public ResponseEntity getById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(eventService.getById(id));
     }
 
-    @RequestMapping(value = "/all", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/all")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
         return ResponseEntity.ok(eventService.deleteAll());
     }
 
-    @RequestMapping(value = "/id/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping(value = "/id/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(eventService.deleteById(id));
     }
 
-    @RequestMapping(method = RequestMethod.POST)
+    @PostMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity postNewEvent(@RequestBody Event event) throws ServiceException {
         return ResponseEntity.ok(eventService.postNewEvent(event));
     }
 
-    @RequestMapping(method = RequestMethod.PUT)
+    @PutMapping
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity putChangeEvent(@RequestBody Event event) throws ServiceException {
         return ResponseEntity.ok(eventService.putChangeEvent(event));
     }
