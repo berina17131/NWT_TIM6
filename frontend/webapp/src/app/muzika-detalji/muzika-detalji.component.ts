@@ -17,6 +17,8 @@ export class MuzikaDetaljiComponent implements OnInit {
   comments: Array<any>;
   selectedComment: any;
 
+  comment: any;
+
   averageGrade: any;
 
   newComment: Comment = { 
@@ -41,6 +43,7 @@ export class MuzikaDetaljiComponent implements OnInit {
     this.getEvent();
     this.getComments(id);
 
+    //provjerit jel vraca samo float?
     this.gradeService.getAverageGrade(id).subscribe(data => {
       this.averageGrade = data;
        });
@@ -68,11 +71,13 @@ export class MuzikaDetaljiComponent implements OnInit {
   createComment(){
     //id usera;
     this.newComment.event.id = this.eventId;
-    //ucitaj komentar ngModal
+    this.newComment.comment = this.comment;
 
     this.commentService.createComment(this.newComment).subscribe(data => {
       console.log(data);
     });
   }
+
+
 
 }

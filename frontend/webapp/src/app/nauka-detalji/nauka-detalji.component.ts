@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
 import { GradeService } from '../services/grade/grade.service';
+import {Comment} from '../services/comment/Comment';
 
 @Component({
   selector: 'app-nauka-detalji',
@@ -13,8 +14,21 @@ export class NaukaDetaljiComponent implements OnInit {
 
   event: any;
   comments: Array<any>;
+  eventId: any;
+  comment: any;
 
   averageGrade: any;
+
+  newComment: Comment = { 
+    comment: '',
+    user: {
+        id: null
+    },
+    event: {
+        id: null
+    }
+};
+
 
   constructor(
     private eventService: EventService, 
@@ -37,6 +51,7 @@ export class NaukaDetaljiComponent implements OnInit {
 
   getEvent(){
     const id = +this.router.snapshot.paramMap.get('id');
+    this.eventId = id;
 
     this.eventService.getEvent(id).subscribe(data => {
       this.event = data;
@@ -49,4 +64,14 @@ export class NaukaDetaljiComponent implements OnInit {
       this.comments = data;
        });
    }
+
+   createComment(){
+    //id usera;
+    this.newComment.event.id = this.eventId;
+    this.newComment.comment = this.comment;
+
+    this.commentService.createComment(this.newComment).subscribe(data => {
+      console.log(data);
+    });
+  }
 }

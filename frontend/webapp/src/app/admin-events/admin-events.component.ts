@@ -73,6 +73,9 @@ export class AdminEventsComponent implements OnInit {
 
   kreirajEvent(){
     console.log(this.event);
+    
+    //this.event.name =
+    //this.event.description =
       /*this.eventService.createEvent(this.event).subscribe(data => {
       console.log(data);
     });*/
