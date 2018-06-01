@@ -59,9 +59,9 @@ export class AppComponent{
 
   odjaviSe() {
     TokenStorage.logOut();
-    //this.isLoggedIn = false;
-    //this.isAdmin = false;
-    //this.router.navigate(['/login']);
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.router.navigate(['/login']);
   }
 
 }
