@@ -31,6 +31,8 @@ export class RegistracijaComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    if(this.authService.isLoggedIn())
+      this.router.navigate(['/muzika']);
   }
 
   uzmiToken() {
