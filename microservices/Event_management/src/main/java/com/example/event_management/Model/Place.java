@@ -24,7 +24,8 @@ public class Place {
     public Place() {
     }
 
-    public Place(String name) {
+    public Place(int id, String name) {
+        this.id = id;
         this.name = name;
     }
 
@@ -71,6 +72,4 @@ public class Place {
 
         return result;
     }
-
-
 }
