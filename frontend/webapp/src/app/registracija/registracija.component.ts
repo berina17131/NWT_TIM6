@@ -34,11 +34,11 @@ export class RegistracijaComponent implements OnInit {
   }
 
   registrujSe(): void {
-    this.authService.attemptAuth(this.username, this.password)
+    this.authService.attemptAuth(this.user.username, this.user.password)
       .subscribe(
         data => {
           TokenStorage.saveToken(data.token);
-          TokenStorage.saveCurrentUser(this.username);
+          TokenStorage.saveCurrentUser(this.user.username);
           this.appComponent.goToHomePage();
           this.appComponent.isLoggedIn = true;
           this.appComponent.isAdmin = this.authService.isAdmin();
@@ -48,7 +48,7 @@ export class RegistracijaComponent implements OnInit {
         //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
         },
         () => {
-          console.log('User: ' + this.username + ' successfuly logged in...');
+          console.log('User: ' + this.user.username + ' successfuly logged in...');
           //this.alert.open('Login successful', null, { duration: 3000 });
         }
       );
