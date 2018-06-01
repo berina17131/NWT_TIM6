@@ -17,7 +17,7 @@ export class KulturaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("nauka").subscribe(data => {
+    this.eventService.getEventsByCategory("Kultura").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
     });

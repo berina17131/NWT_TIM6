@@ -17,7 +17,7 @@ export class ZabavaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("zabava").subscribe(data => {
+    this.eventService.getEventsByCategory("Zabava").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
     });

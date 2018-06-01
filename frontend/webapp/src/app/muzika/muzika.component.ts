@@ -17,7 +17,7 @@ export class MuzikaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("muzika").subscribe(data => {
+    this.eventService.getEventsByCategory("Muzika").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
     });

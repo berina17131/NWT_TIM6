@@ -17,7 +17,7 @@ export class SportComponent implements OnInit {
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("sport").subscribe(data => {
+    this.eventService.getEventsByCategory("Sport").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
     });

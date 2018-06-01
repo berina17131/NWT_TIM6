@@ -17,7 +17,7 @@ export class NaukaComponent implements OnInit {
 
   ngOnInit() {
 
-    this.eventService.getEventsByCategory("nauka").subscribe(data => {
+    this.eventService.getEventsByCategory("Nauka").subscribe(data => {
       this.events = data;
       console.log(this.events.length);
     });
