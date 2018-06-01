@@ -20,7 +20,7 @@ export class RegistracijaComponent implements OnInit {
     ime: '',
     prezime: '',
     role: {
-        id: null,
+        id: 15,
     }
   };
 
@@ -33,7 +33,7 @@ export class RegistracijaComponent implements OnInit {
   ngOnInit() {
   }
 
-  registrujSe(): void {
+  uzmiToken() {
     this.authService.attemptAuth(this.user.username, this.user.password)
       .subscribe(
         data => {
@@ -52,6 +52,11 @@ export class RegistracijaComponent implements OnInit {
           //this.alert.open('Login successful', null, { duration: 3000 });
         }
       );
+  }
+
+  registrujSe(): void {
+    console.log(this.user);
+    this.userService.createUser(this.user).subscribe(data => this.uzmiToken());  
   }
 
 }

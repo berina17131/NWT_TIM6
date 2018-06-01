@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import {Router} from '@angular/router';
 import {EventService} from './services/event/event.service';
 import {AuthService} from './core/auth.service';
+import { TokenStorage } from './core/token.storage';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,8 @@ export class AppComponent{
 
   isLoggedIn: boolean;
   isAdmin: boolean;
+
+  loggedUser: any;
 
 
   constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}
@@ -51,6 +54,14 @@ export class AppComponent{
   ngOnInit() {
     this.isLoggedIn = this.authService.isLoggedIn();
     this.isAdmin = this.authService.isAdmin();
+    this.loggedUser = TokenStorage.getCurrentUser();
+  }
+
+  odjaviSe() {
+    TokenStorage.logOut();
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.router.navigate(['/login']);
   }
 
 }

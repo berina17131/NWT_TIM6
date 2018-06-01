@@ -46,7 +46,7 @@ const routes: Routes = [
   { path: 'admin-useri', component: AdminUseriComponent, canActivate: [AuthGuard] },
   { path: 'admin-events', component: AdminEventsComponent, canActivate: [AuthGuard] },
   { path: 'user-detalji/:idUser', component: UserDetaljiComponent, canActivate: [AuthGuard]},
-  { path: 'login', component: LoginComponent },
+  { path: 'login', component: LoginComponent, canActivate: [AuthGuard] },
   { path: 'registracija', component: RegistracijaComponent }
 ];
 

@@ -3,7 +3,11 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs';
 import { TokenStorage } from '../../core/token.storage';
+import {User} from '../user/User';
 
+const httpOptions = {
+  headers: new HttpHeaders({'Content-Type': 'application/json'})
+};
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +25,10 @@ export class UserService {
       'Authorization':  'Bearer ' + TokenStorage.getToken()
     })
   };*/
+
+  createUser(user: User): Observable<any> {
+    return this.http.post<User>(this.USER_API + '/create', user, httpOptions);
+  }
 
   
 

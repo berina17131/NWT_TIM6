@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
           TokenStorage.saveToken(data.token);
           TokenStorage.saveCurrentUser(this.username);
           this.appComponent.goToHomePage();
+          this.appComponent.loggedUser = this.username;
           this.appComponent.isLoggedIn = true;
           this.appComponent.isAdmin = this.authService.isAdmin();
         },
