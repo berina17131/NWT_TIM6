@@ -18,7 +18,7 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Username </label>
-            <input class="form-control" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"  type="email" aria-describedby="emailHelp" placeholder="Unesi email">
+            <input class="form-control" [(ngModel)]="user.username" [ngModelOptions]="{standalone: true}"  type="email" aria-describedby="emailHelp" placeholder="Unesi username">
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Email adresa</label>
@@ -26,11 +26,16 @@
           </div>
           <div class="form-group">
             <label for="exampleInputEmail1">Šifra</label>
-            <input class="form-control" type="password" id="exampleInputPassword1" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}"  aria-describedby="emailHelp" placeholder="Unesi email">
+            <input class="form-control" type="password" id="exampleInputPassword1" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}"  aria-describedby="emailHelp" placeholder="Unesi šifru">
           </div>
           <button class="btn btn-primary btn-block" (click)="registrujSe()">Registruj se</button>
         </form>
+        <div class="text-center">
+          <a class="d-block small mt-3" routerLink="/login">Prijava</a>
+        </div>
       </div>
     </div>
   </div>
 </body>
+
+<router-outlet></router-outlet>
