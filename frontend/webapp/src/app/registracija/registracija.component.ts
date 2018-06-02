@@ -20,7 +20,7 @@ export class RegistracijaComponent implements OnInit {
     ime: '',
     prezime: '',
     role: {
-        id: 15,
+        id: 2,
     }
   };
 
@@ -46,7 +46,7 @@ export class RegistracijaComponent implements OnInit {
           this.appComponent.isAdmin = this.authService.isAdmin();
         },
         error => {
-          console.error('Login failed...' + error);
+          console.error('Registration failed...' + error);
         //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
         },
         () => {

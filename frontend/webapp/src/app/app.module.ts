@@ -29,6 +29,7 @@ import {TokenStorage} from './core/token.storage';
 import {AuthService} from './core/auth.service';
 import {AuthGuard} from './core/auth.guard';
 import {UserService} from './services/user/user.service';
+import { ProfilComponent } from './profil/profil.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'muzika', pathMatch: 'full' },
@@ -47,7 +48,8 @@ const routes: Routes = [
   { path: 'admin-events', component: AdminEventsComponent, canActivate: [AuthGuard] },
   { path: 'user-detalji/:idUser', component: UserDetaljiComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
-  { path: 'registracija', component: RegistracijaComponent }
+  { path: 'registracija', component: RegistracijaComponent },
+  { path: 'profil', component: ProfilComponent }
 ];
 
 
@@ -69,7 +71,8 @@ const routes: Routes = [
     AdminEventsComponent,
     UserDetaljiComponent,
     LoginComponent,
-    RegistracijaComponent
+    RegistracijaComponent,
+    ProfilComponent
   ],
   imports: [
     BrowserModule,

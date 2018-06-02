@@ -3,17 +3,7 @@
     <h1>Korisnici</h1>
   </div>
 
-  <div class="card" style="width: 40rem;" >
-      <img class="card-img-top" src="assets/user.svg" alt="Card image cap">
-      <div class="card-body">
-        <h5 class="card-title">Probni user</h5>
-        <p class="card-text">iME I PREZIMEE</p>
-        <button (click)="openUserDetails(user)" class="btn btn-primary pregledaj-profil">Pregledaj profil</button>
-        <button (click)="deleteUser(user)" class="btn btn-primary">Obriši korisnika</button>
-      </div>
-  </div>
-
-<div class="card" style="width: 40rem;" *ngFor="let user of users">
+  <div class="card" style="width: 40rem;" *ngFor="let user of users">
       <img class="card-img-top" src="assets/user.svg" alt="Card image cap">
       <div class="card-body">
         <h5 class="card-title">{{ user.username }}</h5>

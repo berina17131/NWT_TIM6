@@ -30,7 +30,9 @@ export class UserService {
     return this.http.post<User>(this.USER_API + '/create', user, httpOptions);
   }
 
-  
+  updateUser(user: User): Observable<any> {
+    return this.http.put<User>(this.USER_API, user, httpOptions);
+  }  
 
   getAllUsers(): Observable<any> {
     return this.http.get(this.USER_API + '/all');
