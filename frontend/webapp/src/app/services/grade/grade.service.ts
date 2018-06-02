@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs';
+import {Grade} from './grade'
 
 
 @Injectable({
@@ -17,6 +18,17 @@ export class GradeService {
 
   getAverageGrade(id: number): Observable<any> {
     return this.http.get(this.GRADE_API + '/' + id);
+  }
+
+  postNewGrade(grade: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.post<Grade>(this.GRADE_API, grade, httpOptions);
+
   }
 
 }

@@ -22,11 +22,16 @@
           <table class="table1">
             <tr>
                <td class="col1">
-               <p class="hclass">Ocjena 5.0</p>
+               <p class="hclass">Ocjena {{ averageGrade }}</p>
                <br>
                </td>
                <td class="col2"> 
-                  <span class="input-group-addon" id="basic-addon2">Ocjeni</span>
+                <div class="form-group">
+                  <label for="hitnost" class="col-form-label">Ocjeni:</label>
+                  <select class="form-control" id="hitnost" [(ngModel)]="odabranaOcjena" name="ocjene">
+                    <option *ngFor="let p of ocjene" [value]="p.id">{{p.name}}</option>
+                  </select>
+                </div>
                </td>
             </tr>
             <tr>
@@ -34,19 +39,18 @@
                 </td>
                <td class="col2"> 
                  <!--Tabela Komentari-->
-                  <div class="table-responsive" *ngFor="let com of comments, let i = index" [class.selected]="com === selectedComment">  
+                  <div class="table-responsive">  
                       <table class="table2">
                         <tr class="row1">
                           <th>Komentar     </th>
                           <th>Autor        </th>
                         </tr>
-                        <tr class="row1">
+                        <tr class="row1" *ngFor="let com of comments, let i = index" [class.selected]="com === selectedComment">
                            <td>
-                           <p>{{com.name}}</p>
-                           <br>
+                           <p>{{com.comment}}</p>
                            </td>
                            <td>
-                           <p>{{com.user.name}}</p>
+                           <p>{{com.user.username}}</p>
                            </td>
                         </tr>
                       <!--  <tr class="row1">

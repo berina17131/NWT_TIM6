@@ -4,6 +4,7 @@ import {EventService} from '../services/event/event.service';
 import {CommentService} from '../services/comment/comment.service';
 import {Event} from '../services/event/Event';
 import { GradeService } from '../services/grade/grade.service';
+import {Grade} from '../services/grade/Grade';
 
 @Component({
   selector: 'app-kultura-detalji',
@@ -22,8 +23,23 @@ export class KulturaDetaljiComponent implements OnInit {
         id: null
     }
   };
+
+  newGrade: Grade = {
+    grade: 1,
+    user: {
+      id: null
+    },
+    event: {
+      id: null
+    }
+  };
+  
   comments: Array<any>;
   averageGrade: any;
+
+  odabranaOcjena: any;
+  ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
+
 
   constructor(private eventService: EventService, 
               private commentService: CommentService, 
@@ -42,6 +58,8 @@ export class KulturaDetaljiComponent implements OnInit {
       this.averageGrade = data;
        });
 
+       //provjeri da li je korisnik vec ocjenio ovaj event
+
   }
 
   getEvent(){
@@ -58,6 +76,11 @@ export class KulturaDetaljiComponent implements OnInit {
     this.commentService.getCommentsForEvent(id).subscribe(data => {
       this.comments = data;
        });
+   }
+
+   addNewGrade(){
+
+    //this.gradeService.postNewGrade()
    }
 
 }
