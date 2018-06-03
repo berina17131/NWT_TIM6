@@ -5,6 +5,10 @@ import {CommentService} from '../services/comment/comment.service';
 import { GradeService } from '../services/grade/grade.service';
 import {Comment} from '../services/comment/Comment';
 import {Grade} from '../services/grade/Grade';
+import { TokenStorage } from '../core/token.storage';
+import { User } from '../services/user/User';
+import { UserService } from '../services/user/user.service';
+
 
 @Component({
   selector: 'app-muzika-detalji',
@@ -42,6 +46,21 @@ export class MuzikaDetaljiComponent implements OnInit {
     }
   };
 
+  noviKomentar: any;
+  loggedUser: any;
+
+  user: User = {
+    id: null,
+    username: '',
+    password: '',
+    email: '',
+    ime: '',
+    prezime: '',
+    role: {
+        id: 2,
+    }
+  };
+
   odabranaOcjena: any;
   ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
 
@@ -51,11 +70,13 @@ export class MuzikaDetaljiComponent implements OnInit {
     private eventService: EventService, 
     private router: ActivatedRoute, 
     private commentService: CommentService,
-    private gradeService: GradeService) {}
+    private gradeService: GradeService,
+    private userService: UserService) {}
 
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
+    this.eventId = id;
     this.getEvent();
     this.getComments(id);
 
@@ -64,6 +85,17 @@ export class MuzikaDetaljiComponent implements OnInit {
       this.averageGrade = data;
        });
 
+    this.getUserData();
+
+  }
+
+  getUserData(){
+
+    this.loggedUser = TokenStorage.getCurrentUser();
+
+    this.userService.getByUsername(this.loggedUser).subscribe(data => {
+      this.user = data;
+       });
   }
 
   getEvent(){
@@ -85,14 +117,15 @@ export class MuzikaDetaljiComponent implements OnInit {
   }
 
   createComment(){
-    //id usera;
+    this.newComment.user.id = this.user.id;
     this.newComment.event.id = this.eventId;
-    this.newComment.comment = this.comment;
-
+    this.newComment.comment = this.noviKomentar;
     this.commentService.createComment(this.newComment).subscribe(data => {
-      console.log(data);
+      window.location.reload();
     });
-  }
+    this.noviKomentar = '';
+   }
+
 
 
 

@@ -5,6 +5,10 @@ import {CommentService} from '../services/comment/comment.service';
 import {Event} from '../services/event/Event';
 import { GradeService } from '../services/grade/grade.service';
 import {Grade} from '../services/grade/Grade';
+import { TokenStorage } from '../core/token.storage';
+import { User } from '../services/user/User';
+import { UserService } from '../services/user/user.service';
+import {Comment} from '../services/comment/Comment';
 
 @Component({
   selector: 'app-kultura-detalji',
@@ -24,6 +28,16 @@ export class KulturaDetaljiComponent implements OnInit {
     }
   };
 
+  newComment: Comment = { 
+    comment: '',
+    user: {
+        id: null
+    },
+    event: {
+        id: null
+    }
+};
+
   newGrade: Grade = {
     grade: 1,
     user: {
@@ -36,6 +50,23 @@ export class KulturaDetaljiComponent implements OnInit {
   
   comments: Array<any>;
   averageGrade: any;
+  eventId: any;
+  noviKomentar: any;
+  loggedUser: any;
+
+  user: User = {
+    id: null,
+    username: '',
+    password: '',
+    email: '',
+    ime: '',
+    prezime: '',
+    role: {
+        id: 2,
+    }
+  };
+
+
 
   odabranaOcjena: any;
   ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
@@ -44,12 +75,14 @@ export class KulturaDetaljiComponent implements OnInit {
   constructor(private eventService: EventService, 
               private commentService: CommentService, 
               private router: ActivatedRoute,
-              private gradeService: GradeService) {
+              private gradeService: GradeService,
+              private userService: UserService) {
   }
 
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
+    this.eventId = id;
     this.getEvent();
     console.log(this.event.name);
     this.getComments(id);
@@ -58,8 +91,20 @@ export class KulturaDetaljiComponent implements OnInit {
       this.averageGrade = data;
        });
 
+    this.getUserData();
+
+
        //provjeri da li je korisnik vec ocjenio ovaj event
 
+  }
+
+  getUserData(){
+
+    this.loggedUser = TokenStorage.getCurrentUser();
+
+    this.userService.getByUsername(this.loggedUser).subscribe(data => {
+      this.user = data;
+       });
   }
 
   getEvent(){
@@ -78,7 +123,21 @@ export class KulturaDetaljiComponent implements OnInit {
        });
    }
 
+
+   createComment(){
+    this.newComment.user.id = this.user.id;
+    this.newComment.event.id = this.eventId;
+    this.newComment.comment = this.noviKomentar;
+    console.log(this.newComment);
+    this.commentService.createComment(this.newComment).subscribe(data => {
+      window.location.reload();
+    });
+    this.noviKomentar = '';
+   }
+
+
    addNewGrade(){
+ 
 
     //this.gradeService.postNewGrade()
    }

@@ -16,7 +16,7 @@ import { AppComponent } from '../app.component';
 export class ProfilComponent implements OnInit {
 
   user: User = {
-    id: '',
+    id: null,
     username: '',
     password: '',
     email: '',

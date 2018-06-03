@@ -32,6 +32,7 @@
               <select class="form-control" id="hitnost" [(ngModel)]="odabranaOcjena" name="ocjene">
                 <option *ngFor="let p of ocjene" [value]="p.id">{{p.name}}</option>
               </select>
+              <span type="button" class="input-group-addon" id="basic-addon2">Ocjeni</span>
             </div>
            </td>
         </tr>
@@ -59,8 +60,8 @@
                 <br>
             
                   <div class="input-group">
-                    <input type="text" class="form-control" placeholder="Komentar" aria-describedby="basic-addon2">
-                    <span class="input-group-addon" id="basic-addon2">Pošalji</span>
+                    <input type="text" class="form-control" placeholder="Komentar" [(ngModel)]="noviKomentar" aria-describedby="basic-addon2">
+                    <span type="button" class="input-group-addon" id="basic-addon2" (click)="createComment()">Pošalji</span>
                   </div>
             
                   <br>
