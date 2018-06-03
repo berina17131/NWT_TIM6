@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../core/auth.service';
 import { TokenStorage } from '../core/token.storage';
 import { AppComponent } from '../app.component';
+import { UserModel } from '../services/user/UserModel';
 
 @Component({
   selector: 'app-registracija',
@@ -13,7 +14,7 @@ import { AppComponent } from '../app.component';
 })
 export class RegistracijaComponent implements OnInit {
 
-  user: User = {
+  user: UserModel = {
     username: '',
     password: '',
     email: '',
@@ -58,7 +59,7 @@ export class RegistracijaComponent implements OnInit {
 
   registrujSe(): void {
     console.log(this.user);
-    this.userService.createUser(this.user).subscribe(data => this.uzmiToken());  
+    this.userService.createUser(this.user).subscribe(data => /*this.uzmiToken()*/ console.log(data));  
   }
 
 }

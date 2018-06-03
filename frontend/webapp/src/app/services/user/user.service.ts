@@ -4,6 +4,7 @@ import {Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs';
 import { TokenStorage } from '../../core/token.storage';
 import {User} from '../user/User';
+import {UserModel} from '../user/UserModel';
 
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
@@ -26,8 +27,8 @@ export class UserService {
     })
   };*/
 
-  createUser(user: User): Observable<any> {
-    return this.http.post<User>(this.USER_API + '/create', user, httpOptions);
+  createUser(user: UserModel): Observable<any> {
+    return this.http.post<UserModel>(this.USER_API + '/create', user, httpOptions);
   }
 
   updateUser(user: User): Observable<any> {

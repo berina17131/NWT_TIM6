@@ -59,4 +59,8 @@ export class AdminLokacijaComponent implements OnInit {
     
   }
 
+  obrisiLokaciju() {
+    console.log('delete');
+  }
+
 }
