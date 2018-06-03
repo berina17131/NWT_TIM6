@@ -31,7 +31,7 @@
                   <select class="form-control" id="hitnost" [(ngModel)]="odabranaOcjena" name="ocjene">
                     <option *ngFor="let p of ocjene" [value]="p.id">{{p.name}}</option>
                   </select>
-                  <span type="button" class="input-group-addon" id="basic-addon2">Ocjeni</span>
+                  <span type="button" class="input-group-addon" id="basic-addon2" (click)="addNewGrade()">Ocjeni</span>
                 </div>
                </td>
             </tr>

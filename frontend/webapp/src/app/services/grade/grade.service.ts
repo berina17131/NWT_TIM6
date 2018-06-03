@@ -20,7 +20,7 @@ export class GradeService {
     return this.http.get(this.GRADE_API + '/' + id);
   }
 
-  postNewGrade(grade: any): Observable<any> {
+  createGrade(grade: any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',

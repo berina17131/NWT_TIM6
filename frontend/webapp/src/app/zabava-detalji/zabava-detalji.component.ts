@@ -119,4 +119,15 @@ user: User = {
     this.noviKomentar = '';
    }
 
+   addNewGrade(){
+    this.newGrade.user.id = this.user.id;
+    this.newGrade.event.id = this.eventId;
+    this.newGrade.grade = this.odabranaOcjena;
+
+    this.gradeService.createGrade(this.newComment).subscribe(data => {
+      window.location.reload();
+    });
+    this.odabranaOcjena = '';
+   }
+
 }
