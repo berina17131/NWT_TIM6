@@ -7,6 +7,7 @@ import { TokenStorage } from '../core/token.storage';
 import { AppComponent } from '../app.component';
 
 
+
 @Component({
   selector: 'app-profil',
   templateUrl: './profil.component.html',
@@ -15,6 +16,7 @@ import { AppComponent } from '../app.component';
 export class ProfilComponent implements OnInit {
 
   user: User = {
+    id: '',
     username: '',
     password: '',
     email: '',
@@ -24,6 +26,8 @@ export class ProfilComponent implements OnInit {
         id: 2,
     }
   };
+
+  loggedUser: any;
     
   constructor(private router: Router,
     private authService: AuthService,
@@ -32,6 +36,12 @@ export class ProfilComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
+    this.loggedUser = TokenStorage.getCurrentUser();
+
+    this.userService.getByUsername(this.loggedUser).subscribe(data => {
+      this.user = data;
+       });
+
   }
 
   urediProfil() {

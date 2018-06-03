@@ -28,5 +28,6 @@ export class TokenStorage {
 
   static saveCurrentUser(user: string): void {
     localStorage.setItem(USER_KEY, user);
+    console.log(user);
   }
 }

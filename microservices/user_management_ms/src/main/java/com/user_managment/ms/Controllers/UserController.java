@@ -54,4 +54,10 @@ public class UserController {
     public ResponseEntity putChangeUser(@RequestBody User user) throws ServiceException {
         return ResponseEntity.ok(userServiceForCRUD.putChangeUser(user));
     }
+
+    @GetMapping(value = "/username/{name}")
+    public ResponseEntity getByTitle(@PathVariable("name") String name) throws ServiceException {
+        return ResponseEntity.ok(userServiceForCRUD.getByUsername(name));
+
+    }
 }

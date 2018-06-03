@@ -12,8 +12,7 @@ import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class UserServiceForCRUD {
 
@@ -105,4 +104,23 @@ public class UserServiceForCRUD {
             throw new ServiceException("Cannot update user with id = " + u.getId() + ".");
         }
     }
+
+    public User getByUsername(String title) throws ServiceException {
+        try {
+            List<User> users = userRepository.findAll();
+
+
+            for (User user : users) {
+                if (user.getUsername().equals(title)) {
+                    return user;
+                }
+            }
+
+         return null;
+
+        } catch (Exception e) {
+            throw new ServiceException("Cannot find event with title={" + title + "}");
+        }
+    }
+
 }
