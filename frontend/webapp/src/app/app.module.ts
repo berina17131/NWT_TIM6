@@ -30,6 +30,7 @@ import {AuthService} from './core/auth.service';
 import {AuthGuard} from './core/auth.guard';
 import {UserService} from './services/user/user.service';
 import { ProfilComponent } from './profil/profil.component';
+import { AdminKategorijeComponent } from './admin-kategorije/admin-kategorije.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'muzika', pathMatch: 'full' },
@@ -49,7 +50,8 @@ const routes: Routes = [
   { path: 'user-detalji/:idUser', component: UserDetaljiComponent, canActivate: [AuthGuard]},
   { path: 'login', component: LoginComponent },
   { path: 'registracija', component: RegistracijaComponent },
-  { path: 'profil', component: ProfilComponent }
+  { path: 'profil', component: ProfilComponent },
+  { path: 'admin-kategorije', component: AdminKategorijeComponent }
 ];
 
 
@@ -72,7 +74,8 @@ const routes: Routes = [
     UserDetaljiComponent,
     LoginComponent,
     RegistracijaComponent,
-    ProfilComponent
+    ProfilComponent,
+    AdminKategorijeComponent
   ],
   imports: [
     BrowserModule,
