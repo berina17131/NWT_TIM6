@@ -2,6 +2,7 @@ package com.example.place_management.Service;
 
 import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.PlaceRepository;
+import com.example.place_management.Security.TokenAuthenticationService;
 import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import org.hibernate.service.spi.ServiceException;
@@ -9,6 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -94,9 +98,14 @@ public class PlaceService {
         try {
             placeRepository.save(place);
             // Creating a place in Event microservice
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT-MANAGEMENT", false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            TokenAuthenticationService tas = new TokenAuthenticationService();
+            headers.add(HttpHeaders.AUTHORIZATION, tas.userToken);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place, null);
+            HttpEntity<Place> request = new HttpEntity<>(place, headers);
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request, Place.class);
             return "Place with name = " + place.getName() + " saved successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot create place with name = " + place.getName() + ".");
@@ -111,9 +120,14 @@ public class PlaceService {
             place.setDescription(placeFromRequest.getDescription());
             placeRepository.save(place);
             // Updating a place in Event microservice
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT-MANAGEMENT", false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            TokenAuthenticationService tas = new TokenAuthenticationService();
+            headers.add(HttpHeaders.AUTHORIZATION, tas.userToken);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", place);
+            HttpEntity<Place> request = new HttpEntity<>(place, headers);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request, Place.class);
             return "Place with id = " + place.getId() + " and name = " + place.getName() + " updated successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot update place with id = " + placeFromRequest.getId() + ".");

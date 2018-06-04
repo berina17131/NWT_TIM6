@@ -15,10 +15,12 @@ import static java.util.Collections.emptyList;
 public class TokenAuthenticationService {
     static final String SIGNING_KEY = "EventPageBestApp";
     static final String HEADER_STRING = "Authorization";
+    public static String userToken = "";
     private static String tokenRole = "";
 
     public static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
+        userToken = token;
 
         if (token != null && !token.isEmpty()) {
             String user = extractUserFromToken(token);

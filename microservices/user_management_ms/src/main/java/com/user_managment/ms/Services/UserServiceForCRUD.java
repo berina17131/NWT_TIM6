@@ -4,15 +4,20 @@ import com.netflix.appinfo.InstanceInfo;
 import com.netflix.discovery.EurekaClient;
 import com.user_managment.ms.Models.User;
 import com.user_managment.ms.Repository.UserRepository;
+import com.user_managment.ms.Security.JwtTokenUtil;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.amqp.core.Exchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 public class UserServiceForCRUD {
 
@@ -57,9 +62,14 @@ public class UserServiceForCRUD {
     public User createUser(User user) throws ServiceException {
         try {
             User u = userRepository.save(user);
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION-MANAGEMENT", false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            JwtTokenUtil jtu = new JwtTokenUtil();
+            headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + jtu.userToken);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/user/create/" + u.getId() + "/" + user.getUsername(), null, null);
+            HttpEntity<User> request = new HttpEntity<>(user, headers);
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/user/create/" + u.getId() + "/" + user.getUsername(), request, User.class);
             return u;
         } catch (Exception e) {
             throw new ServiceException("Cannot create user");
@@ -96,9 +106,14 @@ public class UserServiceForCRUD {
             user.setUsername(u.getUsername());
             userRepository.save(user);
 
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION-MANAGEMENT", false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_JSON);
+            JwtTokenUtil jtu = new JwtTokenUtil();
+            headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + jtu.userToken);
             RestTemplate restTemplate = new RestTemplate();
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), user);
+            HttpEntity<User> request = new HttpEntity<>(user, headers);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), request, User.class);
             return "User with id = " + u.getId() + " saved successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot update user with id = " + u.getId() + ".");
@@ -116,7 +131,7 @@ public class UserServiceForCRUD {
                 }
             }
 
-         return null;
+            return null;
 
         } catch (Exception e) {
             throw new ServiceException("Cannot find event with title={" + title + "}");

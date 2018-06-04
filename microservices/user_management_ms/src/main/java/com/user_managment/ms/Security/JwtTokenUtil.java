@@ -19,10 +19,12 @@ import static com.user_managment.ms.Security.Constants.SIGNING_KEY;
 
 @Component
 public class JwtTokenUtil implements Serializable {
+    public static String userToken = "";
     @Autowired
     UserService userService;
 
     public String getUsernameFromToken(String token) {
+        userToken = token;
         return getClaimFromToken(token, Claims::getSubject);
     }
 
