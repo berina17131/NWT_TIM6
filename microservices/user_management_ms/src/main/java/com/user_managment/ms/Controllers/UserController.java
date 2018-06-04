@@ -31,7 +31,6 @@ public class UserController {
     }
 
     @PostMapping(value = "/create")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity createUser(@RequestBody User user) {
         return ResponseEntity.ok(userServiceForCRUD.createUser(user));
     }

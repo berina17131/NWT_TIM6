@@ -69,7 +69,7 @@ public class UserServiceForCRUD {
             headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + jtu.userToken);
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<User> request = new HttpEntity<>(user, headers);
-            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/user/create/" + u.getId() + "/" + user.getUsername(), request, User.class);
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/user/create/" + u.getId() + "/" + user.getUsername(), request, null);
             return u;
         } catch (Exception e) {
             throw new ServiceException("Cannot create user");

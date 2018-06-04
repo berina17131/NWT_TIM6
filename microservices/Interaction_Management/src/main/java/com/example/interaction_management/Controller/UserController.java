@@ -49,7 +49,6 @@ public class UserController {
     }
 
     @PostMapping(value = "/create/{id}/{username}")
-    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity createUser(@PathVariable("id") int id, @PathVariable("username") String username) throws ServiceException {
         return ResponseEntity.ok(userService.createUser(id, username));
     }
