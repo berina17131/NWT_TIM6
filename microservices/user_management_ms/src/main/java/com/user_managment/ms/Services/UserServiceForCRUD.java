@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -59,8 +60,11 @@ public class UserServiceForCRUD {
         return builder.build();
     }
 
+    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
+
     public User createUser(User user) throws ServiceException {
         try {
+            user.setPassword(bcrypt.encode(user.getPassword()));
             User u = userRepository.save(user);
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION-MANAGEMENT", false);
             HttpHeaders headers = new HttpHeaders();

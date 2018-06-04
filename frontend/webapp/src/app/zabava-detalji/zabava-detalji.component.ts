@@ -54,7 +54,7 @@ user: User = {
   email: '',
   ime: '',
   prezime: '',
-  role: {
+  user_role: {
       id: 2,
   }
 };

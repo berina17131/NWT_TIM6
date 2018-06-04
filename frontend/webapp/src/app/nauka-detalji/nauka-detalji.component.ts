@@ -55,7 +55,7 @@ export class NaukaDetaljiComponent implements OnInit {
     email: '',
     ime: '',
     prezime: '',
-    role: {
+    user_role: {
         id: 2,
     }
   };

@@ -28,13 +28,29 @@
             <label for="exampleInputEmail1">Šifra</label>
             <input class="form-control" type="password" id="exampleInputPassword1" [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}"  aria-describedby="emailHelp" placeholder="Unesi šifru">
           </div>
-          <button class="btn btn-primary btn-block" (click)="registrujSe()">Registruj se</button>
+          <button type="button" class="btn btn-primary btn-block" (click)="registrujSe()" data-toggle="modal" data-target="#delete4Modal">Registruj se</button>
         </form>
         <div class="text-center">
           <a class="d-block small mt-3" routerLink="/login">Prijava</a>
         </div>
       </div>
     </div>
+
+    <div class="modal fade" id="delete4Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h3 class="modal-title" id="exampleModalLabel"> Korisnik uspješno registrovan! :)</h3>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal" (click)="zatvori()">Zatvori</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
   </div>
 </body>
 

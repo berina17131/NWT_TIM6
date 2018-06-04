@@ -20,14 +20,15 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  /*public httpOptions = {
+  public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
-      'Authorization':  'Bearer ' + TokenStorage.getToken()
+  //    'Authorization':  'Bearer ' + TokenStorage.getToken()
     })
-  };*/
+  };
 
   createUser(user: UserModel): Observable<any> {
+    user.user_role.id = 2; // postavljanje user role da bude ROLE_USER
     return this.http.post<UserModel>(this.USER_API + '/create', user, httpOptions);
   }
 

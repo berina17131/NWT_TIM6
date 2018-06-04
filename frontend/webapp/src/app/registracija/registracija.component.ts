@@ -20,7 +20,7 @@ export class RegistracijaComponent implements OnInit {
     email: '',
     ime: '',
     prezime: '',
-    role: {
+    user_role: {
         id: 2,
     }
   };
@@ -59,7 +59,10 @@ export class RegistracijaComponent implements OnInit {
 
   registrujSe(): void {
     console.log(this.user);
-    this.userService.createUser(this.user).subscribe(data => /*this.uzmiToken()*/ console.log(data));  
+    this.userService.createUser(this.user).subscribe(data => console.log("OK"));
   }
 
+  zatvori() {
+    this.router.navigate(['/login']);
+  }
 }

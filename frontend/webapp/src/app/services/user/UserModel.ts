@@ -4,7 +4,7 @@ export class UserModel {
     email: string;
     ime: string;
     prezime: string;
-    role: {
+    user_role: {
         id: number;
     };
 }

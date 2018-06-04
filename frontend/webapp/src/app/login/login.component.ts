@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
         },
         () => {
-          alert("Korisnik @" + this.username + " je uspješno prijavljen.");
+//          alert("Korisnik @" + this.username + " je uspješno prijavljen.");
           //this.alert.open('Login successful', null, { duration: 3000 });
         }
       );
