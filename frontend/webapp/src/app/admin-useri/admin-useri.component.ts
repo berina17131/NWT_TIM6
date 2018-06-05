@@ -9,7 +9,7 @@ import {Router} from '@angular/router';
 })
 export class AdminUseriComponent implements OnInit {
 
-  users: Array<any>;
+  users: any;
   username_pretraga: any;
   userSearch: any;
 
