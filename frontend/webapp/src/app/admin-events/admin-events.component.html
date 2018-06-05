@@ -102,11 +102,24 @@
             </div>
         </form>
         <div class="modal-footer">
-            <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_podnesi_zahtjev" (click)="kreirajEvent()">Spremi</button>
+            <button type="button" class="btn btn-primary" data-dismiss="modal" id="btn_podnesi_zahtjev" (click)="kreirajEvent()" data-toggle="modal" data-target="#modal1">Spremi</button>
         </div>
     </div>
 
     <div class="col-md-3">
     </div>
+
+    <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel"> Događaj je uspješno dodan! :)</h3>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal" (click)="zatvori()">Zatvori</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 </div>

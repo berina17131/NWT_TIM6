@@ -59,7 +59,7 @@ export class RegistracijaComponent implements OnInit {
 
   registrujSe(): void {
     console.log(this.user);
-    this.userService.createUser(this.user).subscribe(data => console.log("OK"));
+    this.userService.createUser(this.user).subscribe(data => console.log(data));
   }
 
   zatvori() {
