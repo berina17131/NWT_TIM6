@@ -44,7 +44,9 @@ export class EventService {
       })
     };
 
-    return this.http.put<Request>(this.EVENT_API + '/' + event.id, event, httpOptions);
+    console.log(event.id);
+
+    return this.http.put<Event>(this.EVENT_API + '/' + event.id, event, httpOptions);
   }
 
   getByName(name: string): Observable<any> {

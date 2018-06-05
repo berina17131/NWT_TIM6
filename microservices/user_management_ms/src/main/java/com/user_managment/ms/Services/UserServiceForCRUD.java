@@ -107,7 +107,9 @@ public class UserServiceForCRUD {
         try {
             Optional userHelp = userRepository.findById(u.getId());
             User user = (User) userHelp.get();
-            user.setUsername(u.getUsername());
+            user.setIme(u.getIme());
+            user.setPrezime(u.getPrezime());
+            user.setEmail(u.getEmail());
             userRepository.save(user);
 
             InstanceInfo instance = discoveryClient.getNextServerFromEureka("INTERACTION-MANAGEMENT", false);

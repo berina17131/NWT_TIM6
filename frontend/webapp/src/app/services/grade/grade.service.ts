@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Http, Headers, Response, RequestOptions } from '@angular/http';
 import {Observable} from 'rxjs';
-import {Grade} from './grade'
+import {Grade} from './Grade'
 
 
 @Injectable({
@@ -27,8 +27,7 @@ export class GradeService {
       })
     };
 
-    return this.http.post<Grade>(this.GRADE_API, grade, httpOptions);
-
+    return this.http.post<Grade>(this.GRADE_API + "/create", grade, httpOptions);
   }
 
 }

@@ -18,6 +18,7 @@ import {Comment} from '../services/comment/Comment';
 export class KulturaDetaljiComponent implements OnInit {
 
   event: Event = {
+    id: null,
     name: '',
     description: '',
     category: {
@@ -128,7 +129,7 @@ export class KulturaDetaljiComponent implements OnInit {
     this.newComment.user.id = this.user.id;
     this.newComment.event.id = this.eventId;
     this.newComment.comment = this.noviKomentar;
-    console.log(this.newComment);
+
     this.commentService.createComment(this.newComment).subscribe(data => {
       window.location.reload();
     });
@@ -139,7 +140,7 @@ export class KulturaDetaljiComponent implements OnInit {
    addNewGrade(){
     this.newGrade.user.id = this.user.id;
     this.newGrade.event.id = this.eventId;
-    this.newGrade.grade = this.odabranaOcjena;
+    this.newGrade.grade = parseInt(this.odabranaOcjena);
 
     this.gradeService.createGrade(this.newComment).subscribe(data => {
       window.location.reload();

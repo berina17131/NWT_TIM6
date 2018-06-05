@@ -1,5 +1,6 @@
 package com.example.interaction_management.Controller;
 
+import com.example.interaction_management.Model.Grade;
 import com.example.interaction_management.Service.GradeService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
@@ -39,14 +40,14 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.deleteById(id));
     }
 
-    @PostMapping(value = "/create/{grade}")
-    public ResponseEntity postByGrade(@PathVariable("grade") int gr) throws ServiceException {
-        return ResponseEntity.ok(gradeService.postByGrade(gr));
+    @PostMapping(value = "/create")
+    public ResponseEntity postByGrade(@RequestBody Grade grade) throws ServiceException {
+        return ResponseEntity.ok(gradeService.createGrade(grade));
     }
 
-    @PutMapping(value = "/id/{id}/newGrade/{newGrade}")
+    @PutMapping
     @PreAuthorize("@tokenAuthenticationService.isAdmin()")
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newGrade") int newGrade) throws ServiceException {
-        return ResponseEntity.ok(gradeService.putById(id, newGrade));
+    public ResponseEntity putById(@RequestBody Grade grade) throws ServiceException {
+        return ResponseEntity.ok(gradeService.putGrade(grade));
     }
 }

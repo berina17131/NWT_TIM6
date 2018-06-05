@@ -33,7 +33,14 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put<User>(this.USER_API, user, httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    
+    return this.http.put<User>(this.USER_API + '/' + user.id, user, httpOptions);
   }  
 
   getAllUsers(): Observable<any> {

@@ -45,6 +45,7 @@ export class ProfilComponent implements OnInit {
   }
 
   urediProfil() {
+    console.log(this.user);
     this.userService.updateUser(this.user).subscribe(data => console.log(data));
     console.log(this.user);
   }
