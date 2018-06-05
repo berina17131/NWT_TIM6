@@ -39,8 +39,7 @@ export class UserService {
       })
     };
 
-    
-    return this.http.put<User>(this.USER_API + '/' + user.id, user, httpOptions);
+    return this.http.put(this.USER_API, user, httpOptions);
   }  
 
   getAllUsers(): Observable<any> {

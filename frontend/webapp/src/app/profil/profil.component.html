@@ -24,8 +24,21 @@
             <label for="exampleInputEmail1">Email adresa</label>
             <input class="form-control" [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}"  type="email" aria-describedby="emailHelp">
           </div>
-          <button class="btn btn-primary btn-block" (click)="urediProfil()">Uredi profil</button>
+          <button class="btn btn-primary btn-block" (click)="urediProfil()" data-toggle="modal" data-target="#modal1" >Uredi profil</button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3 class="modal-title" id="exampleModalLabel"> Korisnički profil uspješno uređen! :)</h3>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal" (click)="zatvori()">Zatvori</button>
+        </div>
       </div>
     </div>
   </div>
