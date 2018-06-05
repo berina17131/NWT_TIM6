@@ -63,6 +63,7 @@ export class SportComponent implements OnInit {
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
     });
+    window.location.reload();
   }
 
   prikaziDetaljeIzmjena(event) {

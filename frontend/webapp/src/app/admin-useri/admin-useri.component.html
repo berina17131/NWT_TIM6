@@ -1,10 +1,15 @@
 <div class="text-center">
+<<<<<<< HEAD
+=======
+   
+>>>>>>> e182b83658cdabeb868880500bd4f85eccd908f3
   <div class="jumbotron">
     <h1>Korisnici</h1>
   </div>
 
   <input type="text" style="width: 700px; margin-left: 420px; margin-bottom: 20px; " placeholder="Username" class="form-control" id="naziv_objekta" [(ngModel)]="username_pretraga" [ngModelOptions]="{standalone: true}">
-  <button style="width: 500px; margin-bottom: 20px;" (click)="pretragaUsername()" data-toggle="modal" data-target="#exampleModal19" class="btn btn-primary">Pretraga</button>
+  <button style="width: 500px; margin-bottom: 20px; margin-left: 110px;" (click)="pretragaUsername()" data-toggle="modal" data-target="#exampleModal19" class="btn btn-primary">Pretraga</button>
+
 
   <div class="card" style="width: 40rem;" *ngFor="let user of users">
       <img class="card-img-top" src="assets/user.svg" alt="Card image cap">
