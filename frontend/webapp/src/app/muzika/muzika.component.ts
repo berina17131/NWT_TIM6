@@ -78,17 +78,10 @@ export class MuzikaComponent implements OnInit {
   }
 
   sacuvajIzmjeneEvent(){
-
-   this.eventPut = this.selectedEvent;
-    this.eventPut.name = this.modal_naziv;
-    this.eventPut.description = this.modal_opis;
-
-    console.log(this.eventPut);
-
     this.eventService.changeEvent(this.eventPut).subscribe(data => {
-      console.log('successful');
-      window.location.reload();
+    
     });
+    window.location.reload();
   }
 
 }

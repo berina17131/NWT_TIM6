@@ -33,4 +33,8 @@ export class AdminUseriComponent implements OnInit {
     this.userService.deleteUserById(user.id).subscribe(data => console.log(data));
   }
 
+  zatvori() {
+    window.location.reload();
+  }
+
 }
