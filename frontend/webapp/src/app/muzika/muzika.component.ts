@@ -61,12 +61,14 @@ export class MuzikaComponent implements OnInit {
     this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
   }
 
-  obrisi(event: any){
+  obrisi(){
 
-    this.eventService.deleteEvent(event.id).subscribe(data => {
+    console.log(this.selectedEvent.id);
+    this.eventService.deleteEvent(this.selectedEvent.id);
+    /*.subscribe(data => {
       console.log('successful');
       window.location.reload();
-    });
+    });*/
   }
 
   prikaziDetaljeIzmjena(event) {

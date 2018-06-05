@@ -58,4 +58,10 @@ export class UserService {
     return this.http.delete(this.USER_API + '/delete/' + id);
   }
   
+  getUserByUsername(username: any): Observable<any>{
+    return this.http.get(this.USER_API + '/username/' + username);
+
+  }
+
+
 }

@@ -1,14 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {EventService} from '../services/event/event.service';
-import {CommentService} from '../services/comment/comment.service';
-import {Event} from '../services/event/Event';
+import { ActivatedRoute } from '@angular/router';
+import { EventService } from '../services/event/event.service';
+import { CommentService } from '../services/comment/comment.service';
+import { Event } from '../services/event/Event';
 import { GradeService } from '../services/grade/grade.service';
-import {Grade} from '../services/grade/Grade';
+import { Grade } from '../services/grade/Grade';
 import { TokenStorage } from '../core/token.storage';
 import { User } from '../services/user/User';
 import { UserService } from '../services/user/user.service';
-import {Comment} from '../services/comment/Comment';
+import { Comment } from '../services/comment/Comment';
 
 @Component({
   selector: 'app-kultura-detalji',
@@ -22,22 +22,22 @@ export class KulturaDetaljiComponent implements OnInit {
     name: '',
     description: '',
     category: {
-        id: null
+      id: null
     },
     place: {
-        id: null
+      id: null
     }
   };
 
-  newComment: Comment = { 
+  newComment: Comment = {
     comment: '',
     user: {
-        id: null
+      id: null
     },
     event: {
-        id: null
+      id: null
     }
-};
+  };
 
   newGrade: Grade = {
     grade: 1,
@@ -48,7 +48,7 @@ export class KulturaDetaljiComponent implements OnInit {
       id: null
     }
   };
-  
+
   comments: Array<any>;
   averageGrade: any;
   eventId: any;
@@ -63,69 +63,59 @@ export class KulturaDetaljiComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: 2,
+      id: 2,
     }
   };
 
-
-
   odabranaOcjena: any;
-  ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
+  imaOcjenu: any;
+  ocjene = [{ id: 5, name: '5 - Najbolji provod' }, { id: 4, name: '4 - Odličan provod' }, { id: 3, name: '3 - Neutralan sam' }, { id: 2, name: '2 - Nisam oduševljen' }, { id: 1, name: '1 - Loš događaj ' }];
 
-
-  constructor(private eventService: EventService, 
-              private commentService: CommentService, 
-              private router: ActivatedRoute,
-              private gradeService: GradeService,
-              private userService: UserService) {
+  constructor(private eventService: EventService,
+    private commentService: CommentService,
+    private router: ActivatedRoute,
+    private gradeService: GradeService,
+    private userService: UserService) {
   }
-
 
   ngOnInit() {
     const id = +this.router.snapshot.paramMap.get('id');
     this.eventId = id;
     this.getEvent();
-    console.log(this.event.name);
     this.getComments(id);
 
     this.gradeService.getAverageGrade(id).subscribe(data => {
       this.averageGrade = data;
-       });
+    });
 
     this.getUserData();
 
-
-       //provjeri da li je korisnik vec ocjenio ovaj event
-
+    this.checkGrade();
   }
 
-  getUserData(){
-
+  getUserData() {
     this.loggedUser = TokenStorage.getCurrentUser();
 
     this.userService.getByUsername(this.loggedUser).subscribe(data => {
       this.user = data;
-       });
+    });
   }
 
-  getEvent(){
+  getEvent() {
     const id = +this.router.snapshot.paramMap.get('id');
 
     this.eventService.getEvent(id).subscribe(data => {
       this.event = data;
-      console.log(event);
-       });
-   }
+    });
+  }
 
-   getComments(id){
-
+  getComments(id) {
     this.commentService.getCommentsForEvent(id).subscribe(data => {
       this.comments = data;
-       });
-   }
+    });
+  }
 
-
-   createComment(){
+  createComment() {
     this.newComment.user.id = this.user.id;
     this.newComment.event.id = this.eventId;
     this.newComment.comment = this.noviKomentar;
@@ -134,18 +124,32 @@ export class KulturaDetaljiComponent implements OnInit {
       window.location.reload();
     });
     this.noviKomentar = '';
-   }
+  }
 
-
-   addNewGrade(){
+  addNewGrade() {
     this.newGrade.user.id = this.user.id;
     this.newGrade.event.id = this.eventId;
     this.newGrade.grade = parseInt(this.odabranaOcjena);
 
-    this.gradeService.createGrade(this.newComment).subscribe(data => {
-      window.location.reload();
-    });
+    if (this.imaOcjenu == false) {
+      this.gradeService.createGrade(this.newGrade).subscribe(data => {
+        window.location.reload();
+      });
+    }
+    else {
+      this.gradeService.updateGrade(this.newGrade).subscribe(data => {
+        window.location.reload();
+      });
+    }
     this.odabranaOcjena = '';
-   }
+  }
 
+  checkGrade() {
+    this.gradeService.getGradeByUserId(this.loggedUser, this.eventId).subscribe(data => {
+      if (data == null)
+        this.imaOcjenu = false;
+      else
+        this.imaOcjenu = true;
+    });
+  }
 }
