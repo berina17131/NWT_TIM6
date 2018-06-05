@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../services/event/event.service';
 import {Router} from '@angular/router';
 import {AppComponent} from '../app.component';
+import {Event} from '../services/event/Event';
 
 @Component({
   selector: 'app-kultura',
@@ -11,8 +12,35 @@ import {AppComponent} from '../app.component';
 export class KulturaComponent implements OnInit {
 
   events: Array<any>;
-  event: any;
+  eventPut: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
+  event: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
   selectedEvent: any;
+
+  modal_naziv: any;
+  modal_opis: any;
+  modal_kategorija: any;
 
   isAdmin: any;
 
