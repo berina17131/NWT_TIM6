@@ -44,4 +44,14 @@ export class PretragaComponent implements OnInit {
     this.router.navigate(['/pretraga']);
   }
 
+  obrisi(event: any){
+
+    this.eventService.deleteEvent(event.id).subscribe(data => {
+      console.log('successful');
+      //window.location.reload();
+    });
+    window.location.reload();
+  }
+
+
 }
