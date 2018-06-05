@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user/user.service';
 import {Router} from '@angular/router';
+import { User } from '../services/user/User';
 
 @Component({
   selector: 'app-admin-useri',
@@ -9,9 +10,20 @@ import {Router} from '@angular/router';
 })
 export class AdminUseriComponent implements OnInit {
 
-  users: Array<any>;
+  users: any;
   username_pretraga: any;
-  userSearch: any;
+  userSearch: User = {
+    id: null,
+    username: '',
+    password: '',
+    email: '',
+    ime: '',
+    prezime: '',
+    user_role: {
+        id: null,
+    }
+  };
+  
 
   constructor(private router: Router, private userService: UserService) { }
 
