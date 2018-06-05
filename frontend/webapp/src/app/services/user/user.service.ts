@@ -33,7 +33,13 @@ export class UserService {
   }
 
   updateUser(user: User): Observable<any> {
-    return this.http.put<User>(this.USER_API, user, httpOptions);
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.put(this.USER_API, user, httpOptions);
   }  
 
   getAllUsers(): Observable<any> {
@@ -52,4 +58,10 @@ export class UserService {
     return this.http.delete(this.USER_API + '/delete/' + id);
   }
   
+  getUserByUsername(username: any): Observable<any>{
+    return this.http.get(this.USER_API + '/username/' + username);
+
+  }
+
+
 }

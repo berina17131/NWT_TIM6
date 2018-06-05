@@ -13,6 +13,7 @@ import { Event } from '../services/event/Event';
 export class AdminEventsComponent implements OnInit {
 
   event: Event = {
+    id: null,
     name: '',
     description: '',
     category: {

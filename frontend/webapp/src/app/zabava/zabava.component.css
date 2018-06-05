@@ -8,6 +8,9 @@ body {
     color: #5a5a5a;
   }
   
+  .btn{
+    margin-right: 2%;
+  }
   
   /* CUSTOMIZE THE CAROUSEL
   -------------------------------------------------- */

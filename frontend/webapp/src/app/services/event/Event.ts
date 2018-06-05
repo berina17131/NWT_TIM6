@@ -1,4 +1,5 @@
 export class Event {
+    id: number;
     name: String;
     description: String;
     category: {

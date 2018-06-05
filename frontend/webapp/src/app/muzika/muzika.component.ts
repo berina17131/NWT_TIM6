@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../services/event/event.service';
 import {Router} from '@angular/router';
 import {AppComponent} from '../app.component';
+import {Event} from '../services/event/Event';
 
 @Component({
   selector: 'app-muzika',
@@ -10,8 +11,31 @@ import {AppComponent} from '../app.component';
 })
 export class MuzikaComponent implements OnInit {
 
+  eventPut: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
   events: Array<any>;
-  event: any;
+  event: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
   selectedEvent: any;
 
   modal_naziv: any;
@@ -32,19 +56,23 @@ export class MuzikaComponent implements OnInit {
   }
 
   prikaziDetalje(event: any){
+    this.eventPut = this.selectedEvent;
     this.selectedEvent = event;
     this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
   }
 
-  obrisi(event: any){
+  obrisi(){
 
-    this.eventService.deleteEvent(event.id).subscribe(data => {
+    console.log(this.selectedEvent.id);
+    this.eventService.deleteEvent(this.selectedEvent.id);
+    /*.subscribe(data => {
       console.log('successful');
       window.location.reload();
-    });
+    });*/
   }
 
   prikaziDetaljeIzmjena(event) {
+    this.eventPut = event;
     this.modal_naziv = event.name;
     this.modal_opis = event.description;
     this.modal_kategorija = event.category.name;
@@ -52,7 +80,10 @@ export class MuzikaComponent implements OnInit {
   }
 
   sacuvajIzmjeneEvent(){
-   console.log("ovdjee saam");
+    this.eventService.changeEvent(this.eventPut).subscribe(data => {
+    
+    });
+    window.location.reload();
   }
 
 }

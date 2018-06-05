@@ -18,6 +18,7 @@ import { Comment } from '../services/comment/Comment';
 export class KulturaDetaljiComponent implements OnInit {
 
   event: Event = {
+    id: null,
     name: '',
     description: '',
     category: {

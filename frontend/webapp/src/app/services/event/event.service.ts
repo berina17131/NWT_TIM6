@@ -23,8 +23,8 @@ export class EventService {
     return this.http.get(this.EVENT_API + '/id/' + id);
   }
 
-  deleteEvent(id: number): Observable<any> {
-    return this.http.delete(this.EVENT_API + '/delete/' + id);
+  deleteEvent(id: number): void {
+   this.http.delete(this.EVENT_API + '/delete/' + id);
   }
 
   createEvent(event: any): Observable<any> {
@@ -43,8 +43,7 @@ export class EventService {
         'Content-Type': 'application/json',
       })
     };
-
-    return this.http.put<Request>(this.EVENT_API + '/' + event.id, event, httpOptions);
+    return this.http.put(this.EVENT_API, event, httpOptions);
   }
 
   getByName(name: string): Observable<any> {

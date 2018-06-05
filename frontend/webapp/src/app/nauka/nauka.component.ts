@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EventService} from '../services/event/event.service';
 import {Router} from '@angular/router';
 import {AppComponent} from '../app.component';
+import {Event} from '../services/event/Event';
 
 @Component({
   selector: 'app-nauka',
@@ -10,9 +11,36 @@ import {AppComponent} from '../app.component';
 })
 export class NaukaComponent implements OnInit {
 
+  eventPut: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
   events: Array<any>;
-  event: any;
+  event: Event = {
+    id: null,
+    name: '',
+    description: '',
+    category: {
+      id: null
+    },
+    place: {
+      id: null
+    }
+  };
+
   selectedEvent: any;
+
+  modal_naziv: any;
+  modal_opis: any;
+  modal_kategorija: any;
 
   isAdmin: any;
 
@@ -38,4 +66,20 @@ export class NaukaComponent implements OnInit {
       window.location.reload();
     });
   }
+
+  prikaziDetaljeIzmjena(event) {
+    this.eventPut = event;
+    this.modal_naziv = event.name;
+    this.modal_opis = event.description;
+    this.modal_kategorija = event.category.name;
+    //this.modal_adresa = place.address;
+  }
+
+  sacuvajIzmjeneEvent(){
+    this.eventService.changeEvent(this.eventPut).subscribe(data => {
+      console.log('successful');
+      window.location.reload();
+    });
+  }
+
 }
