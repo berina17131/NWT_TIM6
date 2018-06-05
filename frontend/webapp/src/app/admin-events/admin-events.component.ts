@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from '../services/event/event.service';
-import {CategoryService} from '../services/category/category.service';
-import {PlaceService} from '../services/place/place.service'
-import {Router} from '@angular/router';
-import {Event} from '../services/event/Event';
+import { EventService } from '../services/event/event.service';
+import { CategoryService } from '../services/category/category.service';
+import { PlaceService } from '../services/place/place.service'
+import { Router } from '@angular/router';
+import { Event } from '../services/event/Event';
 
 @Component({
   selector: 'app-admin-events',
@@ -18,7 +18,7 @@ export class AdminEventsComponent implements OnInit {
     category: {
       id: null
     },
-    place:{
+    place: {
       id: null
     }
   };
@@ -30,8 +30,8 @@ export class AdminEventsComponent implements OnInit {
   odabraniPlace: any;
 
   constructor(
-    private eventService: EventService, 
-    private categoryService: CategoryService, 
+    private eventService: EventService,
+    private categoryService: CategoryService,
     private placeService: PlaceService,
     private router: Router) { }
 
@@ -42,7 +42,7 @@ export class AdminEventsComponent implements OnInit {
       console.log(this.categories.length)
     });
 
-    this.placeService.getAllPlaces().subscribe(data=>{
+    this.placeService.getAllPlaces().subscribe(data => {
       this.places = data;
       console.log(this.places.length);
     });
@@ -71,14 +71,22 @@ export class AdminEventsComponent implements OnInit {
     window.location.reload();
   }
 
-  kreirajEvent(){
+  kreirajEvent() {
     console.log(this.event);
-    
-    //this.event.name =
-    //this.event.description =
-      /*this.eventService.createEvent(this.event).subscribe(data => {
-      console.log(data);
-    });*/
+
+    this.event.category.id = this.odabranaCategory;
+    this.event.place.id = this.odabraniPlace;
+    this.eventService.createEvent(this.event).subscribe(data => {
+    });
+  }
+
+  zatvori() {
+    this.event.name = '';
+    this.event.description = '';
+    this.event.place.id = null;
+    this.event.category.id = null;
+    this.odabranaCategory = null;
+    this.odabraniPlace = null;
   }
 
   /*sacuvajIzmjeneEvent(){
