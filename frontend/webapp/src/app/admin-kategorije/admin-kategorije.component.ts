@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {CategoryService} from '../services/category/category.service';
+import {Category} from '../services/category/Category';
 
 @Component({
   selector: 'app-admin-kategorije',
@@ -9,6 +10,11 @@ import {CategoryService} from '../services/category/category.service';
 export class AdminKategorijeComponent implements OnInit {
 
   categories: any;
+  category: Category = {
+    id: null,
+    name: '',
+    description: ''
+  }
 
   constructor(private categoryService: CategoryService) { }
 
@@ -22,11 +28,22 @@ export class AdminKategorijeComponent implements OnInit {
 
   prikaziDetalje(category)
   {
-    console.log(category);
+    this.category.id = category.id;
+    this.category.name = category.name;
+    this.category.description = category.description;
   }
 
   obrisiKategoriju(category) {
-    console.log(category);
+    this.categoryService.deleteCategory(this.category);
+  }
+
+  sacuvajIzmjeneCategory() {
+    this.categoryService.editCategory(this.category).subscribe(data => console.log(data));
+    window.location.reload();
+  }
+
+  zatvori() {
+    window.location.reload();
   }
 
 
