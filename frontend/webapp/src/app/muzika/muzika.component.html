@@ -136,7 +136,7 @@
                     <p style="margin-top: 20px;">
                         <a class="btn btn-outline-primary" role="button" (click)="prikaziDetalje(event)" style="margin-left: 10px; margin-right: 20px;">Više informacija &raquo;</a>
                         <a *ngIf="isAdmin" class="btn btn-outline-danger" role="button" data-toggle="modal" data-target="#exampleModal8" (click)="prikaziDetaljeIzmjena(event)">Uredi</a>
-                        <a *ngIf="isAdmin" class="btn btn-outline-danger" role="button" (click)="obrisi(event)">Obriši</a>
+                        <a *ngIf="isAdmin" class="btn btn-outline-danger" role="button" (click)="obrisi()">Obriši</a>
                     </p>
                 </div>
                 <div class="col-md-5">

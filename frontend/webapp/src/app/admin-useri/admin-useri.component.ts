@@ -9,7 +9,9 @@ import {Router} from '@angular/router';
 })
 export class AdminUseriComponent implements OnInit {
 
-  users: any;
+  users: Array<any>;
+  username_pretraga: any;
+  userSearch: any;
 
   constructor(private router: Router, private userService: UserService) { }
 
@@ -31,6 +33,15 @@ export class AdminUseriComponent implements OnInit {
 
   deleteUser(user) {
     this.userService.deleteUserById(user.id).subscribe(data => console.log(data));
+  }
+
+  pretragaUsername(){
+
+    this.userService.getUserByUsername(this.username_pretraga).subscribe(data => {
+      this.userSearch = data;
+      console.log(data);
+    });
+   // window.location.reload();
   }
 
 }
