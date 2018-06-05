@@ -85,7 +85,7 @@
         <a class="nav-link" routerLink="/profil">Profil</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" data-toggle="modal" data-target="#exampleModal5">Pretraga</a>
+        <a class="nav-link" data-toggle="modal" (click)="pretraga()">Pretraga</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" (click)="odjaviSe()">Odjavi se</a>
@@ -96,7 +96,7 @@
 
 
 <!--Lista evenata-->
-<div class="row featurette" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
+<!--<div class="row featurette" *ngFor="let event of events, let i = index" [class.selected]="event === selectedEvent">
   <div class="col-md-7">
       <h2 class="featurette-heading">{{ event.name }}
           <span class="text-muted"> Neki tekst</span>
@@ -116,8 +116,8 @@
 
 
 
-<!--Pretraga evenata-->
-<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+Pretraga evenata-->
+<!--<div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
       <div class="modal-content">
           <div class="modal-header">
@@ -145,7 +145,7 @@
           </div>
       </div>
   </div>
-</div>
+</div>-->
 
 
 <router-outlet></router-outlet>

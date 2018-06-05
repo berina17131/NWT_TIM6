@@ -31,6 +31,7 @@ import {AuthGuard} from './core/auth.guard';
 import {UserService} from './services/user/user.service';
 import { ProfilComponent } from './profil/profil.component';
 import { AdminKategorijeComponent } from './admin-kategorije/admin-kategorije.component';
+import { PretragaComponent } from './pretraga/pretraga.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'muzika', pathMatch: 'full' },
@@ -51,7 +52,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'registracija', component: RegistracijaComponent },
   { path: 'profil', component: ProfilComponent },
-  { path: 'admin-kategorije', component: AdminKategorijeComponent }
+  { path: 'admin-kategorije', component: AdminKategorijeComponent },
+  { path: 'pretraga', component: PretragaComponent }
 ];
 
 
@@ -75,7 +77,8 @@ const routes: Routes = [
     LoginComponent,
     RegistracijaComponent,
     ProfilComponent,
-    AdminKategorijeComponent
+    AdminKategorijeComponent,
+    PretragaComponent
   ],
   imports: [
     BrowserModule,
