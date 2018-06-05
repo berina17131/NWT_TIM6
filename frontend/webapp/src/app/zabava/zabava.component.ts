@@ -65,6 +65,7 @@ export class ZabavaComponent implements OnInit {
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
     });
+    window.location.reload();
   }
 
   prikaziDetaljeIzmjena(event) {
@@ -80,6 +81,7 @@ export class ZabavaComponent implements OnInit {
       console.log('successful');
       window.location.reload();
     });
+
   }
 
 }

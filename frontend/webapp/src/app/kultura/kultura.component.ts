@@ -63,8 +63,23 @@ export class KulturaComponent implements OnInit {
 
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
-      window.location.reload();
     });
+    window.location.reload();
+  }
+
+  prikaziDetaljeIzmjena(event) {
+    this.eventPut = event;
+    this.modal_naziv = event.name;
+    this.modal_opis = event.description;
+    this.modal_kategorija = event.category.name;
+    //this.modal_adresa = place.address;
+  }
+
+  sacuvajIzmjeneEvent(){
+    this.eventService.changeEvent(this.eventPut).subscribe(data => {
+    
+    });
+    window.location.reload();
   }
   
 }

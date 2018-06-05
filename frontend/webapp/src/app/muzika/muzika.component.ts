@@ -64,11 +64,10 @@ export class MuzikaComponent implements OnInit {
   obrisi(){
 
     console.log(this.selectedEvent.id);
-    this.eventService.deleteEvent(this.selectedEvent.id);
-    /*.subscribe(data => {
+    this.eventService.deleteEvent(this.selectedEvent.id).subscribe(data => {
       console.log('successful');
-      window.location.reload();
-    });*/
+    });
+    window.location.reload();
   }
 
   prikaziDetaljeIzmjena(event) {
