@@ -22,7 +22,7 @@ public class Grade {
     @JsonIgnoreProperties("grades")
     private Event event;
 
-    protected Grade() {
+    public Grade() {
     }
 
     public Grade(int gr) {

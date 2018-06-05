@@ -28,6 +28,11 @@ public class GradeController {
         return ResponseEntity.ok(gradeService.getAverageGradeForEvent(id));
     }
 
+    @GetMapping(value = "/user/{username}/event/{eventid}")
+    public Grade getGradeByUserId(@PathVariable("username") String username, @PathVariable("eventid") Integer eventid) throws ServiceException {
+        return gradeService.getGradeByUserUsername(username, eventid);
+    }
+
     @DeleteMapping(value = "/delete/all")
     @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteAll() throws ServiceException {
@@ -46,7 +51,6 @@ public class GradeController {
     }
 
     @PutMapping
-    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity putById(@RequestBody Grade grade) throws ServiceException {
         return ResponseEntity.ok(gradeService.putGrade(grade));
     }
