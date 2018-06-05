@@ -1,5 +1,6 @@
 package com.example.interaction_management.Controller;
 
+import com.example.interaction_management.Model.Comment;
 import com.example.interaction_management.Service.CommentService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
@@ -38,13 +39,13 @@ public class CommentController {
         return ResponseEntity.ok(commentService.deleteById(id));
     }
 
-    @PostMapping(value = "/create/{comment}")
-    public ResponseEntity postByComment(@PathVariable("comment") String co) throws ServiceException {
-        return ResponseEntity.ok(commentService.postByComment(co));
+    @PostMapping(value = "/create")
+    public ResponseEntity postByComment(@RequestBody Comment comment) throws ServiceException {
+        return ResponseEntity.ok(commentService.postByComment(comment));
     }
 
-    @PutMapping(value = "/id/{id}/newComment/{newComment}")
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newComment") String newComment) throws ServiceException {
-        return ResponseEntity.ok(commentService.putById(id, newComment));
+    @PutMapping
+    public ResponseEntity putById(@RequestBody Comment comment) throws ServiceException {
+        return ResponseEntity.ok(commentService.putComment(comment));
     }
 }

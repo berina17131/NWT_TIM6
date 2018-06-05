@@ -10,7 +10,6 @@ import { User } from '../services/user/User';
 import { UserService } from '../services/user/user.service';
 
 
-
 @Component({
   selector: 'app-zabava-detalji',
   templateUrl: './zabava-detalji.component.html',
@@ -113,6 +112,7 @@ user: User = {
     this.newComment.user.id = this.user.id;
     this.newComment.event.id = this.eventId;
     this.newComment.comment = this.noviKomentar;
+
     this.commentService.createComment(this.newComment).subscribe(data => {
       window.location.reload();
     });
@@ -122,9 +122,9 @@ user: User = {
    addNewGrade(){
     this.newGrade.user.id = this.user.id;
     this.newGrade.event.id = this.eventId;
-    this.newGrade.grade = this.odabranaOcjena;
+    this.newGrade.grade = parseInt(this.odabranaOcjena);
 
-    this.gradeService.createGrade(this.newComment).subscribe(data => {
+    this.gradeService.createGrade(this.newGrade).subscribe(data => {
       window.location.reload();
     });
     this.odabranaOcjena = '';
