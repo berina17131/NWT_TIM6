@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import javax.transaction.Transactional;
+import java.util.Optional;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -21,4 +22,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     @Query(value = "UPDATE user SET username=:username WHERE id=:id", nativeQuery = true)
     @Transactional
     void changeUser(@Param("id") int id, @Param("username") String username);
+
+    Optional<User> findByUsername(String username);
 }

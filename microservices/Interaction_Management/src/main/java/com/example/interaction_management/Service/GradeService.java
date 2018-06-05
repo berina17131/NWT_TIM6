@@ -1,22 +1,29 @@
 package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Grade;
+import com.example.interaction_management.Model.User;
 import com.example.interaction_management.Repository.GradeRepository;
+import com.example.interaction_management.Repository.UserRepository;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
+import org.omg.CORBA.INTERNAL;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class GradeService {
     private final GradeRepository gradeRepository;
+    private static final Logger log = LoggerFactory.getLogger(GradeService.class);
+    private final UserRepository userRepository;
 
     @Autowired
-    public GradeService(GradeRepository gradeRepository) {
+    public GradeService(GradeRepository gradeRepository, UserRepository userRepository) {
         this.gradeRepository = gradeRepository;
+        this.userRepository = userRepository;
     }
 
     public List<Grade> getAll() throws ServiceException {
@@ -74,8 +81,9 @@ public class GradeService {
     public String createGrade(Grade grade) throws ServiceException {
         try {
             gradeRepository.save(grade);
+            log.info("ovdje smo2222");
 
-            return "Grade = " + grade.getGrade() + " saved successfully";
+            return JSONParser.quote("Grade = " + grade.getGrade() + " saved successfully");
         } catch (Exception e) {
             throw new ServiceException("Cannot create grade = " + grade.getGrade() + ".");
         }
@@ -83,14 +91,46 @@ public class GradeService {
 
     public String putGrade(Grade gradeFromRequest) throws ServiceException {
         try {
-            Optional gradeHelp = gradeRepository.findById(gradeFromRequest.getId());
-            Grade grade = (Grade) gradeHelp.get();
+            Grade grade = getGradeByUserId(gradeFromRequest.getUser().getId(), gradeFromRequest.getEvent().getId());
             grade.setGrade(gradeFromRequest.getGrade());
             gradeRepository.save(grade);
 
             return JSONParser.quote("Grade with id= " + grade.getId() + " saved successfully as " + grade.getGrade());
         } catch (Exception e) {
             throw new ServiceException(JSONParser.quote("Cannot update grade with id = " + gradeFromRequest.getId() + "."));
+        }
+    }
+
+    public Grade getGradeByUserId(Integer userId, Integer eventid) throws ServiceException {
+        try {
+            List<Grade> grades = gradeRepository.findAll();
+            Grade returnGrade = null;
+
+            for (Grade g : grades) {
+                if (g.getUser().getId() == userId && g.getEvent().getId() == eventid)
+                    returnGrade = g;
+            }
+            return returnGrade;
+        } catch (Exception e) {
+            throw new ServiceException(JSONParser.quote("Cannot find grade"));
+        }
+    }
+
+    public Grade getGradeByUserUsername(String username, Integer eventid) throws ServiceException {
+        try {
+            User user = userRepository.findByUsername(username).get();
+            log.info(user.toString());
+
+            List<Grade> grades = gradeRepository.findAll();
+            Grade returnGrade = null;
+
+            for (Grade g : grades) {
+                if (g.getUser().getUsername().equals(username) && g.getEvent().getId() == eventid)
+                    returnGrade = g;
+            }
+            return returnGrade;
+        } catch (Exception e) {
+            throw new ServiceException(JSONParser.quote("Cannot find grade"));
         }
     }
 }

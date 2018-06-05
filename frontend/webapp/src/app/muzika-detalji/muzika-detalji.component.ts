@@ -62,6 +62,7 @@ export class MuzikaDetaljiComponent implements OnInit {
   };
 
   odabranaOcjena: any;
+  imaOcjenu: any;
   ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
 
 
@@ -87,6 +88,7 @@ export class MuzikaDetaljiComponent implements OnInit {
 
     this.getUserData();
 
+    this.checkGrade();
   }
 
   getUserData(){
@@ -127,17 +129,30 @@ export class MuzikaDetaljiComponent implements OnInit {
     this.noviKomentar = '';
    }
 
-   addNewGrade(){
+   addNewGrade() {
     this.newGrade.user.id = this.user.id;
     this.newGrade.event.id = this.eventId;
     this.newGrade.grade = parseInt(this.odabranaOcjena);
 
-    this.gradeService.createGrade(this.newComment).subscribe(data => {
-      window.location.reload();
-    });
+    if (this.imaOcjenu == false) {
+      this.gradeService.createGrade(this.newGrade).subscribe(data => {
+        window.location.reload();
+      });
+    }
+    else {
+      this.gradeService.updateGrade(this.newGrade).subscribe(data => {
+        window.location.reload();
+      });
+    }
     this.odabranaOcjena = '';
-   }
+  }
 
-
-
+  checkGrade() {
+    this.gradeService.getGradeByUserId(this.loggedUser, this.eventId).subscribe(data => {
+      if (data == null)
+        this.imaOcjenu = false;
+      else
+        this.imaOcjenu = true;
+    });
+  }
 }

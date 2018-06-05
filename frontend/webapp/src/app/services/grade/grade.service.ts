@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Http, Headers, Response, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs';
-import {Grade} from './Grade'
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
+import { Grade } from './Grade'
 
 
 @Injectable({
@@ -12,7 +12,7 @@ export class GradeService {
 
   public API = '//localhost:8080/interactions';
   public GRADE_API = this.API + '/grade';
-  result: Array<Object>; 
+  result: Array<Object>;
 
   constructor(private http: HttpClient) { }
 
@@ -30,4 +30,17 @@ export class GradeService {
     return this.http.post<Grade>(this.GRADE_API + "/create", grade, httpOptions);
   }
 
+  updateGrade(grade: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+      })
+    };
+
+    return this.http.put<Grade>(this.GRADE_API, grade, httpOptions);
+  }
+
+  getGradeByUserId(username: any, eventId: any): Observable<any> {
+    return this.http.get(this.GRADE_API + "/user/" + username + "/event/" + eventId);
+  }
 }
