@@ -18,14 +18,14 @@ export class CommentService {
     return this.http.get(this.COMMENT_API + '/' + id);
   }
 
-  createComment(comment: any): Observable<any> {
+  createComment(comment : any): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
 
-    return this.http.post<Comment>(this.COMMENT_API, comment, httpOptions);
+    return this.http.post<Comment>(this.COMMENT_API + "/create", comment, httpOptions);
   }
 
 
