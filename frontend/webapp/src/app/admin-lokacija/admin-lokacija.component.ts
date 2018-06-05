@@ -19,12 +19,26 @@ export class AdminLokacijaComponent implements OnInit {
     }
   };
 
+  objekatPut: Place = {
+    id: null,
+    name: '',
+    description: '',
+    address: {
+      id: null
+    }
+  };
+
+  odabranaAdresa: any;
+  addresses: any;
+
   objekat_name: any;
   objekat_description: any;
 
   modal_naziv: any;
   modal_opis: any;
   modal_adresa: any;
+
+  adresa: any;
 
   constructor(private placeService: PlaceService) { }
 
@@ -36,16 +50,18 @@ export class AdminLokacijaComponent implements OnInit {
     this.placeService.getAllPlaces().subscribe(data => {
       this.places = data;
     });
+
+    this.placeService.getAllAddresses().subscribe(data => {
+      this.addresses = data;
+    });
   }
 
-  kreirajObjekat(){ //create place
-    this.objekat.name = this.objekat_name;
-    this.objekat.description = this.objekat_description;
-    //pitanje sta uradit sa adresama?? 
-
+  kreirajObjekat(){
+    this.objekat.address.id = this.odabranaAdresa;
     this.placeService.createPlace(this.objekat).subscribe(data => {
       console.log(data);
     });
+    window.location.reload();
   }
 
   prikaziDetalje(place) {
@@ -55,12 +71,24 @@ export class AdminLokacijaComponent implements OnInit {
   }
 
   sacuvajIzmjenePlace(){
-
-    
+    this.placeService.changePlace(this.objekatPut).subscribe(data => {});
+    window.location.reload()
   }
 
-  obrisiLokaciju() {
-    console.log('delete');
+  urediPlace(place) {
+    this.adresa = place.address.name;
+    this.objekatPut.id = place.id;
+    this.objekatPut.name = place.name;
+    this.objekatPut.description = place.description;
+    this.objekatPut.address.id = place.id;
+  }
+
+  obrisiLokaciju(place) {
+    this.placeService.deletePlace(place.id);
+  }
+
+  zatvori() {
+    window.location.reload();
   }
 
 }

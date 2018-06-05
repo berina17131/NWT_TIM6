@@ -1,8 +1,8 @@
-export class Place {
+export class Address {
     id?: number;
     name: String;
     description: String;
-    address: {
+    city: {
         id: number;
     };
 }

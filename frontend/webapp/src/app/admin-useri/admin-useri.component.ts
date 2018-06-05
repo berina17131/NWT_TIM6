@@ -35,6 +35,7 @@ export class AdminUseriComponent implements OnInit {
     this.userService.deleteUserById(user.id).subscribe(data => console.log(data));
   }
 
+
   pretragaUsername(){
 
     this.userService.getUserByUsername(this.username_pretraga).subscribe(data => {
@@ -44,4 +45,9 @@ export class AdminUseriComponent implements OnInit {
    // window.location.reload();
   }
 
+  zatvori() {
+    window.location.reload();
+  }
+
 }
+

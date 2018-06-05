@@ -43,10 +43,7 @@ export class EventService {
         'Content-Type': 'application/json',
       })
     };
-
-    console.log(event.id);
-
-    return this.http.put<Event>(this.EVENT_API + '/' + event.id, event, httpOptions);
+    return this.http.put(this.EVENT_API, event, httpOptions);
   }
 
   getByName(name: string): Observable<any> {

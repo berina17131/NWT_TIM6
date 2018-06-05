@@ -23,7 +23,7 @@ export class ProfilComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: 2,
+        id: null,
     }
   };
 
@@ -48,6 +48,10 @@ export class ProfilComponent implements OnInit {
     console.log(this.user);
     this.userService.updateUser(this.user).subscribe(data => console.log(data));
     console.log(this.user);
+  }
+
+  zatvori() {
+    window.location.reload();
   }
 
 }
