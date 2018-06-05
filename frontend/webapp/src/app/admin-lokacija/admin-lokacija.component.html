@@ -25,8 +25,8 @@
                 <div class="card-body">
                     <h5 class="card-title">Adresa: {{place.address.name}}, {{place.address.city.name}}</h5>
                     <p class="card-text">Opis: {{place.description}}</p>
-                    <button class="btn btn-outline-primary" style="margin-right: 3%" type="submit" data-toggle="modal" data-target="#exampleModal1" (click)="prikaziDetalje(place)">Uredi</button>
-                    <button class="btn btn-outline-danger" (click)="obrisiLokaciju(place)">Obriši</button>
+                    <button class="btn btn-outline-primary" style="margin-right: 3%" type="submit" data-toggle="modal" data-target="#modaluredi" (click)="urediPlace(place)">Uredi</button>
+                    <button class="btn btn-outline-danger" data-toggle="modal" data-target="#deletemodal" (click)="obrisiLokaciju(place)">Obriši</button>
                 </div>
             </div>
         </div>
@@ -47,6 +47,18 @@
         </div>
     </div>-->
 
+    <div class="modal fade" id="deletemodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3 class="modal-title" id="exampleModalLabel"> Lokacija uspješno obrisana :)</h3>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" id="btn_modal_usluga" data-dismiss="modal" (click)="zatvori()">Zatvori</button>
+            </div>
+          </div>
+        </div>
+      </div>
 
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -59,17 +71,17 @@
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label"> Naziv objekta: </label>
-                        <input type="text" class="form-control" id="naziv_objekta" [(ngModel)]="objekat_name" [ngModelOptions]="{standalone: true}">
+                        <input type="text" class="form-control" id="naziv_objekta" [(ngModel)]="objekat.name" [ngModelOptions]="{standalone: true}">
                     </div>
                     <div class="form-group">
                         <label for="detalji_zahtjev" class="col-form-label">Opis:</label>
-                        <textarea class="form-control" id="opis_objekta" style="height: 150px" [(ngModel)]="objekat_description" [ngModelOptions]="{standalone: true}"></textarea>
+                        <textarea class="form-control" id="opis_objekta" style="height: 150px" [(ngModel)]="objekat.description" [ngModelOptions]="{standalone: true}"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Adresa:</label>
                         <br>
-                        <select class="form-control" id="hitnost">
-                            <option>Lista adresa</option>
+                        <select class="form-control" id="hitnost" [(ngModel)]="odabranaAdresa" name="places">
+                            <option *ngFor="let a of addresses" [value]="a.id">{{a.name}}</option>
                         </select>
                     </div>
                     <!--<div class="form-group">
@@ -126,25 +138,25 @@
     </div>
 </div>
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="modaluredi" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h3 class="modal-title" id="exampleModalLabel"> Izmjeni: </h3>
+                <h3 class="modal-title" id="exampleModalLabel"> Izmjeni informacije o objektu </h3>
             </div>
             <div class="modal-body">
                 <form>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Naziv:</label>
-                        <input type="text" class="form-control" id="naziv_usluga" value="{{ modal_naziv }}" [(ngModel)]="objekat_name" [ngModelOptions]="{standalone: true}">
+                        <input type="text" class="form-control" id="naziv_usluga" value="{{ modal_naziv }}" [(ngModel)]="objekatPut.name" [ngModelOptions]="{standalone: true}">
                     </div>
                     <div class="form-group">
                         <label for="message-text" class="col-form-label">Opis:</label>
-                        <textarea class="form-control" id="opis_usluga" value="{{ modal_opis }}" [(ngModel)]="objekat_description" [ngModelOptions]="{standalone: true}"></textarea>
+                        <textarea class="form-control" id="opis_usluga" value="{{ modal_opis }}" [(ngModel)]="objekatPut.description" [ngModelOptions]="{standalone: true}"></textarea>
                     </div>
                     <div class="form-group">
                         <label for="recipient-name" class="col-form-label">Adresa:</label>
-                        <input type="text" class="form-control" id="cijena_usluga" value="{{ modal_adresa }}">
+                        <input type="text" class="form-control" id="cijena_usluga" value="{{ adresa }}" disabled>
                     </div>
                 </form>
             </div>

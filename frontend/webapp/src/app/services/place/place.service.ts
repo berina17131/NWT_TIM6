@@ -12,6 +12,8 @@ export class PlaceService {
 
   public API = '//localhost:8080/places';
   public PLACE_API = this.API + '/place';
+  public ADDRESS_API = this.API + '/address/all';
+
   result:Array<Object>; 
 
   constructor(private http: HttpClient) { }
@@ -20,8 +22,12 @@ export class PlaceService {
     return this.http.get(this.PLACE_API + '/all');
   }
 
-  deletePlace(id: number): Observable<any> {
-    return this.http.delete(this.PLACE_API + '/' + id);
+  getAllAddresses(): Observable<any> {
+    return this.http.get(this.ADDRESS_API);
+  }
+
+  deletePlace(id: number): void {
+    this.http.delete(this.PLACE_API + '/id/' + id);
   }
 
   createPlace(place: Place): Observable<any> {
@@ -31,17 +37,17 @@ export class PlaceService {
       })
     };
 
-    return this.http.post<Event>(this.PLACE_API, place, httpOptions);
+    return this.http.post<Place>(this.PLACE_API, place, httpOptions);
   }
 
-  changeEvent(place: any): Observable<any> {
+  changePlace(place: Place): Observable<any> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
       })
     };
 
-    return this.http.put<Request>(this.PLACE_API + '/' + place.id, place, httpOptions);
+    return this.http.put(this.PLACE_API, place, httpOptions);
   }
 
 }
