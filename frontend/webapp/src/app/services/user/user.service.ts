@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Http, Headers, Response, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
 import { TokenStorage } from '../../core/token.storage';
-import {User} from '../user/User';
-import {UserModel} from '../user/UserModel';
+import { User } from '../user/User';
+import { UserModel } from '../user/UserModel';
 
 const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
 };
 
 @Injectable({
@@ -22,8 +22,8 @@ export class UserService {
 
   public httpOptions = {
     headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-  //    'Authorization':  'Bearer ' + TokenStorage.getToken()
+      'Content-Type': 'application/json',
+      //    'Authorization':  'Bearer ' + TokenStorage.getToken()
     })
   };
 
@@ -40,7 +40,7 @@ export class UserService {
     };
 
     return this.http.put(this.USER_API, user, httpOptions);
-  }  
+  }
 
   getAllUsers(): Observable<any> {
     return this.http.get(this.USER_API + '/all');
@@ -57,8 +57,8 @@ export class UserService {
   deleteUserById(id: number): Observable<any> {
     return this.http.delete(this.USER_API + '/delete/' + id);
   }
-  
-  getUserByUsername(username: any): Observable<any>{
+
+  getUserByUsername(username: any): Observable<any> {
     return this.http.get(this.USER_API + '/username/' + username);
 
   }

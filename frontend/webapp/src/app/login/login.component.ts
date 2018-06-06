@@ -36,17 +36,17 @@ export class LoginComponent implements OnInit {
         error => {
           console.error('Login failed...' + error);
           alert("Prijava nije uspjela. Pokušajte ponovo.");
-        //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
+          //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
         },
         () => {
-//          alert("Korisnik @" + this.username + " je uspješno prijavljen.");
+          //          alert("Korisnik @" + this.username + " je uspješno prijavljen.");
           //this.alert.open('Login successful', null, { duration: 3000 });
         }
       );
   }
 
   ngOnInit() {
-    if(this.authService.isLoggedIn())
+    if (this.authService.isLoggedIn())
       this.router.navigate(['/muzika']);
   }
 }

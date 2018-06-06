@@ -1,9 +1,9 @@
-import {Injectable} from '@angular/core';
-import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest} from '@angular/common/http';
-import {Observable} from 'rxjs';
-import {Router} from '@angular/router';
-import {TokenStorage} from './token.storage';
-import {tap} from 'rxjs/operators';
+import { Injectable } from '@angular/core';
+import { HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { TokenStorage } from './token.storage';
+import { tap } from 'rxjs/operators';
 
 
 const TOKEN_HEADER_KEY = 'Authorization';
@@ -18,7 +18,7 @@ export class Interceptor implements HttpInterceptor {
     let authReq = req;
 
     if (TokenStorage.getToken() != null) {
-      authReq = req.clone({headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + TokenStorage.getToken())});
+      authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + TokenStorage.getToken()) });
     }
 
     return next.handle(authReq)
@@ -31,7 +31,7 @@ export class Interceptor implements HttpInterceptor {
               console.log('req url :: ' + req.url);
 
               if (event.status === 401) {
-               this.router.navigate(['login']);
+                this.router.navigate(['login']);
               }
             }
           }

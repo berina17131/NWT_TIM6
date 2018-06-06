@@ -21,7 +21,7 @@ export class RegistracijaComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: 2,
+      id: 2,
     }
   };
 
@@ -32,7 +32,7 @@ export class RegistracijaComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    if(this.authService.isLoggedIn())
+    if (this.authService.isLoggedIn())
       this.router.navigate(['/muzika']);
   }
 
@@ -48,7 +48,7 @@ export class RegistracijaComponent implements OnInit {
         },
         error => {
           console.error('Registration failed...' + error);
-        //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
+          //  this.alert.open('Login failed. Wrong username or password!', null, { duration: 3000 });
         },
         () => {
           console.log('User: ' + this.user.username + ' successfuly logged in...');

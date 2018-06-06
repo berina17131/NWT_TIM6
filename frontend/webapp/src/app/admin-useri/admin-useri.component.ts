@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../services/user/user.service';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 import { User } from '../services/user/User';
 
 @Component({
@@ -20,10 +20,10 @@ export class AdminUseriComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: null,
+      id: null,
     }
   };
-  
+
 
   constructor(private router: Router, private userService: UserService) { }
 
@@ -32,7 +32,7 @@ export class AdminUseriComponent implements OnInit {
   }
 
   getAllUsers() {
-//    this.users = [{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' },{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' }];
+    //    this.users = [{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' },{ username: 'Neko', name: 'Nekic' }, { username: 'Neko', name: 'Nekic' }];
     this.userService.getAllUsers().subscribe(data => {
       this.users = data;
       console.log(data)
@@ -48,13 +48,13 @@ export class AdminUseriComponent implements OnInit {
   }
 
 
-  pretragaUsername(){
+  pretragaUsername() {
 
     this.userService.getUserByUsername(this.username_pretraga).subscribe(data => {
       this.userSearch = data;
       console.log(data);
     });
-   // window.location.reload();
+    // window.location.reload();
   }
 
   zatvori() {

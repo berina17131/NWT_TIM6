@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from '../services/event/event.service';
-import {Router} from '@angular/router';
-import {AppComponent} from '../app.component';
-import {Event} from '../services/event/Event';
+import { EventService } from '../services/event/event.service';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { Event } from '../services/event/Event';
 
 @Component({
   selector: 'app-muzika',
@@ -47,7 +47,7 @@ export class MuzikaComponent implements OnInit {
   constructor(private eventService: EventService, private router: Router, private appComponent: AppComponent) { }
 
   ngOnInit() {
-    
+
     this.isAdmin = this.appComponent.isAdmin;
     this.eventService.getEventsByCategory("Muzika").subscribe(data => {
       this.events = data;
@@ -55,14 +55,14 @@ export class MuzikaComponent implements OnInit {
     });
   }
 
-  prikaziDetalje(event: any){
+  prikaziDetalje(event: any) {
     this.eventPut = this.selectedEvent;
     this.selectedEvent = event;
     this.router.navigate(['/muzika-detalji', this.selectedEvent.id]);
   }
 
-  obrisi(event: any){
-    
+  obrisi(event: any) {
+
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
     });
@@ -77,9 +77,9 @@ export class MuzikaComponent implements OnInit {
     //this.modal_adresa = place.address;
   }
 
-  sacuvajIzmjeneEvent(){
+  sacuvajIzmjeneEvent() {
     this.eventService.changeEvent(this.eventPut).subscribe(data => {
-    
+
     });
     window.location.reload();
   }

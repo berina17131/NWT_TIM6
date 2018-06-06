@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Http, Headers, Response, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs';
-import {Category} from '../category/Category';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
+import { Category } from '../category/Category';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,7 @@ export class CategoryService {
 
   public API = '//localhost:8080/events';
   public CATEGORY_API = this.API + '/category';
-  result: Array<Object>; 
+  result: Array<Object>;
 
   constructor(private http: HttpClient) { }
 
@@ -32,5 +32,5 @@ export class CategoryService {
   deleteCategory(category: Category): void {
     this.http.delete(this.CATEGORY_API + '/delete/' + category.id);
   }
-  
+
 }

@@ -25,7 +25,7 @@ public class UserServiceForCRUD {
     private final UserRepository userRepository;
     private final RabbitTemplate rabbitTemplate;
     private final Exchange exchange;
-
+    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
     @Autowired
     private EurekaClient discoveryClient;
 
@@ -59,8 +59,6 @@ public class UserServiceForCRUD {
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
     }
-
-    private final BCryptPasswordEncoder bcrypt = new BCryptPasswordEncoder();
 
     public User createUser(User user) throws ServiceException {
         try {

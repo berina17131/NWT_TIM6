@@ -24,11 +24,11 @@ import { AdminEventsComponent } from './admin-events/admin-events.component';
 import { UserDetaljiComponent } from './user-detalji/user-detalji.component';
 import { LoginComponent } from './login/login.component';
 import { RegistracijaComponent } from './registracija/registracija.component';
-import {Interceptor} from './core/interceptor';
-import {TokenStorage} from './core/token.storage';
-import {AuthService} from './core/auth.service';
-import {AuthGuard} from './core/auth.guard';
-import {UserService} from './services/user/user.service';
+import { Interceptor } from './core/interceptor';
+import { TokenStorage } from './core/token.storage';
+import { AuthService } from './core/auth.service';
+import { AuthGuard } from './core/auth.guard';
+import { UserService } from './services/user/user.service';
 import { ProfilComponent } from './profil/profil.component';
 import { AdminKategorijeComponent } from './admin-kategorije/admin-kategorije.component';
 import { PretragaComponent } from './pretraga/pretraga.component';
@@ -37,7 +37,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'muzika', pathMatch: 'full' },
   { path: 'muzika', component: MuzikaComponent, canActivate: [AuthGuard] },
   { path: 'kultura', component: KulturaComponent, canActivate: [AuthGuard] },
-  { path: 'sport', component: SportComponent, canActivate: [AuthGuard]},
+  { path: 'sport', component: SportComponent, canActivate: [AuthGuard] },
   { path: 'zabava', component: ZabavaComponent, canActivate: [AuthGuard] },
   { path: 'nauka', component: NaukaComponent, canActivate: [AuthGuard] },
   { path: 'kultura-detalji/:id', component: KulturaDetaljiComponent, canActivate: [AuthGuard] },
@@ -45,10 +45,10 @@ const routes: Routes = [
   { path: 'zabava-detalji/:id', component: ZabavaDetaljiComponent, canActivate: [AuthGuard] },
   { path: 'sport-detalji/:id', component: SportDetaljiComponent, canActivate: [AuthGuard] },
   { path: 'muzika-detalji/:id', component: MuzikaDetaljiComponent, canActivate: [AuthGuard] },
-  { path: 'admin-lokacija', component: AdminLokacijaComponent, canActivate: [AuthGuard]},
+  { path: 'admin-lokacija', component: AdminLokacijaComponent, canActivate: [AuthGuard] },
   { path: 'admin-useri', component: AdminUseriComponent, canActivate: [AuthGuard] },
   { path: 'admin-events', component: AdminEventsComponent, canActivate: [AuthGuard] },
-  { path: 'user-detalji/:idUser', component: UserDetaljiComponent, canActivate: [AuthGuard]},
+  { path: 'user-detalji/:idUser', component: UserDetaljiComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent },
   { path: 'registracija', component: RegistracijaComponent },
   { path: 'profil', component: ProfilComponent },
@@ -88,7 +88,7 @@ const routes: Routes = [
     FormsModule,
   ],
   providers: [
-    PlaceService, 
+    PlaceService,
     EventService,
     UserService,
     AuthService,

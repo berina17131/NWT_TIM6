@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {EventService} from '../services/event/event.service';
-import {Router} from '@angular/router';
-import {AppComponent} from '../app.component';
-import {Event} from '../services/event/Event';
+import { EventService } from '../services/event/event.service';
+import { Router } from '@angular/router';
+import { AppComponent } from '../app.component';
+import { Event } from '../services/event/Event';
 
 @Component({
   selector: 'app-kultura',
@@ -54,12 +54,12 @@ export class KulturaComponent implements OnInit {
     });
   }
 
-  prikaziDetalje(event: any){
+  prikaziDetalje(event: any) {
     this.selectedEvent = event;
     this.router.navigate(['/kultura-detalji', this.selectedEvent.id]);
   }
 
-  obrisi(event: any){
+  obrisi(event: any) {
 
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');
@@ -75,11 +75,11 @@ export class KulturaComponent implements OnInit {
     //this.modal_adresa = place.address;
   }
 
-  sacuvajIzmjeneEvent(){
+  sacuvajIzmjeneEvent() {
     this.eventService.changeEvent(this.eventPut).subscribe(data => {
-    
+
     });
     window.location.reload();
   }
-  
+
 }

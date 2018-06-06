@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
-import {EventService} from '../services/event/event.service';
-import {AuthService} from '../core/auth.service';
+import { Router } from '@angular/router';
+import { EventService } from '../services/event/event.service';
+import { AuthService } from '../core/auth.service';
 
 @Component({
   selector: 'app-pretraga',
@@ -11,7 +11,7 @@ import {AuthService} from '../core/auth.service';
 export class PretragaComponent implements OnInit {
 
 
-  constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}
+  constructor(private router: Router, private eventService: EventService, private authService: AuthService) { }
 
   events: Array<any>;
   modal_naziv: any;
@@ -19,23 +19,21 @@ export class PretragaComponent implements OnInit {
   findByEvent: any;
   findByPlace: any;
   odabranaOpcijaPretrage: any;
-  opcijePretrage = [{id: 1, name: 'Pretraga po nazivu događaja'}, {id: 2, name: 'Pretraga po nazivu lokala'}];
+  opcijePretrage = [{ id: 1, name: 'Pretraga po nazivu događaja' }, { id: 2, name: 'Pretraga po nazivu lokala' }];
 
 
   ngOnInit() {
   }
 
-  pretraziEvente(){
+  pretraziEvente() {
 
-    if(this.odabranaOpcijaPretrage == 1)
-    {
+    if (this.odabranaOpcijaPretrage == 1) {
       this.eventService.getByName(this.modal_naziv).subscribe(data => {
         this.events = data;
         console.log(this.events.length);
       });
     }
-    if(this.odabranaOpcijaPretrage == 2)
-    {
+    if (this.odabranaOpcijaPretrage == 2) {
       this.eventService.getByNameOfPlace(this.modal_naziv).subscribe(data => {
         this.events = data;
         console.log(this.events.length);
@@ -44,7 +42,7 @@ export class PretragaComponent implements OnInit {
     this.router.navigate(['/pretraga']);
   }
 
-  obrisi(event: any){
+  obrisi(event: any) {
 
     this.eventService.deleteEvent(event.id).subscribe(data => {
       console.log('successful');

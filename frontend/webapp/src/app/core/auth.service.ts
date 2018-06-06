@@ -1,8 +1,8 @@
-import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
-import {HttpClient} from '@angular/common/http';
-import {TokenStorage} from './token.storage';
-import {JwtHelperService} from '@auth0/angular-jwt';
+import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { TokenStorage } from './token.storage';
+import { JwtHelperService } from '@auth0/angular-jwt';
 
 @Injectable()
 export class AuthService {
@@ -27,7 +27,7 @@ export class AuthService {
   }
 
   attemptAuth(username: string, password: string): Observable<any> {
-    const credentials = {username: username, password: password};
+    const credentials = { username: username, password: password };
     return this.http.post<any>(this.TOKEN_API_URL, credentials);
   }
 

@@ -6,7 +6,6 @@ import com.example.interaction_management.Repository.GradeRepository;
 import com.example.interaction_management.Repository.UserRepository;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
-import org.omg.CORBA.INTERNAL;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,8 +15,8 @@ import java.util.List;
 
 @Service
 public class GradeService {
-    private final GradeRepository gradeRepository;
     private static final Logger log = LoggerFactory.getLogger(GradeService.class);
+    private final GradeRepository gradeRepository;
     private final UserRepository userRepository;
 
     @Autowired

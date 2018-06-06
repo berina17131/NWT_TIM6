@@ -8,9 +8,9 @@ describe('MuzikaDetaljiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MuzikaDetaljiComponent ]
+      declarations: [MuzikaDetaljiComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

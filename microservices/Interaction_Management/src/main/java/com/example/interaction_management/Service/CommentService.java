@@ -5,7 +5,6 @@ import com.example.interaction_management.Repository.CommentRepository;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

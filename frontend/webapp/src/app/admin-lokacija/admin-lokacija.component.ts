@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PlaceService } from '../services/place/place.service';
-import {Place} from '../services/place/Place';
+import { Place } from '../services/place/Place';
 
 @Component({
   selector: 'app-admin-lokacija',
@@ -56,7 +56,7 @@ export class AdminLokacijaComponent implements OnInit {
     });
   }
 
-  kreirajObjekat(){
+  kreirajObjekat() {
     this.objekat.address.id = this.odabranaAdresa;
     this.placeService.createPlace(this.objekat).subscribe(data => {
       console.log(data);
@@ -70,8 +70,8 @@ export class AdminLokacijaComponent implements OnInit {
     this.modal_adresa = place.address;
   }
 
-  sacuvajIzmjenePlace(){
-    this.placeService.changePlace(this.objekatPut).subscribe(data => {});
+  sacuvajIzmjenePlace() {
+    this.placeService.changePlace(this.objekatPut).subscribe(data => { });
     window.location.reload()
   }
 

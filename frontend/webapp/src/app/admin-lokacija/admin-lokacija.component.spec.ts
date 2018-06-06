@@ -8,9 +8,9 @@ describe('AdminLokacijaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminLokacijaComponent ]
+      declarations: [AdminLokacijaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -8,9 +8,9 @@ describe('KulturaDetaljiComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ KulturaDetaljiComponent ]
+      declarations: [KulturaDetaljiComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

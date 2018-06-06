@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Http, Headers, Response, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs';
-import {Place} from './Place';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
+import { Place } from './Place';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +14,7 @@ export class PlaceService {
   public PLACE_API = this.API + '/place';
   public ADDRESS_API = this.API + '/address/all';
 
-  result:Array<Object>; 
+  result: Array<Object>;
 
   constructor(private http: HttpClient) { }
 

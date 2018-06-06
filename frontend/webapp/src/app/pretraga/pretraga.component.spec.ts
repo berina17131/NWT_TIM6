@@ -8,9 +8,9 @@ describe('PretragaComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PretragaComponent ]
+      declarations: [PretragaComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

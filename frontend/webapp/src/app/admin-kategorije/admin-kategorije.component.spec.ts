@@ -8,9 +8,9 @@ describe('AdminKategorijeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminKategorijeComponent ]
+      declarations: [AdminKategorijeComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {Http, Headers, Response, RequestOptions } from '@angular/http';
-import {Observable} from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Http, Headers, Response, RequestOptions } from '@angular/http';
+import { Observable } from 'rxjs';
 
 
 @Injectable({
@@ -11,7 +11,7 @@ export class EventService {
 
   public API = '//localhost:8080/events';
   public EVENT_API = this.API + '/event';
-  result: Array<Object>; 
+  result: Array<Object>;
 
   constructor(private http: HttpClient) { }
 
@@ -24,7 +24,7 @@ export class EventService {
   }
 
   deleteEvent(id: number): Observable<any> {
-   return this.http.delete(this.EVENT_API + '/delete/' + id);
+    return this.http.delete(this.EVENT_API + '/delete/' + id);
   }
 
   createEvent(event: any): Observable<any> {
@@ -47,11 +47,11 @@ export class EventService {
   }
 
   getByName(name: string): Observable<any> {
-      return this.http.get(this.EVENT_API + '/name/' + name);               
+    return this.http.get(this.EVENT_API + '/name/' + name);
   }
 
   getByNameOfPlace(name: string): Observable<any> {
-    return this.http.get(this.API + '/place/name/' + name);               
-}
+    return this.http.get(this.API + '/place/name/' + name);
+  }
 
 }

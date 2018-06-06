@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
-import {EventService} from '../services/event/event.service';
-import {CommentService} from '../services/comment/comment.service';
+import { ActivatedRoute } from '@angular/router';
+import { EventService } from '../services/event/event.service';
+import { CommentService } from '../services/comment/comment.service';
 import { GradeService } from '../services/grade/grade.service';
-import {Comment} from '../services/comment/Comment';
-import {Grade} from '../services/grade/Grade';
+import { Comment } from '../services/comment/Comment';
+import { Grade } from '../services/grade/Grade';
 import { TokenStorage } from '../core/token.storage';
 import { User } from '../services/user/User';
 import { UserService } from '../services/user/user.service';
@@ -26,14 +26,14 @@ export class MuzikaDetaljiComponent implements OnInit {
 
   averageGrade: any;
 
-  newComment: Comment = { 
-      comment: '',
-      user: {
-          id: null
-      },
-      event: {
-          id: null
-      }
+  newComment: Comment = {
+    comment: '',
+    user: {
+      id: null
+    },
+    event: {
+      id: null
+    }
   };
 
   newGrade: Grade = {
@@ -57,22 +57,22 @@ export class MuzikaDetaljiComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: 2,
+      id: 2,
     }
   };
 
   odabranaOcjena: any;
   imaOcjenu: any;
-  ocjene = [{id: 5, name: '5 - Najbolji provod'},{id: 4, name: '4 - Odličan provod'}, {id: 3, name: '3 - Neutralan sam'}, {id: 2, name: '2 - Nisam oduševljen'}, {id: 1, name: '1 - Loš događaj '}];
+  ocjene = [{ id: 5, name: '5 - Najbolji provod' }, { id: 4, name: '4 - Odličan provod' }, { id: 3, name: '3 - Neutralan sam' }, { id: 2, name: '2 - Nisam oduševljen' }, { id: 1, name: '1 - Loš događaj ' }];
 
 
 
   constructor(
-    private eventService: EventService, 
-    private router: ActivatedRoute, 
+    private eventService: EventService,
+    private router: ActivatedRoute,
     private commentService: CommentService,
     private gradeService: GradeService,
-    private userService: UserService) {}
+    private userService: UserService) { }
 
 
   ngOnInit() {
@@ -84,41 +84,41 @@ export class MuzikaDetaljiComponent implements OnInit {
     //provjerit jel vraca samo float?
     this.gradeService.getAverageGrade(id).subscribe(data => {
       this.averageGrade = data;
-       });
+    });
 
     this.getUserData();
 
     this.checkGrade();
   }
 
-  getUserData(){
+  getUserData() {
 
     this.loggedUser = TokenStorage.getCurrentUser();
 
     this.userService.getByUsername(this.loggedUser).subscribe(data => {
       this.user = data;
-       });
+    });
   }
 
-  getEvent(){
+  getEvent() {
     const id = +this.router.snapshot.paramMap.get('id');
 
     this.eventId = id;
 
     this.eventService.getEvent(id).subscribe(data => {
       this.event = data;
-       });
-   }
+    });
+  }
 
-  getComments(id){
-    this.commentService.getCommentsForEvent(id).subscribe(data =>{
+  getComments(id) {
+    this.commentService.getCommentsForEvent(id).subscribe(data => {
       console.log("aaaaaa");
       this.comments = data;
       console.log(this.comments.length);
-    });   
+    });
   }
 
-  createComment(){
+  createComment() {
     this.newComment.user.id = this.user.id;
     this.newComment.event.id = this.eventId;
     this.newComment.comment = this.noviKomentar;
@@ -127,9 +127,9 @@ export class MuzikaDetaljiComponent implements OnInit {
       window.location.reload();
     });
     this.noviKomentar = '';
-   }
+  }
 
-   addNewGrade() {
+  addNewGrade() {
     this.newGrade.user.id = this.user.id;
     this.newGrade.event.id = this.eventId;
     this.newGrade.grade = parseInt(this.odabranaOcjena);

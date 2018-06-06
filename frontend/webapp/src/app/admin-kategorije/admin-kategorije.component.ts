@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {CategoryService} from '../services/category/category.service';
-import {Category} from '../services/category/Category';
+import { CategoryService } from '../services/category/category.service';
+import { Category } from '../services/category/Category';
 
 @Component({
   selector: 'app-admin-kategorije',
@@ -23,11 +23,10 @@ export class AdminKategorijeComponent implements OnInit {
   }
 
   getAllCategories() {
-    this.categoryService.getAllCategory().subscribe(data => {this.categories = data});
+    this.categoryService.getAllCategory().subscribe(data => { this.categories = data });
   }
 
-  prikaziDetalje(category)
-  {
+  prikaziDetalje(category) {
     this.category.id = category.id;
     this.category.name = category.name;
     this.category.description = category.description;

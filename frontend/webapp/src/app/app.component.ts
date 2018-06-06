@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import {Router} from '@angular/router';
-import {EventService} from './services/event/event.service';
-import {AuthService} from './core/auth.service';
+import { Router } from '@angular/router';
+import { EventService } from './services/event/event.service';
+import { AuthService } from './core/auth.service';
 import { TokenStorage } from './core/token.storage';
 
 @Component({
@@ -9,7 +9,7 @@ import { TokenStorage } from './core/token.storage';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent{
+export class AppComponent {
   title = 'app';
 
   events: Array<any>;
@@ -18,7 +18,7 @@ export class AppComponent{
   findByEvent: any;
   findByPlace: any;
   odabranaOpcijaPretrage: any;
-  opcijePretrage = [{id: 1, name: 'Pretraga po nazivu događaja'}, {id: 2, name: 'Pretraga po nazivu lokala'}];
+  opcijePretrage = [{ id: 1, name: 'Pretraga po nazivu događaja' }, { id: 2, name: 'Pretraga po nazivu lokala' }];
 
   isLoggedIn: boolean;
   isAdmin: boolean;
@@ -26,14 +26,14 @@ export class AppComponent{
   loggedUser: any;
 
 
-  constructor(private router: Router, private eventService: EventService, private authService: AuthService) {}
+  constructor(private router: Router, private eventService: EventService, private authService: AuthService) { }
 
-  pretraga(){
+  pretraga() {
     this.router.navigate(['/pretraga']);
   }
 
- 
-  
+
+
   goToHomePage() {
     this.router.navigate(['/muzika']);
   }

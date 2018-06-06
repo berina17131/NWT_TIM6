@@ -23,12 +23,12 @@ export class ProfilComponent implements OnInit {
     ime: '',
     prezime: '',
     user_role: {
-        id: null,
+      id: null,
     }
   };
 
   loggedUser: any;
-    
+
   constructor(private router: Router,
     private authService: AuthService,
     private tokenService: TokenStorage,
@@ -40,7 +40,7 @@ export class ProfilComponent implements OnInit {
 
     this.userService.getByUsername(this.loggedUser).subscribe(data => {
       this.user = data;
-       });
+    });
 
   }
 
