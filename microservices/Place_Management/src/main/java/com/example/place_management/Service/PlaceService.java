@@ -72,7 +72,7 @@ public class PlaceService {
         try {
             placeRepository.deleteAll();
             // Deleting all places in Event microservice
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT-MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/place/all");
             return "All places deleted";
@@ -85,7 +85,7 @@ public class PlaceService {
         try {
             placeRepository.deleteById(Integer.parseInt(id));
             // Deleting place with id = @id in Event microservice
-            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT_MANAGEMENT", false);
+            InstanceInfo instance = discoveryClient.getNextServerFromEureka("EVENT-MANAGEMENT", false);
             RestTemplate restTemplate = new RestTemplate();
             restTemplate.delete("http://localhost:" + Integer.toString(instance.getPort()) + "/place/" + id);
             return "Place with id = " + id + " deleted";
@@ -105,7 +105,7 @@ public class PlaceService {
             headers.add(HttpHeaders.AUTHORIZATION, tas.userToken);
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<Place> request = new HttpEntity<>(place, headers);
-            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request, Place.class);
+            restTemplate.postForEntity("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request, null);
             return "Place with name = " + place.getName() + " saved successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot create place with name = " + place.getName() + ".");
@@ -127,7 +127,7 @@ public class PlaceService {
             headers.add(HttpHeaders.AUTHORIZATION, tas.userToken);
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<Place> request = new HttpEntity<>(place, headers);
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request, Place.class);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/place", request);
             return "Place with id = " + place.getId() + " and name = " + place.getName() + " updated successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot update place with id = " + placeFromRequest.getId() + ".");

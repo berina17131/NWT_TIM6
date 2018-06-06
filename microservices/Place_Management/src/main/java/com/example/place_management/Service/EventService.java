@@ -4,6 +4,7 @@ import com.example.place_management.Model.Event;
 import com.example.place_management.Model.Place;
 import com.example.place_management.Repository.EventRepository;
 import com.example.place_management.Repository.PlaceRepository;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -75,10 +76,10 @@ public class EventService {
 
 
             eventRepository.save(novi);
-            return "Event with name = " + event.getName() + " saved successfully";
+            return JSONParser.quote("Event with name = " + event.getName() + " saved successfully");
         } catch (Exception e) {
             log.info(e.getMessage());
-            throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
+            throw new ServiceException(JSONParser.quote("Cannot create event with name = " + event.getName() + "."));
         }
     }
 

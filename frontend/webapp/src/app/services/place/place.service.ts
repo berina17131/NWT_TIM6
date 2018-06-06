@@ -26,8 +26,8 @@ export class PlaceService {
     return this.http.get(this.ADDRESS_API);
   }
 
-  deletePlace(id: number): void {
-    this.http.delete(this.PLACE_API + '/id/' + id);
+  deletePlace(id: number): Observable<any> {
+    return this.http.delete(this.PLACE_API + '/id/' + id);
   }
 
   createPlace(place: Place): Observable<any> {

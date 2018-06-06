@@ -117,7 +117,7 @@ public class UserServiceForCRUD {
             headers.add(HttpHeaders.AUTHORIZATION, "Bearer " + jtu.userToken);
             RestTemplate restTemplate = new RestTemplate();
             HttpEntity<User> request = new HttpEntity<>(user, headers);
-            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), request, User.class);
+            restTemplate.put("http://localhost:" + Integer.toString(instance.getPort()) + "/user/update/" + u.getId(), request);
             return "User with id = " + u.getId() + " saved successfully";
         } catch (Exception e) {
             throw new ServiceException("Cannot update user with id = " + u.getId() + ".");
@@ -141,5 +141,4 @@ public class UserServiceForCRUD {
             throw new ServiceException("Cannot find event with title={" + title + "}");
         }
     }
-
 }

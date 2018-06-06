@@ -84,7 +84,7 @@ export class AdminLokacijaComponent implements OnInit {
   }
 
   obrisiLokaciju(place) {
-    this.placeService.deletePlace(place.id);
+    this.placeService.deletePlace(place.id).subscribe(data => { });
   }
 
   zatvori() {

@@ -2,6 +2,7 @@ package com.example.interaction_management.Service;
 
 import com.example.interaction_management.Model.Event;
 import com.example.interaction_management.Repository.EventRepository;
+import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -73,11 +74,11 @@ public class EventService {
     public String createEvent(Event event) throws ServiceException {
         try {
             Event ev = new Event(event.getId(), event.getName());
-            ;
+
             System.out.println(ev.toString());
             eventRepository.save(ev);
 
-            return "Event with name = " + event.getName() + " saved successfully";
+            return JSONParser.quote("Event with name = " + event.getName() + " saved successfully");
         } catch (Exception e) {
             throw new ServiceException("Cannot create event with name = " + event.getName() + ".");
         }

@@ -49,9 +49,4 @@ export class PretragaComponent implements OnInit {
     else if (categoryId == 5)
       this.router.navigate(['/zabava-detalji', event.id]);
   }
-
-  obrisi(event: any) {
-    this.eventService.deleteEvent(event.id).subscribe(data => { });
-    window.location.reload();
-  }
 }
