@@ -52,6 +52,7 @@
               <option *ngFor="let p of ocjene" [value]="p.id">{{p.name}}</option>
             </select>
             <hr>
+            <p>Prosječna ocjena događaja je: {{averageGrade}}</p>
             <button type="button" class="btn btn-outline-secondary" (click)="addNewGrade()" style="width: 100%">Ostavi ocjenu</button>
           </div>
         </div>

@@ -81,9 +81,11 @@ export class MuzikaDetaljiComponent implements OnInit {
     this.getEvent();
     this.getComments(id);
 
-    //provjerit jel vraca samo float?
     this.gradeService.getAverageGrade(id).subscribe(data => {
-      this.averageGrade = data;
+      if (!isNaN(data))
+        this.averageGrade = data;
+      else
+        this.averageGrade = "Nije još ocijenjen";
     });
 
     this.getUserData();

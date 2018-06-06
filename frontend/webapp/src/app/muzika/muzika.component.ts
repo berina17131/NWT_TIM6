@@ -78,10 +78,11 @@ export class MuzikaComponent implements OnInit {
   }
 
   sacuvajIzmjeneEvent() {
-    this.eventService.changeEvent(this.eventPut).subscribe(data => {
-
-    });
+    this.eventService.changeEvent(this.eventPut).subscribe(data => { });
     window.location.reload();
   }
 
+  zatvori() {
+    window.location.reload();
+  }
 }

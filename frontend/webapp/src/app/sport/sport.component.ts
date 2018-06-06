@@ -80,5 +80,8 @@ export class SportComponent implements OnInit {
       window.location.reload();
     });
   }
-
+  
+  zatvori() {
+    window.location.reload();
+  }
 }

@@ -79,7 +79,10 @@ export class NaukaDetaljiComponent implements OnInit {
     this.getComments(id);
 
     this.gradeService.getAverageGrade(id).subscribe(data => {
-      this.averageGrade = data;
+      if (!isNaN(data))
+        this.averageGrade = data;
+      else
+        this.averageGrade = "Nije još ocijenjen";
     });
 
     this.getUserData();

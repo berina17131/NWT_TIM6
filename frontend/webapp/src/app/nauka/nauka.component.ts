@@ -81,5 +81,8 @@ export class NaukaComponent implements OnInit {
       window.location.reload();
     });
   }
-
+  
+  zatvori() {
+    window.location.reload();
+  }
 }

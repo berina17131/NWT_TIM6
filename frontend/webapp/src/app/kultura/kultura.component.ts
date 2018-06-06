@@ -72,7 +72,6 @@ export class KulturaComponent implements OnInit {
     this.modal_naziv = event.name;
     this.modal_opis = event.description;
     this.modal_kategorija = event.category.name;
-    //this.modal_adresa = place.address;
   }
 
   sacuvajIzmjeneEvent() {
@@ -81,5 +80,8 @@ export class KulturaComponent implements OnInit {
     });
     window.location.reload();
   }
-
+  
+  zatvori() {
+    window.location.reload();
+  }
 }

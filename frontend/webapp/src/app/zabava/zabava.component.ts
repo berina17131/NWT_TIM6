@@ -83,5 +83,8 @@ export class ZabavaComponent implements OnInit {
     });
 
   }
-
+  
+  zatvori() {
+    window.location.reload();
+  }
 }
