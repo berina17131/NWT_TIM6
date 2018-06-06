@@ -55,15 +55,11 @@ export class NaukaComponent implements OnInit {
   }
 
   prikaziDetalje(event: any) {
-
     this.router.navigate(['/nauka-detalji', event.id]);
   }
 
   obrisi(event: any) {
-
-    this.eventService.deleteEvent(event.id).subscribe(data => {
-      console.log('successful');
-    });
+    this.eventService.deleteEvent(event.id).subscribe(data => { });
     window.location.reload();
   }
 
@@ -72,16 +68,14 @@ export class NaukaComponent implements OnInit {
     this.modal_naziv = event.name;
     this.modal_opis = event.description;
     this.modal_kategorija = event.category.name;
-    //this.modal_adresa = place.address;
   }
 
   sacuvajIzmjeneEvent() {
     this.eventService.changeEvent(this.eventPut).subscribe(data => {
-      console.log('successful');
       window.location.reload();
     });
   }
-  
+
   zatvori() {
     window.location.reload();
   }
