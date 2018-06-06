@@ -16,12 +16,14 @@ public class TokenAuthenticationService {
     static final String SIGNING_KEY = "EventPageBestApp";
     static final String HEADER_STRING = "Authorization";
     private static String tokenRole = "";
+    private static String tokenUsername = "";
 
     public static Authentication getAuthentication(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
 
         if (token != null && !token.isEmpty()) {
             String user = extractUserFromToken(token);
+            tokenUsername = user;
             return user != null ? new UsernamePasswordAuthenticationToken(user, null, emptyList()) : null;
         }
         return null;
@@ -44,7 +46,11 @@ public class TokenAuthenticationService {
         return null;
     }
 
-    public boolean isAdmin() {
+    public static boolean isAdmin() {
         return tokenRole.equals("{authority=ROLE_ADMIN}");
+    }
+
+    public static String getTokenUsername() {
+        return tokenUsername;
     }
 }

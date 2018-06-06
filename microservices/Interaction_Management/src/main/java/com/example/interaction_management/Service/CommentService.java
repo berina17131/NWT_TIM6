@@ -28,17 +28,6 @@ public class CommentService {
         }
     }
 
-   /* public Comment getById(String id) throws ServiceException {
-        try {
-            Optional commentHelp = commentRepository.findById(Integer.parseInt(id));
-            Comment comment = (Comment) commentHelp.get();
-
-            return comment;
-        }catch (Exception e) {
-            throw new ServiceException("Cannot find comment with id={" + id + "}");
-        }
-    }*/
-
     public List<Comment> getByEventId(String id) throws ServiceException {
         try {
             List<Comment> comments = commentRepository.findAll();

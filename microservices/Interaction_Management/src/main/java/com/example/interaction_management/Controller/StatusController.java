@@ -1,5 +1,8 @@
 package com.example.interaction_management.Controller;
 
+import com.example.interaction_management.Model.Status;
+import com.example.interaction_management.Repository.UserRepository;
+import com.example.interaction_management.Security.TokenAuthenticationService;
 import com.example.interaction_management.Service.StatusService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class StatusController {
 
     private StatusService statusService;
+    private UserRepository userRepository;
 
-    public StatusController(StatusService statusService) {
+    public StatusController(StatusService statusService, UserRepository userRepository) {
         this.statusService = statusService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping(value = "/all")
@@ -34,17 +39,26 @@ public class StatusController {
     }
 
     @DeleteMapping(value = "delete/{id}")
+    @PreAuthorize("@tokenAuthenticationService.isAdmin()")
     public ResponseEntity deleteById(@PathVariable("id") String id) throws ServiceException {
         return ResponseEntity.ok(statusService.deleteById(id));
     }
 
-    @PostMapping(value = "/create/{status}")
-    public ResponseEntity postByStatus(@PathVariable("status") String st) throws ServiceException {
-        return ResponseEntity.ok(statusService.postByStatus(st));
+    @PostMapping(value = "/create")
+    public ResponseEntity postByStatus(@RequestBody Status status) throws ServiceException {
+        String usernameFromRequest = userRepository.findById(status.getUser().getId()).get().getUsername();
+        String usernameFromToken = TokenAuthenticationService.getTokenUsername();
+        if (!usernameFromRequest.equals(usernameFromToken) && !TokenAuthenticationService.isAdmin())
+            throw new ServiceException("Not allowed to do changes");
+        else return ResponseEntity.ok(statusService.createStatus(status));
     }
 
-    @PutMapping(value = "/id/{id}/newStatus/{newStatus}")
-    public ResponseEntity putById(@PathVariable("id") String id, @PathVariable("newStatus") String newStatus) throws ServiceException {
-        return ResponseEntity.ok(statusService.putById(id, newStatus));
+    @PutMapping
+    public ResponseEntity putById(@RequestBody Status status) throws ServiceException {
+        String usernameFromRequest = userRepository.findById(status.getUser().getId()).get().getUsername();
+        String usernameFromToken = TokenAuthenticationService.getTokenUsername();
+        if (!usernameFromRequest.equals(usernameFromToken) && !TokenAuthenticationService.isAdmin())
+            throw new ServiceException("Not allowed to do changes");
+        else return ResponseEntity.ok(statusService.putStatus(status));
     }
 }

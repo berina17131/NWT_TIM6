@@ -1,6 +1,8 @@
 package com.example.interaction_management.Controller;
 
 import com.example.interaction_management.Model.Grade;
+import com.example.interaction_management.Repository.UserRepository;
+import com.example.interaction_management.Security.TokenAuthenticationService;
 import com.example.interaction_management.Service.GradeService;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.http.ResponseEntity;
@@ -13,9 +15,11 @@ import org.springframework.web.bind.annotation.*;
 public class GradeController {
 
     private GradeService gradeService;
+    private UserRepository userRepository;
 
-    public GradeController(GradeService gradeService) {
+    public GradeController(GradeService gradeService, UserRepository userRepository) {
         this.gradeService = gradeService;
+        this.userRepository = userRepository;
     }
 
     @GetMapping(value = "/all")
@@ -47,11 +51,19 @@ public class GradeController {
 
     @PostMapping(value = "/create")
     public ResponseEntity postByGrade(@RequestBody Grade grade) throws ServiceException {
-        return ResponseEntity.ok(gradeService.createGrade(grade));
+        String usernameFromRequest = userRepository.findById(grade.getUser().getId()).get().getUsername();
+        String usernameFromToken = TokenAuthenticationService.getTokenUsername();
+        if (!usernameFromRequest.equals(usernameFromToken) && !TokenAuthenticationService.isAdmin())
+            throw new ServiceException("Not allowed to do changes");
+        else return ResponseEntity.ok(gradeService.createGrade(grade));
     }
 
     @PutMapping
     public ResponseEntity putById(@RequestBody Grade grade) throws ServiceException {
-        return ResponseEntity.ok(gradeService.putGrade(grade));
+        String usernameFromRequest = userRepository.findById(grade.getUser().getId()).get().getUsername();
+        String usernameFromToken = TokenAuthenticationService.getTokenUsername();
+        if (!usernameFromRequest.equals(usernameFromToken) && !TokenAuthenticationService.isAdmin())
+            throw new ServiceException("Not allowed to do changes");
+        else return ResponseEntity.ok(gradeService.putGrade(grade));
     }
 }

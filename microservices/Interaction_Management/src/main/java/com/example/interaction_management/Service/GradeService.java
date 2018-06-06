@@ -6,8 +6,6 @@ import com.example.interaction_management.Repository.GradeRepository;
 import com.example.interaction_management.Repository.UserRepository;
 import jdk.nashorn.internal.parser.JSONParser;
 import org.hibernate.service.spi.ServiceException;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +13,6 @@ import java.util.List;
 
 @Service
 public class GradeService {
-    private static final Logger log = LoggerFactory.getLogger(GradeService.class);
     private final GradeRepository gradeRepository;
     private final UserRepository userRepository;
 
@@ -43,15 +40,10 @@ public class GradeService {
                 if (e.getEvent().getId() == Integer.parseInt(id)) {
                     count++;
                     averageGrade += e.getGrade();
-
                 }
             }
 
             return averageGrade / count;
-            /*Optional gradeHelp = gradeRepository.findById(Integer.parseInt(id));
-            Grade grade = (Grade) gradeHelp.get();
-
-            return grade;*/
         } catch (Exception e) {
             throw new ServiceException("Cannot find grade with id={" + id + "}");
         }
@@ -80,7 +72,6 @@ public class GradeService {
     public String createGrade(Grade grade) throws ServiceException {
         try {
             gradeRepository.save(grade);
-            log.info("ovdje smo2222");
 
             return JSONParser.quote("Grade = " + grade.getGrade() + " saved successfully");
         } catch (Exception e) {
@@ -118,7 +109,6 @@ public class GradeService {
     public Grade getGradeByUserUsername(String username, Integer eventid) throws ServiceException {
         try {
             User user = userRepository.findByUsername(username).get();
-            log.info(user.toString());
 
             List<Grade> grades = gradeRepository.findAll();
             Grade returnGrade = null;

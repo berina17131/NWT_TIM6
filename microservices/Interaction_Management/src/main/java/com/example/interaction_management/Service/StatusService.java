@@ -57,30 +57,6 @@ public class StatusService {
         }
     }
 
-    public String postByStatus(String st) throws ServiceException {
-        try {
-            Status status;
-            status = new Status(st);
-            statusRepository.save(status);
-
-            return "Status=" + st + " saved successfully";
-        } catch (Exception e) {
-            throw new ServiceException("Cannot save status={" + st + "}");
-        }
-    }
-
-    public String putById(String id, String newStatus) throws ServiceException {
-        try {
-            Optional statusHelp = statusRepository.findById(Integer.parseInt(id));
-            Status status = (Status) statusHelp.get();
-            status.setStatus(newStatus);
-            statusRepository.save(status);
-            return "Status with id=" + id + " changed to " + newStatus;
-        } catch (Exception e) {
-            throw new ServiceException("Cannot change status.");
-        }
-    }
-
     public String createStatus(Status status) throws ServiceException {
         try {
             statusRepository.save(status);
